@@ -4,14 +4,29 @@
 
 | Category | Total Packages | Tests Written | Tests Passing |
 |----------|---------------|---------------|---------------|
-| Core (types, interfaces, exploit, oui, wordlist, report) | 6 | 60+ | ✓ 60+ |
-| Protocols (http, tcp, udp, ssh, telnet, ftp, snmp) | 7 | 40+ | ✓ 40+ |
+| Core (types, interfaces, exploit, oui, wordlist, report) | 6 | 60 | ✓ 60 |
+| Protocols (http, tcp, udp, ssh, telnet, ftp, snmp) | 7 | 43 | ✓ 43 |
 | Libraries (lzs) | 1 | 13 | ✓ 13 |
 | Infrastructure (shell, payload, ssh_keys) | 3 | 20 | ✓ 20 |
 | Scanner | 1 | 22 | ✓ 22 |
 | CLI (cmds/goaccess, cmds/rshell) | 2 | 3 | ✓ 3 |
-| Exploits (18 exploits + 24 credentials modules) | 17 | 107 | ✓ 107 |
-| **Total** | **37** | **271** | **✓ 271** |
+| Exploits — generic | 7 | 35 | ✓ 35 |
+| Exploits — D-Link (27) | 27 | 135 | ✓ 135 |
+| Exploits — TP-Link (5) | 5 | 25 | ✓ 25 |
+| Exploits — Cisco (10) | 10 | 50 | ✓ 50 |
+| Exploits — Netgear (10) | 10 | 50 | ✓ 50 |
+| Exploits — Belkin (6) | 6 | 30 | ✓ 30 |
+| Exploits — Linksys (5) | 5 | 25 | ✓ 25 |
+| Exploits — ASUS (3) | 3 | 15 | ✓ 15 |
+| Exploits — Huawei (5) | 5 | 25 | ✓ 25 |
+| Exploits — ZyXEL (5) | 5 | 25 | ✓ 25 |
+| Exploits — 3Com (5) | 5 | 25 | ✓ 25 |
+| Exploits — other routers (26) | 26 | 130 | ✓ 130 |
+| Exploits — cameras (21) | 21 | 105 | ✓ 105 |
+| Exploits — misc (4) | 4 | 20 | ✓ 20 |
+| Exploits — credentials (routers) | 5 | 5 | ✓ 5 |
+| Exploits — credentials (generic) | 1 | 27 | ✓ 27 |
+| **Total** | **170** | **895** | **✓ 895** |
 
 ---
 
@@ -191,10 +206,10 @@ go vet ./...                      ✓ No warnings
 
 ## Next Steps
 
-1. **Phase 5**: Remaining vendor exploits (cisco, netgear, linksys, asus, huawei, belkin, zyxel, 3com, etc. — 128 exploits across 30+ vendors)
-2. **Phase 5**: Remaining camera vendor creds (25 vendors × 3-4 services = ~79 modules)
+1. **Camera/hardware credential modules**: Add 25 camera vendor × 3 services = ~75 vendor-specific credential modules
+2. **Router credential modules**: Add remaining ~20 router vendor credential sets
 3. **Password generators**: MAC-derived, serial-derived per vendor
-4. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures
+4. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures  
 5. **Integration tests with podman**: SSH/FTP/Telnet/SNMP integration tests against real containerized services
 
 ---
