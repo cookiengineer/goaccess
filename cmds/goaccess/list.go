@@ -7,6 +7,7 @@ import (
 
 	"github.com/cookiengineer/goaccess/exploit"
 	"github.com/cookiengineer/goaccess/payload"
+	"github.com/cookiengineer/goaccess/report"
 	"github.com/cookiengineer/goaccess/ssh_keys"
 )
 
@@ -40,6 +41,8 @@ func runList(arguments []string) {
 func listExploits(arguments []string) {
 	flags := flag.NewFlagSet("list-exploits", flag.ExitOnError)
 	vendor := flags.String("vendor", "", "Filter by vendor")
+	deviceType := flags.String("type", "", "Filter by device type")
+	jsonOutput := flags.Bool("json", false, "Output as JSON")
 	flags.Parse(arguments)
 
 	allExploits := exploit.All()
@@ -47,10 +50,43 @@ func listExploits(arguments []string) {
 		allExploits = exploit.ByVendor(*vendor)
 	}
 
+	rep := report.NewReport(*jsonOutput, false, os.Stdout)
+
+	if *jsonOutput {
+		type exploitInfo struct {
+			Name       string `json:"name"`
+			Vendor     string `json:"vendor"`
+			DeviceType string `json:"device_type"`
+			Protocol   string `json:"protocol"`
+			Models     []string `json:"models"`
+			CVE        []string `json:"cve"`
+		}
+		var list []exploitInfo
+		for _, e := range allExploits {
+			info := e.Info()
+			if info != nil {
+				if *deviceType != "" && string(info.DeviceType) != *deviceType {
+					continue
+				}
+				list = append(list, exploitInfo{
+					Name: info.Name, Vendor: info.Vendor,
+					DeviceType: string(info.DeviceType),
+					Protocol:   e.Protocol().String(),
+					Models:     info.Models, CVE: info.CVE,
+				})
+			}
+		}
+		rep.WriteJSON(list)
+		return
+	}
+
 	fmt.Printf("Exploits: %d\n", len(allExploits))
 	for _, e := range allExploits {
 		info := e.Info()
 		if info != nil {
+			if *deviceType != "" && string(info.DeviceType) != *deviceType {
+				continue
+			}
 			fmt.Printf("  %-50s %-12s %-6s %s\n",
 				info.Name, info.Vendor, e.Protocol().String(), info.DeviceType)
 		}
@@ -60,11 +96,34 @@ func listExploits(arguments []string) {
 func listCredentials(arguments []string) {
 	flags := flag.NewFlagSet("list-creds", flag.ExitOnError)
 	vendor := flags.String("vendor", "", "Filter by vendor")
+	jsonOutput := flags.Bool("json", false, "Output as JSON")
 	flags.Parse(arguments)
 
 	allCreds := exploit.AllCredentials()
 	if *vendor != "" {
 		allCreds = exploit.CredentialsByVendor(*vendor)
+	}
+
+	rep := report.NewReport(*jsonOutput, false, os.Stdout)
+
+	if *jsonOutput {
+		type credsInfo struct {
+			Name     string `json:"name"`
+			Vendor   string `json:"vendor"`
+			Protocol string `json:"protocol"`
+		}
+		var list []credsInfo
+		for _, c := range allCreds {
+			info := c.Info()
+			if info != nil {
+				list = append(list, credsInfo{
+					Name: info.Name, Vendor: info.Vendor,
+					Protocol: c.Protocol().String(),
+				})
+			}
+		}
+		rep.WriteJSON(list)
+		return
 	}
 
 	fmt.Printf("Credentials modules: %d\n", len(allCreds))
@@ -76,23 +135,49 @@ func listCredentials(arguments []string) {
 	}
 }
 
-func listPayloads(_ []string) {
+func listPayloads(arguments []string) {
+	flags := flag.NewFlagSet("list-payloads", flag.ExitOnError)
+	jsonOutput := flags.Bool("json", false, "Output as JSON")
+	flags.Parse(arguments)
+
 	payloads := payload.List()
+
+	if *jsonOutput {
+		rep := report.NewReport(true, false, os.Stdout)
+		rep.WriteJSON(payloads)
+		return
+	}
+
 	fmt.Printf("Payloads: %d\n", len(payloads))
 	for _, p := range payloads {
 		fmt.Printf("  %-8s %-12s %d bytes\n", p.Arch, p.Handler, p.Size)
 	}
 }
 
-func listKeys(_ []string) {
+func listKeys(arguments []string) {
+	flags := flag.NewFlagSet("list-keys", flag.ExitOnError)
+	jsonOutput := flags.Bool("json", false, "Output as JSON")
+	flags.Parse(arguments)
+
 	keys := ssh_keys.All()
+
+	if *jsonOutput {
+		rep := report.NewReport(true, false, os.Stdout)
+		rep.WriteJSON(keys)
+		return
+	}
+
 	fmt.Printf("SSH keys: %d\n", len(keys))
 	for _, k := range keys {
 		fmt.Printf("  %-20s %-20s %s (%s)\n", k.Vendor, k.Model, k.Username, k.Type)
 	}
 }
 
-func listVendors(_ []string) {
+func listVendors(arguments []string) {
+	flags := flag.NewFlagSet("list-vendors", flag.ExitOnError)
+	jsonOutput := flags.Bool("json", false, "Output as JSON")
+	flags.Parse(arguments)
+
 	vendorSet := make(map[string]bool)
 	for _, e := range exploit.All() {
 		info := e.Info()
@@ -100,6 +185,17 @@ func listVendors(_ []string) {
 			vendorSet[info.Vendor] = true
 		}
 	}
+
+	if *jsonOutput {
+		vendors := make([]string, 0, len(vendorSet))
+		for v := range vendorSet {
+			vendors = append(vendors, v)
+		}
+		rep := report.NewReport(true, false, os.Stdout)
+		rep.WriteJSON(vendors)
+		return
+	}
+
 	fmt.Printf("Vendors: %d\n", len(vendorSet))
 	for vendor := range vendorSet {
 		fmt.Printf("  %s\n", vendor)

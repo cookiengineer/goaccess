@@ -19,6 +19,7 @@ func runScan(arguments []string) {
 	skipCreds := flags.Bool("skip-creds", false, "Skip credential checks")
 	skipExploits := flags.Bool("skip-exploits", false, "Skip exploit checks")
 	jsonOutput := flags.Bool("json", false, "Output as JSON")
+	outputFile := flags.String("output", "", "Write JSON output to file")
 	verbose := flags.Bool("verbose", false, "Verbose output")
 
 	flags.Parse(arguments)
@@ -30,7 +31,18 @@ func runScan(arguments []string) {
 		os.Exit(1)
 	}
 
-	output := report.NewReport(*jsonOutput, *verbose, os.Stdout)
+	outputWriter := os.Stdout
+	if *outputFile != "" {
+		file, err := os.Create(*outputFile)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error: cannot create output file: %s\n", err)
+			os.Exit(1)
+		}
+		defer file.Close()
+		outputWriter = file
+	}
+
+	output := report.NewReport(*jsonOutput, *verbose, outputWriter)
 
 	config := &types.ScanConfig{
 		Target:          target,
@@ -43,12 +55,18 @@ func runScan(arguments []string) {
 		SkipExploits:    *skipExploits,
 	}
 
-	scanner := defaultScanner(config)
+	scanEngine := defaultScanner(config)
 
 	output.Status("Starting scan of %s...", target)
 	output.Status("Threads: %d, Timeout: %ds", *threads, *timeoutSeconds)
+	if *vendor != "" {
+		output.Status("Vendor filter: %s", *vendor)
+	}
+	if *deviceType != "" {
+		output.Status("Type filter: %s", *deviceType)
+	}
 
-	resultChannel, err := scanner.Scan(target, config)
+	resultChannel, err := scanEngine.Scan(target, config)
 	if err != nil {
 		output.Error("Scan failed: %s", err)
 		os.Exit(1)
@@ -56,8 +74,10 @@ func runScan(arguments []string) {
 
 	vulnerabilityCount := 0
 	credentialCount := 0
+	var allResults []*types.ScanResult
 
 	for result := range resultChannel {
+		allResults = append(allResults, result)
 		if result.Vulnerability != nil && result.Vulnerability.Confirmed {
 			vulnerabilityCount++
 			output.PrintScanResult(result)
@@ -68,7 +88,11 @@ func runScan(arguments []string) {
 		}
 	}
 
-	fmt.Println()
+	if *jsonOutput && *outputFile != "" {
+		output.WriteJSON(allResults)
+	}
+
+	fmt.Fprintln(outputWriter)
 	output.Success("Scan complete: %d vulnerabilities, %d credentials found", vulnerabilityCount, credentialCount)
 	if vulnerabilityCount == 0 && credentialCount == 0 {
 		output.Info("No vulnerabilities or default credentials found.")

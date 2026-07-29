@@ -4,7 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"time"
 
+	"github.com/cookiengineer/goaccess/oui"
 	"github.com/cookiengineer/goaccess/report"
 )
 
@@ -30,27 +32,26 @@ func runIdentify(arguments []string) {
 	config := defaultConfig(target)
 	config.Threads = *threads
 	config.Verbose = *verbose
+	config.Timeout = time.Duration(*timeoutSeconds) * time.Second
 
-	scanner := defaultScanner(config)
+	if *ouiOnly {
+		macAddress := config.MACAddress
+		vendor := oui.Lookup(macAddress)
+		if macAddress != "" {
+			fmt.Printf("MAC: %s\n", macAddress)
+		}
+		fmt.Printf("OUI: %s\n", vendor)
+		return
+	}
 
+	scanEngine := defaultScanner(config)
 	output.Status("Identifying %s...", target)
 
-	result, err := scanner.Identify(target, config)
+	result, err := scanEngine.Identify(target, config)
 	if err != nil {
 		output.Error("Identify failed: %s", err)
 		os.Exit(1)
 	}
 
-	if *ouiOnly {
-		if result.MAC != "" {
-			fmt.Printf("MAC: %s\n", result.MAC)
-		}
-		if result.OUI != "" {
-			fmt.Printf("OUI: %s\n", result.OUI)
-		}
-		return
-	}
-
 	output.PrintFingerprint(result)
-	_ = timeoutSeconds // used for config
 }

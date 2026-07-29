@@ -6,12 +6,12 @@
 |----------|---------------|---------------|---------------|
 | Core (types, interfaces, exploit, oui, wordlist, report) | 6 | 60+ | ✓ 60+ |
 | Protocols (http, tcp, udp, ssh, telnet, ftp, snmp) | 7 | 40+ | ✓ 40+ |
-| Libraries (lzs) | 1 | 12 | ✓ 12 |
-| Infrastructure (shell, payload, ssh_keys) | 3 | 4 | ✓ 4 |
-| Scanner | 1 | 0 | — |
-| CLI (cmds/goaccess, actions) | 1 | 0 | — |
-| Exploits | 1+ | 3 | ✓ 3 |
-| **Total** | **20** | **119+** | **✓ 119+** |
+| Libraries (lzs) | 1 | 13 | ✓ 13 |
+| Infrastructure (shell, payload, ssh_keys) | 3 | 20 | ✓ 20 |
+| Scanner | 1 | 22 | ✓ 22 |
+| CLI (cmds/goaccess, cmds/rshell) | 2 | 3 | ✓ 3 |
+| Exploits (credentials, heartbleed, shellshock, tcp_32764) | 4 | 22 | ✓ 22 |
+| **Total** | **24** | **184** | **✓ 184** |
 
 ---
 
@@ -191,12 +191,12 @@ go vet ./...                      ✓ No warnings
 
 ## Next Steps
 
-1. **Scanner unit tests**: Add tests for Identify(), Scan(), and Access() with mock exploits
-2. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures
-3. **More credential modules**: SSH defaults, FTP defaults, HTTP basic/digest defaults
-4. **Exploit modules**: Heartbleed, ShellShock, TCP-32764, RomPager ROM-0, D-Link DIR-300, TP-Link Archer
-5. **Vendor-specific credential modules**: D-Link, TP-Link, Cisco, Netgear
-6. **Password generators**: MAC-derived, serial-derived per vendor
+1. **Remaining exploits**: RomPager ROM-0 (CVE-2014-4019), GPON Home Gateway (CVE-2018-10561), SSH Authorized Keys
+2. **Bruteforce modules**: Telnet SSH FTP bruteforce (username × password cartesian)
+3. **Vendor-specific credential modules**: D-Link, TP-Link, Cisco, Netgear
+4. **Password generators**: MAC-derived, serial-derived per vendor
+5. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures
+6. **Vendor-specific exploits**: D-Link DIR-300/600, TP-Link Archer C2/C20i, MikroTik WinBox
 
 ---
 
@@ -211,7 +211,11 @@ go vet ./...                      ✓ No warnings
 | report | report_test.go | 15 | ✓ 15 |
 | libs/lzs | lzs_test.go | 13 | ✓ 13 |
 | ssh_keys | keys_test.go | 4 | ✓ 4 |
-| exploits/.../credentials | telnet_default_test.go | 4 | ✓ 4 |
+| exploits/generic/credentials | credentials_test.go + telnet_default_test.go | 15 | ✓ 15 |
+| exploits/generic/heartbleed | exploit_test.go | 6 | ✓ 6 |
+| exploits/generic/shellshock | exploit_test.go | 5 | ✓ 5 |
+| exploits/generic/tcp_32764/rce | exploit_test.go | 6 | ✓ 6 |
+| exploits/generic/tcp_32764/info_disclosure | exploit_test.go | 4 | ✓ 4 |
 | protocols/http | http_test.go | 8 | ✓ 8 |
 | protocols/tcp | tcp_test.go | 7 | ✓ 7 |
 | protocols/udp | udp_test.go | 3 | ✓ 3 |
@@ -219,4 +223,7 @@ go vet ./...                      ✓ No warnings
 | protocols/telnet | telnet_test.go | 5 | ✓ 5 |
 | protocols/ftp | ftp_test.go | 6 | ✓ 6 |
 | protocols/snmp | snmp_test.go | 3 | ✓ 3 |
-| **Total** | | **114** | **✓ 114** |
+| scanner | portscan_test.go + scanner_test.go + fingerprint_test.go | 22 | ✓ 22 |
+| shell | shell_test.go + listener_test.go | 13 | ✓ 13 |
+| cmds/rshell | main_test.go | 3 | ✓ 3 |
+| **Total** | | **184** | **✓ 184** |

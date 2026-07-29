@@ -32,6 +32,12 @@ type ScanConfig struct {
 
 	// MACAddress is a pre-resolved MAC address for OUI lookup (avoids ARP).
 	MACAddress string
+
+	// Payload selects the preferred payload architecture for shell deployment.
+	Payload string
+
+	// LPORT is the listening port for reverse shell connections.
+	LPORT int
 }
 
 // ScanResult is emitted by the scanner for each exploit or credentials module checked.
