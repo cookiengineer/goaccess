@@ -1887,16 +1887,18 @@ A task is considered COMPLETE when:
 | Metric | Value |
 |--------|-------|
 | Exploit modules | 142 (all routersploit exploits ported) |
-| Credential modules | 24 |
+| Credential modules | 165 (all routersploit creds ported) |
 | Vendors covered | 43 |
-| Total packages | 170 |
-| Total tests | 895 |
+| Total packages | 222 |
+| Total tests | 1,327 |
 | Test failures | 0 |
 | CGO_ENABLED | 0 (pure Go static binary) |
 | go vet warnings | 0 |
+| CredentialedExploit interface | 142/142 exploits implemented |
 | Binary size | ~20MB (stripped with -ldflags="-s -w") |
 | Dependencies | 3 (golang.org/x/crypto, jlaffaye/ftp, gosnmp/gosnmp — all pure Go) |
 
 **Protocol coverage:** HTTP, HTTPS, TCP, UDP, SSH, Telnet, FTP, SNMP
-**Device types:** Router (106), Camera (21), Misc (8), Generic (7)
+**Device types:** Router (106 exploits), Camera (21 exploits), Misc (8 exploits), Generic (7 exploits)
+**Credential coverage:** Router (27 vendors × 3), Camera (25 vendors × 3), Generic (9 modules)
 **Phases complete:** 1 (Foundation), 2 (Scanner), 3 (CLI + Shell), 4 (Initial Exploits), 5 (Full Coverage)

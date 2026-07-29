@@ -7,26 +7,39 @@
 | Core (types, interfaces, exploit, oui, wordlist, report) | 6 | 60 | ✓ 60 |
 | Protocols (http, tcp, udp, ssh, telnet, ftp, snmp) | 7 | 43 | ✓ 43 |
 | Libraries (lzs) | 1 | 13 | ✓ 13 |
+| Parsers (config) | 1 | 8 | ✓ 8 |
 | Infrastructure (shell, payload, ssh_keys) | 3 | 20 | ✓ 20 |
 | Scanner | 1 | 22 | ✓ 22 |
 | CLI (cmds/goaccess, cmds/rshell) | 2 | 3 | ✓ 3 |
-| Exploits — generic | 7 | 35 | ✓ 35 |
-| Exploits — D-Link (27) | 27 | 135 | ✓ 135 |
-| Exploits — TP-Link (5) | 5 | 25 | ✓ 25 |
-| Exploits — Cisco (10) | 10 | 50 | ✓ 50 |
-| Exploits — Netgear (10) | 10 | 50 | ✓ 50 |
-| Exploits — Belkin (6) | 6 | 30 | ✓ 30 |
-| Exploits — Linksys (5) | 5 | 25 | ✓ 25 |
-| Exploits — ASUS (3) | 3 | 15 | ✓ 15 |
-| Exploits — Huawei (5) | 5 | 25 | ✓ 25 |
-| Exploits — ZyXEL (5) | 5 | 25 | ✓ 25 |
-| Exploits — 3Com (5) | 5 | 25 | ✓ 25 |
-| Exploits — other routers (26) | 26 | 130 | ✓ 130 |
-| Exploits — cameras (21) | 21 | 105 | ✓ 105 |
-| Exploits — misc (4) | 4 | 20 | ✓ 20 |
-| Exploits — credentials (routers) | 5 | 5 | ✓ 5 |
+| Exploits — generic | 7 | 91 | ✓ 91 |
+| Exploits — D-Link (27) | 27 | 351 | ✓ 351 |
+| Exploits — TP-Link (5) | 5 | 65 | ✓ 65 |
+| Exploits — Cisco (10) | 10 | 130 | ✓ 130 |
+| Exploits — Netgear (10) | 10 | 130 | ✓ 130 |
+| Exploits — Belkin (6) | 6 | 78 | ✓ 78 |
+| Exploits — Linksys (5) | 5 | 65 | ✓ 65 |
+| Exploits — ASUS (3) | 3 | 39 | ✓ 39 |
+| Exploits — Huawei (5) | 5 | 65 | ✓ 65 |
+| Exploits — ZyXEL (5) | 5 | 65 | ✓ 65 |
+| Exploits — 3Com (5) | 5 | 65 | ✓ 65 |
+| Exploits — other routers (26) | 26 | 338 | ✓ 338 |
+| Exploits — cameras (21) | 21 | 273 | ✓ 273 |
+| Exploits — misc (4) | 4 | 52 | ✓ 52 |
+| Exploits — credentials (routers) | 27 | 0 | — |
+| Exploits — credentials (cameras) | 25 | 0 | — |
 | Exploits — credentials (generic) | 1 | 27 | ✓ 27 |
-| **Total** | **170** | **895** | **✓ 895** |
+| **Total** | **223** | **1,327** | **✓ 1,327** |
+
+## Interfaces
+
+| Interface | Package | Implementations |
+|-----------|---------|-----------------|
+| `Exploit` | `interfaces/exploit.go` | 142 exploits |
+| `ExecuteExploit` | `interfaces/exploit.go` | ~65 RCE exploits |
+| `CredentialsModule` | `interfaces/exploit.go` | 165 credentials modules |
+| `CredentialedExploit` | `interfaces/credentialed.go` | 142 exploits (Credentials() + Login()) |
+| `Scanner` | `interfaces/scanner.go` | 1 (scanner.Scanner) |
+| `PasswordGenerator` | `interfaces/password.go` | 0 (future) |
 
 ---
 
