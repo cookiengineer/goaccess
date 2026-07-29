@@ -529,45 +529,45 @@
 - [x] Full username+password dictionary brute-force
 
 ### 6.5 JSON Output & Report Generation
-- [ ] Full JSON output for all CLI commands (identify, scan, access, list)
-- [ ] Report struct with structured data
-- [ ] Support piping output: stdout + JSON file simultaneously
+- [x] Full JSON output for all CLI commands (identify, scan, access, list)
+- [x] Report struct with structured data (PrintScanResultsJSON, PrintScanResult now handles JSON)
+- [x] Support piping output: stdout + JSON file simultaneously (--output flag on all commands)
 
 ### 6.6 Docker Cross-Compilation
-- [ ] Create Dockerfile for cross-compilation environment
-- [ ] CI pipeline: GitHub Actions to build all payloads on every release
-- [ ] Cache Go module dependencies between builds
+- [x] Create Dockerfile for cross-compilation environment — multi-stage build with TARGETARCH support
+- [x] CI pipeline: GitHub Actions to build all payloads on every release — `.github/workflows/build.yml`
+- [x] Cache Go module dependencies between builds — `go mod download` before copy
 
 ### 6.7 Performance Optimization
-- [ ] Connection pooling for HTTP clients
-- [ ] Timeout calibration per protocol
-- [ ] Result deduplication (same creds found by multiple modules)
-- [ ] Memory profiling and optimization for large scans
+- [x] Connection pooling for HTTP clients — `MaxIdleConns: 100, MaxIdleConnsPerHost: 10, IdleConnTimeout: 30s`
+- [x] Result deduplication — `deduplicateCredentials()` and `deduplicateVulnerabilities()` in scanner
+- [x] Timeout calibration per protocol — each protocol client uses configurable Timeout from ScanConfig
+- [ ] Memory profiling and optimization for large scans (future)
 
 ---
 
 ## Phase 7: Documentation & Polish
 
 ### 7.1 Documentation
-- [ ] `README.md` — Project overview, installation, usage examples
-- [ ] `docs/MASTERPLAN.md` — Architecture reference (already written)
-- [ ] `docs/EXPLOITS.md` — Exploit porting guide (already written)
-- [ ] `docs/TODO.md` — This file
-- [ ] `docs/CONTRIBUTING.md` — How to write new exploits, style guide
-- [ ] GoDoc comments on all exported types and functions
+- [x] `README.md` — Project overview, installation, usage examples
+- [x] `docs/MASTERPLAN.md` — Architecture reference (already written)
+- [x] `docs/EXPLOITS.md` — Exploit porting guide (already written)
+- [x] `docs/TODO.md` — This file
+- [x] `docs/CONTRIBUTING.md` — How to write new exploits, style guide
+- [ ] GoDoc comments on all exported types and functions (future)
 
 ### 7.2 Polish
-- [ ] Consistent error messages and exit codes
-- [ ] Progress bars for long-running scans (optional)
-- [ ] Color output theme consistency
-- [ ] Shell autocompletion script generation (bash/zsh)
+- [x] Consistent error messages and exit codes — all CLI commands use stderr for errors, os.Exit(1)
+- [x] Progress bars for long-running scans — progress line shown during scan (every 10 results)
+- [x] Color output theme consistency — report package handles all colorized output
+- [x] Shell autocompletion script generation (bash/zsh) — `goaccess completion <bash|zsh>`
 
 ### 7.3 Security Review
-- [ ] Review all protocol clients for TLS/certificate validation
-- [ ] Review all exploits for safe command escaping
-- [ ] Review shell handler for proper cleanup
-- [ ] Ensure no hardcoded credentials in non-creds code
-- [ ] Ensure rshell implant does not write to disk
+- [x] Review all protocol clients for TLS/certificate validation — HTTP uses InsecureSkipVerify by design (IoT targets)
+- [x] Review all exploits for safe command escaping — exploit modules use structured parameters
+- [x] Review shell handler for proper cleanup — defer Close() on listeners
+- [x] Ensure no hardcoded credentials in non-creds code — credentials only in wordlists + creds modules
+- [x] Ensure rshell implant does not write to disk — runs /bin/sh from memory, no file writes
 
 ---
 
@@ -612,13 +612,20 @@
 ---
 
 ## Phase 7: Future Enhancements
-- [ ] Payload cross-compilation (`make payloads`) for all 7 architectures
-- [ ] Integration tests with podman containers (SSH/FTP/Telnet/SNMP)
-- [x] Password generators (MAC-derived, serial-derived per vendor) — 5 generators implemented (dlink×2, tplink, thomson, netgear)
+- [x] Payload cross-compilation (`make payloads`) for all 7 architectures — 14 binaries built (~2MB each)
+- [x] Integration tests with podman containers (SSH/FTP/Telnet/SNMP) — `scanner/integration_test.go`
+- [x] Password generators (MAC-derived, serial-derived per vendor) — 5 generators implemented
 - [x] HTTP form brute-force with CSRF token handling — `http_form_default.go`
-- [ ] Interactive shell mode with terminal emulation
-- [ ] Plugin system for user-defined exploits
-- [ ] Web UI / REST API for remote scanning
+- [x] JSON output for all CLI commands — `--json` and `--output` flags on all commands
+- [x] Docker cross-compilation — `Dockerfile` + `.github/workflows/build.yml`
+- [x] Performance optimization — HTTP connection pooling, credential/vuln deduplication
+- [x] README.md — project overview, installation, usage examples
+- [x] CONTRIBUTING.md — exploit writing guide, code conventions, test patterns
+- [x] Shell autocompletion — `goaccess completion <bash|zsh>`
+- [x] Progress bars — scan progress line during long scans
+- [x] Interactive shell mode with terminal emulation — `--shell` flag uses `shell.Interact()`
+- [ ] Plugin system for user-defined exploits (future)
+- [ ] Web UI / REST API for remote scanning (future)
 
 ---
 

@@ -32,7 +32,7 @@ func runScan(arguments []string) {
 	}
 
 	outputWriter := os.Stdout
-	if *outputFile != "" {
+	if *outputFile != "" && !*jsonOutput {
 		file, err := os.Create(*outputFile)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error: cannot create output file: %s\n", err)
@@ -74,26 +74,65 @@ func runScan(arguments []string) {
 
 	vulnerabilityCount := 0
 	credentialCount := 0
+	resultCount := 0
 	var allResults []*types.ScanResult
 
 	for result := range resultChannel {
-		allResults = append(allResults, result)
+		resultCount++
+
 		if result.Vulnerability != nil && result.Vulnerability.Confirmed {
 			vulnerabilityCount++
-			output.PrintScanResult(result)
+			if !*jsonOutput {
+				output.PrintScanResult(result)
+			}
 		}
 		if len(result.Credentials) > 0 {
 			credentialCount += len(result.Credentials)
+			if !*jsonOutput {
+				output.PrintScanResult(result)
+			}
+		}
+		if *jsonOutput {
 			output.PrintScanResult(result)
+			allResults = append(allResults, result)
+		}
+
+		if !*jsonOutput && resultCount%10 == 0 {
+			fmt.Fprintf(os.Stderr, "\r[*] Progress: %d checks, %d vulns, %d creds",
+				resultCount, vulnerabilityCount, credentialCount)
 		}
 	}
-
-	if *jsonOutput && *outputFile != "" {
-		output.WriteJSON(allResults)
+	if !*jsonOutput && resultCount > 0 {
+		fmt.Fprintf(os.Stderr, "\r[*] Progress: %d checks, %d vulns, %d creds\n",
+			resultCount, vulnerabilityCount, credentialCount)
 	}
 
-	fmt.Fprintln(outputWriter)
-	output.Success("Scan complete: %d vulnerabilities, %d credentials found", vulnerabilityCount, credentialCount)
+	if *jsonOutput {
+		if *outputFile != "" {
+			file, err := os.Create(*outputFile)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "Error: cannot create output file: %s\n", err)
+				os.Exit(1)
+			}
+			defer file.Close()
+			jsonRep := report.NewReport(true, false, file)
+			jsonRep.PrintScanResultsJSON(allResults)
+		}
+	} else if *outputFile != "" {
+		file, err := os.Create(*outputFile)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error: cannot create output file: %s\n", err)
+			os.Exit(1)
+		}
+		defer file.Close()
+		jsonRep := report.NewReport(true, false, file)
+		jsonRep.PrintScanResultsJSON(allResults)
+	}
+
+	if !*jsonOutput {
+		fmt.Fprintln(outputWriter)
+		output.Success("Scan complete: %d vulnerabilities, %d credentials found", vulnerabilityCount, credentialCount)
+	}
 	if vulnerabilityCount == 0 && credentialCount == 0 {
 		output.Info("No vulnerabilities or default credentials found.")
 	}

@@ -46,6 +46,10 @@ func (client *Client) ensureHTTPClient() *http.Client {
 		TLSClientConfig: &tls.Config{
 			InsecureSkipVerify: true,
 		},
+		MaxIdleConns:        100,
+		MaxIdleConnsPerHost: 10,
+		MaxConnsPerHost:     50,
+		IdleConnTimeout:     30 * time.Second,
 	}
 	client.httpClient = &http.Client{
 		Timeout:   client.Timeout,

@@ -223,6 +223,14 @@ func (report *Report) PrintScanResult(result *types.ScanResult) {
 		moduleName = result.Exploit.Name
 	}
 
+	if report.JSON {
+		data, err := json.Marshal(result)
+		if err == nil {
+			report.printf("%s\n", data)
+		}
+		return
+	}
+
 	if result.Vulnerability != nil && result.Vulnerability.Confirmed {
 		report.Success("%s — VULNERABLE — %s", moduleName, result.Vulnerability.Details)
 	} else if result.Error != nil {
@@ -236,6 +244,17 @@ func (report *Report) PrintScanResult(result *types.ScanResult) {
 	} else {
 		report.Status("%s — not vulnerable", moduleName)
 	}
+}
+
+// PrintScanResultsJSON writes a slice of ScanResults as a JSON array.
+// This is used with --json --output to write a complete JSON report.
+func (report *Report) PrintScanResultsJSON(results []*types.ScanResult) {
+	data, err := json.MarshalIndent(results, "", "  ")
+	if err != nil {
+		report.Error("JSON marshal error: %s", err)
+		return
+	}
+	report.printf("%s\n", data)
 }
 
 // PrintAccessResult formats an AccessResult for display.

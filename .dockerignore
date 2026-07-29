@@ -1,0 +1,12 @@
+.git
+bin
+payload/arm
+payload/arm64
+payload/mips
+payload/mipsle
+payload/mips64
+payload/x86
+payload/x86_64
+reference_codebases
+*.md
+docs

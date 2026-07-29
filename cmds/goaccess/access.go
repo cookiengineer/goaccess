@@ -35,6 +35,7 @@ func runAccess(arguments []string) {
 	}
 
 	outputWriter := os.Stdout
+	var jsonOutputFile *os.File
 	if *outputFile != "" {
 		file, err := os.Create(*outputFile)
 		if err != nil {
@@ -42,7 +43,7 @@ func runAccess(arguments []string) {
 			os.Exit(1)
 		}
 		defer file.Close()
-		outputWriter = file
+		jsonOutputFile = file
 	}
 
 	output := report.NewReport(*jsonOutput, *verbose, outputWriter)
@@ -89,6 +90,11 @@ func runAccess(arguments []string) {
 	}
 
 	output.PrintAccessResult(result)
+
+	if jsonOutputFile != nil {
+		jsonRep := report.NewReport(true, false, jsonOutputFile)
+		jsonRep.WriteJSON(result)
+	}
 
 	if *shellFlag && result.Shell != nil && result.Shell.Conn != nil {
 		output.Success("Dropping to interactive shell...")

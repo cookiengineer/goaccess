@@ -1,0 +1,95 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  release:
+    types: [published]
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+          cache: true
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test
+        run: CGO_ENABLED=0 go test -count=1 ./...
+
+  build:
+    name: Build GoAccess
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+          cache: true
+
+      - name: Build binary
+        run: CGO_ENABLED=0 go build -ldflags="-s -w" -o bin/goaccess ./cmds/goaccess
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: goaccess-linux-amd64
+          path: bin/goaccess
+
+  payloads:
+    name: Cross-compile Payloads
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    strategy:
+      matrix:
+        target:
+          - { arch: arm, goarch: arm, goarm: "5", suffix: "" }
+          - { arch: arm64, goarch: arm64, goarm: "", suffix: "" }
+          - { arch: mips, goarch: mips, goarm: "", suffix: "" }
+          - { arch: mipsle, goarch: mipsle, goarm: "", suffix: "" }
+          - { arch: mips64, goarch: mips64, goarm: "", suffix: "" }
+          - { arch: x86, goarch: 386, goarm: "", suffix: "" }
+          - { arch: x86_64, goarch: amd64, goarm: "", suffix: "" }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: "1.26"
+
+      - name: Set environment
+        run: |
+          echo "GOOS=linux" >> $GITHUB_ENV
+          echo "GOARCH=${{ matrix.target.goarch }}" >> $GITHUB_ENV
+          if [ -n "${{ matrix.target.goarm }}" ]; then
+            echo "GOARM=${{ matrix.target.goarm }}" >> $GITHUB_ENV
+          fi
+          if [[ "${{ matrix.target.goarch }}" == mips* ]]; then
+            echo "GOMIPS=softfloat" >> $GITHUB_ENV
+          fi
+
+      - name: Build reverse_tcp
+        run: CGO_ENABLED=0 go build -ldflags="-s -w" -o payload/${{ matrix.target.arch }}/reverse_tcp ./cmds/rshell
+
+      - name: Build bind_tcp
+        run: CGO_ENABLED=0 go build -ldflags="-s -w" -o payload/${{ matrix.target.arch }}/bind_tcp ./cmds/rshell
+
+      - name: Upload payloads
+        uses: actions/upload-artifact@v4
+        with:
+          name: payloads-${{ matrix.target.arch }}
+          path: |
+            payload/${{ matrix.target.arch }}/reverse_tcp
+            payload/${{ matrix.target.arch }}/bind_tcp

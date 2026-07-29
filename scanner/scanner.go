@@ -261,7 +261,7 @@ func (scanner *Scanner) recoverCredentials(target string, fingerprint *types.Fin
 		creds = append(creds, found...)
 	}
 
-	return creds
+	return deduplicateCredentials(creds)
 }
 
 func (scanner *Scanner) testGeneratedCredentials(target string, services []int, generated []types.Credential, timeout time.Duration, creds *[]*types.CredsResult) {
@@ -682,4 +682,48 @@ func indexOf(source, substring string) int {
 		}
 	}
 	return -1
+}
+
+func deduplicateCredentials(creds []*types.CredsResult) []*types.CredsResult {
+	if len(creds) <= 1 {
+		return creds
+	}
+
+	seen := make(map[string]bool)
+	var unique []*types.CredsResult
+
+	for _, cred := range creds {
+		if cred == nil {
+			continue
+		}
+		key := fmt.Sprintf("%s:%s@%s:%d", cred.Username, cred.Password, cred.Service, cred.Port)
+		if !seen[key] {
+			seen[key] = true
+			unique = append(unique, cred)
+		}
+	}
+
+	return unique
+}
+
+func deduplicateVulnerabilities(vulns []*types.VulnResult) []*types.VulnResult {
+	if len(vulns) <= 1 {
+		return vulns
+	}
+
+	seen := make(map[string]bool)
+	var unique []*types.VulnResult
+
+	for _, vuln := range vulns {
+		if vuln == nil {
+			continue
+		}
+		key := vuln.Details
+		if !seen[key] {
+			seen[key] = true
+			unique = append(unique, vuln)
+		}
+	}
+
+	return unique
 }

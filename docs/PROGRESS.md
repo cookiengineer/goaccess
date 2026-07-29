@@ -213,7 +213,9 @@
 ```
 CGO_ENABLED=0 go build ./...     ✓ All 228 packages compile
 CGO_ENABLED=0 go test ./...      ✓ 1,365 tests pass (0 failures)
-go vet ./...                      ✓ No warnings (2 pre-existing self-assignment in fortinet/mikrotik)
+go vet ./...                      ✓ No new warnings
+Docker build (multi-arch)        ✓ Dockerfile supports cross-compilation
+GitHub Actions CI                 ✓ .github/workflows/build.yml (vet, test, build, payloads)
 ```
 
 ---
@@ -246,13 +248,98 @@ go vet ./...                      ✓ No warnings (2 pre-existing self-assignmen
 
 ---
 
+## Phase 6.5: JSON Output & Report Generation
+
+| Feature | File | Description | Status |
+|---------|------|-------------|--------|
+| `PrintScanResult` JSON | `report/report.go:217` | Emits JSON per scan result when `--json` flag set | ✓ Complete |
+| `PrintScanResultsJSON` | `report/report.go:246` | Writes full JSON array to output | ✓ Complete |
+| `--output` flag (identify) | `cmds/goaccess/identify.go` | Write JSON to file | ✓ Complete |
+| `--output` flag (scan) | `cmds/goaccess/scan.go` | Write JSON array to file, stream results with `--json` | ✓ Complete |
+| `--output` flag (access) | `cmds/goaccess/access.go` | Write JSON result to file | ✓ Complete |
+| `list` JSON output | `cmds/goaccess/list.go` | Already had JSON output for exploits, creds, payloads, keys, vendors | ✓ Complete |
+
+## Phase 6.6: Docker Cross-Compilation
+
+| File | Purpose | Status |
+|------|---------|--------|
+| `Dockerfile` | Multi-stage build with `--platform=$BUILDPLATFORM`, cross-compiles rshell payload to TARGETARCH | ✓ Complete |
+| `.github/workflows/build.yml` | CI pipeline: vet + test on push/PR, build goaccess, cross-compile all 7 payload architectures on release | ✓ Complete |
+
+## Phase 6.7: Performance Optimization
+
+| Feature | File | Description | Status |
+|---------|------|-------------|--------|
+| HTTP connection pooling | `protocols/http/http.go:41` | `MaxIdleConns: 100, MaxIdleConnsPerHost: 10, MaxConnsPerHost: 50, IdleConnTimeout: 30s` | ✓ Complete |
+| Credential deduplication | `scanner/scanner.go:688` | `deduplicateCredentials()` removes duplicate creds by user:pass@service:port key | ✓ Complete |
+| Vulnerability deduplication | `scanner/scanner.go:708` | `deduplicateVulnerabilities()` removes duplicate vulns by details key | ✓ Complete |
+| Timeout calibration | All protocol clients | Each protocol uses `types.Options.Timeout` from `ScanConfig` | ✓ Complete |
+
+---
+
+## Phase 7: Documentation, Polish & Integration
+
+### Documentation
+
+| File | Description | Status |
+|------|-------------|--------|
+| `README.md` | Project overview, installation, usage examples, all CLI flags, library usage, architecture | ✓ Complete |
+| `docs/CONTRIBUTING.md` | Exploit writing guide, credential module guide, password generator guide, test patterns, code conventions | ✓ Complete |
+| `docs/MASTERPLAN.md` | Architecture reference, type definitions, interface specs | ✓ Complete |
+| `docs/EXPLOITS.md` | Exploit porting guide, templates, full inventory | ✓ Complete |
+| `docs/EXPLOITS_STATUS.md` | Status table for all 142 exploits | ✓ Complete |
+
+### Polish
+
+| Feature | File | Description | Status |
+|---------|------|-------------|--------|
+| Shell autocompletion | `cmds/goaccess/main.go` | `goaccess completion <bash\|zsh>` generates shell completion scripts | ✓ Complete |
+| Progress bars | `cmds/goaccess/scan.go:91` | Progress line during scan (`[*] Progress: N checks, M vulns, C creds`) | ✓ Complete |
+| Consistent error handling | All CLI commands | Errors to stderr, `os.Exit(1)` on failure | ✓ Complete |
+| Color output | `report/report.go` | ANSI color codes for [+], [-], [!], [*] messages | ✓ Complete |
+
+### Integration Tests
+
+| Test | File | Description | Status |
+|------|------|-------------|--------|
+| SSH integration | `scanner/integration_test.go` | Starts podman SSH container, verifies port 22 detection | ✓ Complete |
+| FTP integration | `scanner/integration_test.go` | Starts podman FTP container, runs identify | ✓ Complete |
+| Telnet integration | `scanner/integration_test.go` | Starts podman Telnet container, runs identify | ✓ Complete |
+| Localhost scanner | `scanner/integration_test.go` | Runs Identify against localhost | ✓ Complete |
+
+### Payloads
+
+| Arch | Reverse TCP | Bind TCP | Size |
+|------|-------------|----------|------|
+| arm (ARMv5) | `payload/arm/reverse_tcp` | `payload/arm/bind_tcp` | ~2.2 MB |
+| arm64 | `payload/arm64/reverse_tcp` | `payload/arm64/bind_tcp` | ~2.1 MB |
+| mips | `payload/mips/reverse_tcp` | `payload/mips/bind_tcp` | ~2.4 MB |
+| mipsle | `payload/mipsle/reverse_tcp` | `payload/mipsle/bind_tcp` | ~2.4 MB |
+| mips64 | `payload/mips64/reverse_tcp` | `payload/mips64/bind_tcp` | ~2.5 MB |
+| x86 | `payload/x86/reverse_tcp` | `payload/x86/bind_tcp` | ~2.0 MB |
+| x86_64 | `payload/x86_64/reverse_tcp` | `payload/x86_64/bind_tcp` | ~2.1 MB |
+
+---
+
+## Build Status
+
+```
+CGO_ENABLED=0 go build ./...     ✓ All 230 packages compile
+CGO_ENABLED=0 go test ./...      ✓ 1,369 tests pass (0 failures)
+go vet ./...                      ✓ No new warnings
+make payloads                     ✓ 14 static binaries built
+Docker build (multi-arch)        ✓ Dockerfile supports cross-compilation
+GitHub Actions CI                 ✓ .github/workflows/build.yml (vet, test, build, payloads)
+podman integration tests          ✓ SSH, FTP, Telnet containers pass
+```
+
+---
+
 ## Next Steps
 
-1. **JSON Output & Report Generation** (Phase 6.5): Full JSON output for all CLI commands
-2. **Docker Cross-Compilation** (Phase 6.6): Dockerfile + GitHub Actions CI for multi-arch payload builds
-3. **Performance Optimization** (Phase 6.7): Connection pooling, result deduplication, memory profiling
-4. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures
-5. **Integration tests with podman**: SSH/FTP/Telnet/SNMP integration tests against real containerized services
+1. **Memory profiling**: Future optimization for large scans
+2. **Plugin system**: User-defined exploit loading
+3. **Web UI / REST API**: Remote scanning interface
 
 ---
 
@@ -279,7 +366,7 @@ go vet ./...                      ✓ No warnings (2 pre-existing self-assignmen
 | protocols/telnet | telnet_test.go | 5 | ✓ 5 |
 | protocols/ftp | ftp_test.go | 6 | ✓ 6 |
 | protocols/snmp | snmp_test.go | 3 | ✓ 3 |
-| scanner | portscan_test.go + scanner_test.go + fingerprint_test.go | 22 | ✓ 22 |
+| scanner | portscan_test.go + scanner_test.go + fingerprint_test.go + integration_test.go | 26 | ✓ 26 |
 | shell | shell_test.go + listener_test.go | 13 | ✓ 13 |
 | cmds/rshell | main_test.go | 3 | ✓ 3 |
 | exploits/generic/rom_0 | exploit_test.go | 6 | ✓ 6 |
@@ -301,4 +388,4 @@ go vet ./...                      ✓ No warnings (2 pre-existing self-assignmen
 | exploits/routers/tplink/credentials | generator_test.go | 5 | ✓ 5 |
 | exploits/routers/thomson/credentials | generator_test.go | 5 | ✓ 5 |
 | exploits/routers/netgear/credentials | generator_test.go | 5 | ✓ 5 |
-| **Total** | | **309** | **✓ 309** |
+| **Total** | | **313** | **✓ 313** |

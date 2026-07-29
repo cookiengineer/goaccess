@@ -17,6 +17,7 @@ func runIdentify(arguments []string) {
 	verbose := flags.Bool("verbose", false, "Verbose output")
 	threads := flags.Int("threads", 8, "Number of parallel threads")
 	timeoutSeconds := flags.Int("timeout", 8, "Timeout in seconds")
+	outputFile := flags.String("output", "", "Write JSON output to file")
 
 	flags.Parse(arguments)
 
@@ -27,7 +28,18 @@ func runIdentify(arguments []string) {
 		os.Exit(1)
 	}
 
-	output := report.NewReport(*jsonOutput, *verbose, os.Stdout)
+	outputWriter := os.Stdout
+	if *outputFile != "" {
+		file, err := os.Create(*outputFile)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error: cannot create output file: %s\n", err)
+			os.Exit(1)
+		}
+		defer file.Close()
+		outputWriter = file
+	}
+
+	output := report.NewReport(*jsonOutput, *verbose, outputWriter)
 
 	config := defaultConfig(target)
 	config.Threads = *threads
