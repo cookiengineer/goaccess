@@ -9,8 +9,11 @@ import (
 	"github.com/cookiengineer/goaccess/exploit"
 	"github.com/cookiengineer/goaccess/interfaces"
 	"github.com/cookiengineer/goaccess/oui"
+	"github.com/cookiengineer/goaccess/protocols/ftp"
 	protocolhttp "github.com/cookiengineer/goaccess/protocols/http"
 	"github.com/cookiengineer/goaccess/protocols/snmp"
+	"github.com/cookiengineer/goaccess/protocols/ssh"
+	"github.com/cookiengineer/goaccess/protocols/telnet"
 	"github.com/cookiengineer/goaccess/protocols/udp"
 	"github.com/cookiengineer/goaccess/types"
 )
@@ -238,11 +241,7 @@ func (scanner *Scanner) recoverCredentials(target string, fingerprint *types.Fin
 	generators := exploit.PasswordGeneratorsByVendor(fingerprint.Vendor)
 	for _, generator := range generators {
 		generated := generator.Generate(fingerprint.MAC, "", fingerprint.Model)
-		for _, credential := range generated {
-			// Try against services
-			// TODO: implement service-specific credential testing
-			_ = credential
-		}
+		scanner.testGeneratedCredentials(target, fingerprint.Services, generated, config.Timeout, &creds)
 	}
 
 	// Run credentials modules
@@ -263,6 +262,85 @@ func (scanner *Scanner) recoverCredentials(target string, fingerprint *types.Fin
 	}
 
 	return creds
+}
+
+func (scanner *Scanner) testGeneratedCredentials(target string, services []int, generated []types.Credential, timeout time.Duration, creds *[]*types.CredsResult) {
+	if len(generated) == 0 {
+		return
+	}
+
+	hasPort := func(port int) bool {
+		for _, p := range services {
+			if p == port {
+				return true
+			}
+		}
+		return false
+	}
+
+	for _, credential := range generated {
+		if credential.Username == "" && credential.Password == "" {
+			continue
+		}
+
+		if hasPort(23) {
+			telnetClient := telnet.NewClient()
+			telnetClient.Target = target
+			telnetClient.Port = 23
+			telnetClient.Timeout = timeout
+			if telnetClient.Login(credential.Username, credential.Password) {
+				*creds = append(*creds, &types.CredsResult{
+					Target: target, Port: 23, Service: "telnet",
+					Protocol: types.ProtocolTelnet, Username: credential.Username, Password: credential.Password,
+				})
+			}
+			telnetClient.Close()
+		}
+
+		if hasPort(22) && credential.Username != "" {
+			sshClient := ssh.NewClient()
+			sshClient.Target = target
+			sshClient.Port = 22
+			sshClient.Timeout = timeout
+			if err := sshClient.Login(credential.Username, credential.Password); err == nil {
+				*creds = append(*creds, &types.CredsResult{
+					Target: target, Port: 22, Service: "ssh",
+					Protocol: types.ProtocolSSH, Username: credential.Username, Password: credential.Password,
+				})
+			}
+			sshClient.Close()
+		}
+
+		if hasPort(21) && credential.Username != "" {
+			ftpClient := ftp.NewClient()
+			ftpClient.Target = target
+			ftpClient.Port = 21
+			ftpClient.Timeout = timeout
+			if err := ftpClient.Login(credential.Username, credential.Password); err == nil {
+				*creds = append(*creds, &types.CredsResult{
+					Target: target, Port: 21, Service: "ftp",
+					Protocol: types.ProtocolFTP, Username: credential.Username, Password: credential.Password,
+				})
+			}
+			ftpClient.Close()
+		}
+
+		if hasPort(80) && credential.Username != "" {
+			httpClient := protocolhttp.NewClient()
+			httpClient.Target = target
+			httpClient.Port = 80
+			httpClient.Timeout = timeout
+			httpClient.SetBasicAuth(credential.Username, credential.Password)
+			if response, err := httpClient.Get("/", nil); err == nil {
+				if response.StatusCode >= 200 && response.StatusCode < 400 && response.Headers.Get("WWW-Authenticate") == "" {
+					*creds = append(*creds, &types.CredsResult{
+						Target: target, Port: 80, Service: "http",
+						Protocol: types.ProtocolHTTP, Username: credential.Username, Password: credential.Password,
+					})
+				}
+			}
+		}
+	}
 }
 
 func (scanner *Scanner) runExploitChain(target string, fingerprint *types.FingerprintResult, config *types.ScanConfig) []*types.ExploitResult {

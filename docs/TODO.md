@@ -505,28 +505,28 @@
 ## Phase 6: Advanced Features
 
 ### 6.1 Password Generators
-- [ ] Implement PasswordGenerator interface for known MAC-derived algorithms:
-  - [ ] D-Link WPA default key (last 8 chars of MAC, uppercase)
-  - [ ] D-Link Alphanetworks format patterns
-  - [ ] TP-Link MD5-based generators
-  - [ ] Thomson CPxxx patterns
-  - [ ] NETGEAR adjective+noun patterns
-- [ ] Implement generators in each vendor's `creds/` package
-- [ ] Integrate with Access pipeline: run generators before brute-force modules
+- [x] Implement PasswordGenerator interface for known MAC-derived algorithms:
+  - [x] D-Link WPA default key (last 8 chars of MAC, uppercase) — `routers/dlink/credentials/generator_wpa.go`
+  - [x] D-Link Alphanetworks format patterns — `routers/dlink/credentials/generator_alphanet.go`
+  - [x] TP-Link MD5-based generators — `routers/tplink/credentials/generator_md5.go`
+  - [x] Thomson CPxxx patterns — `routers/thomson/credentials/generator.go`
+  - [x] NETGEAR adjective+noun patterns — `routers/netgear/credentials/generator.go`
+- [x] Implement generators in each vendor's `creds/` package
+- [x] Integrate with Access pipeline: run generators before brute-force modules — wired in `scanner/scanner.go` via `testGeneratedCredentials()`
 
 ### 6.2 HTTP Form Brute-Force Module
-- [ ] `exploits/generic/creds/http_form_default.go`
-- [ ] Parse HTML login forms, detect username/password fields, detect auth failure message
-- [ ] Support CSRF token extraction from forms
-- [ ] Support custom success/failure detection patterns
+- [x] `exploits/generic/credentials/http_form_default.go`
+- [x] Parse HTML login forms, detect username/password fields, detect auth failure message
+- [x] Support CSRF token extraction from forms
+- [x] Support custom success/failure detection patterns
 
 ### 6.3 SNMP Brute-Force Module
-- [ ] `exploits/generic/creds/snmp_bruteforce.go`
-- [ ] Full community string dictionary brute-force using wordlist module
+- [x] `exploits/generic/credentials/snmp_bruteforce.go`
+- [x] Full community string dictionary brute-force using wordlist module
 
 ### 6.4 HTTP Basic/Digest Brute-Force Module
-- [ ] `exploits/generic/creds/http_basic_digest_bruteforce.go`
-- [ ] Full username+password dictionary brute-force
+- [x] `exploits/generic/credentials/http_basic_digest_bruteforce.go`
+- [x] Full username+password dictionary brute-force
 
 ### 6.5 JSON Output & Report Generation
 - [ ] Full JSON output for all CLI commands (identify, scan, access, list)
@@ -614,8 +614,8 @@
 ## Phase 7: Future Enhancements
 - [ ] Payload cross-compilation (`make payloads`) for all 7 architectures
 - [ ] Integration tests with podman containers (SSH/FTP/Telnet/SNMP)
-- [ ] Password generators (MAC-derived, serial-derived per vendor)
-- [ ] HTTP form brute-force with CSRF token handling
+- [x] Password generators (MAC-derived, serial-derived per vendor) — 5 generators implemented (dlink×2, tplink, thomson, netgear)
+- [x] HTTP form brute-force with CSRF token handling — `http_form_default.go`
 - [ ] Interactive shell mode with terminal emulation
 - [ ] Plugin system for user-defined exploits
 - [ ] Web UI / REST API for remote scanning

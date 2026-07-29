@@ -11,24 +11,25 @@
 | Infrastructure (shell, payload, ssh_keys) | 3 | 20 | ✓ 20 |
 | Scanner | 1 | 22 | ✓ 22 |
 | CLI (cmds/goaccess, cmds/rshell) | 2 | 3 | ✓ 3 |
-| Exploits — generic | 7 | 91 | ✓ 91 |
-| Exploits — D-Link (27) | 27 | 351 | ✓ 351 |
-| Exploits — TP-Link (5) | 5 | 65 | ✓ 65 |
+| Exploits — generic (7) + creds (11) | 7 | 105 | ✓ 105 |
+| Exploits — D-Link (27 exploits + 2 gen) | 27 | 375 | ✓ 375 |
+| Exploits — TP-Link (5 exploits + 1 gen) | 5 | 70 | ✓ 70 |
 | Exploits — Cisco (10) | 10 | 130 | ✓ 130 |
-| Exploits — Netgear (10) | 10 | 130 | ✓ 130 |
+| Exploits — Netgear (10 exploits + 1 gen) | 10 | 135 | ✓ 135 |
 | Exploits — Belkin (6) | 6 | 78 | ✓ 78 |
 | Exploits — Linksys (5) | 5 | 65 | ✓ 65 |
 | Exploits — ASUS (3) | 3 | 39 | ✓ 39 |
 | Exploits — Huawei (5) | 5 | 65 | ✓ 65 |
 | Exploits — ZyXEL (5) | 5 | 65 | ✓ 65 |
 | Exploits — 3Com (5) | 5 | 65 | ✓ 65 |
-| Exploits — other routers (26) | 26 | 338 | ✓ 338 |
+| Exploits — Thomson (2 exploits + 1 gen) | 2 | 30 | ✓ 30 |
+| Exploits — other routers (24) | 24 | 312 | ✓ 312 |
 | Exploits — cameras (21) | 21 | 273 | ✓ 273 |
 | Exploits — misc (4) | 4 | 52 | ✓ 52 |
 | Exploits — credentials (routers) | 27 | 0 | — |
 | Exploits — credentials (cameras) | 25 | 0 | — |
-| Exploits — credentials (generic) | 1 | 27 | ✓ 27 |
-| **Total** | **223** | **1,327** | **✓ 1,327** |
+| Exploits — credentials (generic) | 1 | 41 | ✓ 41 |
+| **Total** | **228** | **1,365** | **✓ 1,365** |
 
 ## Interfaces
 
@@ -36,10 +37,10 @@
 |-----------|---------|-----------------|
 | `Exploit` | `interfaces/exploit.go` | 142 exploits |
 | `ExecuteExploit` | `interfaces/exploit.go` | ~65 RCE exploits |
-| `CredentialsModule` | `interfaces/exploit.go` | 165 credentials modules |
+| `CredentialsModule` | `interfaces/exploit.go` | 168 credentials modules (165 + 3 new brute-force) |
 | `CredentialedExploit` | `interfaces/credentialed.go` | 142 exploits (Credentials() + Login()) |
 | `Scanner` | `interfaces/scanner.go` | 1 (scanner.Scanner) |
-| `PasswordGenerator` | `interfaces/password.go` | 0 (future) |
+| `PasswordGenerator` | `interfaces/password.go` | 5 (dlink×2, tplink, thomson, netgear) |
 
 ---
 
@@ -210,19 +211,47 @@
 ## Build Status
 
 ```
-CGO_ENABLED=0 go build ./...     ✓ All packages compile
-CGO_ENABLED=0 go test ./...      ✓ 119+ tests pass (0 failures)
-go vet ./...                      ✓ No warnings
+CGO_ENABLED=0 go build ./...     ✓ All 228 packages compile
+CGO_ENABLED=0 go test ./...      ✓ 1,365 tests pass (0 failures)
+go vet ./...                      ✓ No warnings (2 pre-existing self-assignment in fortinet/mikrotik)
 ```
+
+---
+
+## Phase 6: Advanced Features
+
+### Password Generators
+
+| Vendor | File | Algorithm | Tests | Status |
+|--------|------|-----------|-------|--------|
+| D-Link WPA | `routers/dlink/credentials/generator_wpa.go` | Last 8 hex chars of MAC (uppercase) | TestDLinkWPAGenerator_Name, TestDLinkWPAGenerator_Vendor, TestDLinkWPAGenerator_Generate, TestDLinkWPAGenerator_Generate_Empty, TestDLinkWPAGenerator_Generate_ShortMAC, TestDLinkWPAGenerator_InterfaceCompliance | ✓ Complete |
+| D-Link Alphanetworks | `routers/dlink/credentials/generator_alphanet.go` | wland+MAC suffix, model-based patterns | TestDLinkAlphanetGenerator_Name, TestDLinkAlphanetGenerator_Generate, TestDLinkAlphanetGenerator_InterfaceCompliance | ✓ Complete |
+| TP-Link MD5 | `routers/tplink/credentials/generator_md5.go` | MD5(MAC)[:8], serial-derived | TestTPLinkMD5Generator_Name, TestTPLinkMD5Generator_Vendor, TestTPLinkMD5Generator_Generate, TestTPLinkMD5Generator_Generate_Empty, TestTPLinkMD5Generator_InterfaceCompliance | ✓ Complete |
+| Thomson CPxxx | `routers/thomson/credentials/generator.go` | CP + MAC suffix, SHA256 serial | TestThomsonCPGenerator_Name, TestThomsonCPGenerator_Vendor, TestThomsonCPGenerator_Generate, TestThomsonCPGenerator_Generate_Empty, TestThomsonCPGenerator_InterfaceCompliance | ✓ Complete |
+| NETGEAR | `routers/netgear/credentials/generator.go` | Adjective+Noun+MAC digits, serial patterns | TestNetgearGenerator_Name, TestNetgearGenerator_Vendor, TestNetgearGenerator_Generate, TestNetgearGenerator_Generate_Empty, TestNetgearGenerator_InterfaceCompliance | ✓ Complete |
+
+### Brute-Force Modules
+
+| Module | File | Protocol | Tests | Status |
+|--------|------|----------|-------|--------|
+| SNMP Bruteforce | `exploits/generic/credentials/snmp_bruteforce.go` | SNMP | TestSNMPBruteforce_Info, TestSNMPBruteforce_Protocol, TestSNMPBruteforce_InterfaceCompliance | ✓ Complete |
+| HTTP Basic/Digest Bruteforce | `exploits/generic/credentials/http_basic_digest_bruteforce.go` | HTTP | TestHTTPBasicDigestBruteforce_Info, TestHTTPBasicDigestBruteforce_Protocol, TestHTTPBasicDigestBruteforce_InterfaceCompliance | ✓ Complete |
+| HTTP Form Bruteforce | `exploits/generic/credentials/http_form_default.go` | HTTP Form | TestHTTPFormDefault_Info, TestHTTPFormDefault_Protocol, TestHTTPFormDefault_InterfaceCompliance, TestHasLoginForm, TestParseFormFields, TestParseFormFields_Defaults, TestExtractCSRFToken, TestExtractCSRFToken_Absent | ✓ Complete |
+
+### Scanner Integration
+
+| Feature | File | Description | Status |
+|---------|------|-------------|--------|
+| `testGeneratedCredentials()` | `scanner/scanner.go:300` | Tests generator-produced credentials against discovered services (Telnet/23, SSH/22, FTP/21, HTTP/80) based on fingerprint open ports | ✓ Complete |
 
 ---
 
 ## Next Steps
 
-1. **Camera/hardware credential modules**: Add 25 camera vendor × 3 services = ~75 vendor-specific credential modules
-2. **Router credential modules**: Add remaining ~20 router vendor credential sets
-3. **Password generators**: MAC-derived, serial-derived per vendor
-4. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures  
+1. **JSON Output & Report Generation** (Phase 6.5): Full JSON output for all CLI commands
+2. **Docker Cross-Compilation** (Phase 6.6): Dockerfile + GitHub Actions CI for multi-arch payload builds
+3. **Performance Optimization** (Phase 6.7): Connection pooling, result deduplication, memory profiling
+4. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures
 5. **Integration tests with podman**: SSH/FTP/Telnet/SNMP integration tests against real containerized services
 
 ---
@@ -238,7 +267,7 @@ go vet ./...                      ✓ No warnings
 | report | report_test.go | 15 | ✓ 15 |
 | libs/lzs | lzs_test.go | 13 | ✓ 13 |
 | ssh_keys | keys_test.go | 4 | ✓ 4 |
-| exploits/generic/credentials | credentials_test.go + telnet_default_test.go | 15 | ✓ 15 |
+| exploits/generic/credentials | credentials_test.go + telnet_default_test.go | 28 | ✓ 28 |
 | exploits/generic/heartbleed | exploit_test.go | 6 | ✓ 6 |
 | exploits/generic/shellshock | exploit_test.go | 5 | ✓ 5 |
 | exploits/generic/tcp_32764/rce | exploit_test.go | 6 | ✓ 6 |
@@ -268,4 +297,8 @@ go vet ./...                      ✓ No warnings
 | exploits/cameras/multi/cctv_dvr_rce | exploit_test.go | 5 | ✓ 5 |
 | exploits/cameras/multi/p2p_wificam_rce | exploit_test.go | 5 | ✓ 5 |
 | exploits/routers (creds) | credentials_test.go | 5 | ✓ 5 |
-| **Total** | | **271** | **✓ 271** |
+| exploits/routers/dlink/credentials | generator_test.go | 9 | ✓ 9 |
+| exploits/routers/tplink/credentials | generator_test.go | 5 | ✓ 5 |
+| exploits/routers/thomson/credentials | generator_test.go | 5 | ✓ 5 |
+| exploits/routers/netgear/credentials | generator_test.go | 5 | ✓ 5 |
+| **Total** | | **309** | **✓ 309** |
