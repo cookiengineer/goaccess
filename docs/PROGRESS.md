@@ -10,8 +10,8 @@
 | Infrastructure (shell, payload, ssh_keys) | 3 | 20 | ✓ 20 |
 | Scanner | 1 | 22 | ✓ 22 |
 | CLI (cmds/goaccess, cmds/rshell) | 2 | 3 | ✓ 3 |
-| Exploits (credentials, heartbleed, shellshock, tcp_32764) | 4 | 22 | ✓ 22 |
-| **Total** | **24** | **184** | **✓ 184** |
+| Exploits (18 exploits + 24 credentials modules) | 17 | 107 | ✓ 107 |
+| **Total** | **37** | **271** | **✓ 271** |
 
 ---
 
@@ -191,12 +191,11 @@ go vet ./...                      ✓ No warnings
 
 ## Next Steps
 
-1. **Remaining exploits**: RomPager ROM-0 (CVE-2014-4019), GPON Home Gateway (CVE-2018-10561), SSH Authorized Keys
-2. **Bruteforce modules**: Telnet SSH FTP bruteforce (username × password cartesian)
-3. **Vendor-specific credential modules**: D-Link, TP-Link, Cisco, Netgear
-4. **Password generators**: MAC-derived, serial-derived per vendor
-5. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures
-6. **Vendor-specific exploits**: D-Link DIR-300/600, TP-Link Archer C2/C20i, MikroTik WinBox
+1. **Phase 5**: Remaining vendor exploits (cisco, netgear, linksys, asus, huawei, belkin, zyxel, 3com, etc. — 128 exploits across 30+ vendors)
+2. **Phase 5**: Remaining camera vendor creds (25 vendors × 3-4 services = ~79 modules)
+3. **Password generators**: MAC-derived, serial-derived per vendor
+4. **Payload cross-compilation**: Run `make payloads` to build reverse shell binaries for all architectures
+5. **Integration tests with podman**: SSH/FTP/Telnet/SNMP integration tests against real containerized services
 
 ---
 
@@ -226,4 +225,19 @@ go vet ./...                      ✓ No warnings
 | scanner | portscan_test.go + scanner_test.go + fingerprint_test.go | 22 | ✓ 22 |
 | shell | shell_test.go + listener_test.go | 13 | ✓ 13 |
 | cmds/rshell | main_test.go | 3 | ✓ 3 |
-| **Total** | | **184** | **✓ 184** |
+| exploits/generic/rom_0 | exploit_test.go | 6 | ✓ 6 |
+| exploits/generic/gpon_home_gateway | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/dlink/dir_300_600_rce | exploit_test.go + helpers_test.go | 5 | ✓ 5 |
+| exploits/routers/dlink/dir_300_645_815_upnp_rce | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/dlink/dir_8xx_password_disclosure | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/dlink/dir_825_path_traversal | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/dlink/multi_hnap_rce | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/dlink/dsl_2750b_rce | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/tplink/archer_c2_c20i_rce | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/mikrotik | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers/fortinet | exploit_test.go | 3 | ✓ 3 |
+| exploits/routers/netcore | exploit_test.go | 5 | ✓ 5 |
+| exploits/cameras/multi/cctv_dvr_rce | exploit_test.go | 5 | ✓ 5 |
+| exploits/cameras/multi/p2p_wificam_rce | exploit_test.go | 5 | ✓ 5 |
+| exploits/routers (creds) | credentials_test.go | 5 | ✓ 5 |
+| **Total** | | **271** | **✓ 271** |
