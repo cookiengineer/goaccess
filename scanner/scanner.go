@@ -1,18 +1,14 @@
 package scanner
 
 import (
-	"bufio"
 	"fmt"
-	"net"
-	"os"
-	"os/exec"
-	"strings"
 	"sync"
 	"time"
 
 	"github.com/cookiengineer/goaccess/exploit"
 	"github.com/cookiengineer/goaccess/interfaces"
 	"github.com/cookiengineer/goaccess/oui"
+	protocolarp "github.com/cookiengineer/goaccess/protocols/arp"
 	"github.com/cookiengineer/goaccess/protocols/ftp"
 	protocolhttp "github.com/cookiengineer/goaccess/protocols/http"
 	"github.com/cookiengineer/goaccess/protocols/snmp"
@@ -89,10 +85,10 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 
 	scanner.progress(config, "\r[*] Phase 1/6: Port scanning... done (%d ports open)\n", len(openPorts))
 
-	// Phase 2: MAC OUI lookup (same subnet only)
-	scanner.progress(config, "\r[*] Phase 2/6: MAC OUI lookup...")
+	// Phase 2: ARP probe
+	scanner.progress(config, "\r[*] Phase 2/6: ARP probe...")
 
-	macAddress := resolveMAC(target)
+	macAddress := probeARP(target)
 	if macAddress != "" {
 		result.MAC = macAddress
 		result.OUI = oui.Lookup(macAddress)
@@ -101,8 +97,8 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 		}
 	}
 
-	scanner.progress(config, "\r[*] Phase 2/6: MAC OUI lookup... done (%s)\n",
-		func() string { if macAddress != "" { return macAddress } else { return "not in ARP cache" } }())
+	scanner.progress(config, "\r[*] Phase 2/6: ARP probe... done (%s)\n",
+		func() string { if macAddress != "" { return macAddress } else { return "not resolved" } }())
 
 	// Phase 3: HTTP banner probe
 	scanner.progress(config, "\r[*] Phase 3/6: HTTP banner probe...")
@@ -504,45 +500,13 @@ func filterExploits(vendor string, config *types.ScanConfig) []interfaces.Exploi
 	return exploits
 }
 
-func resolveMAC(target string) string {
-	ip := net.ParseIP(target)
-	if ip == nil {
+func probeARP(target string) string {
+	client := protocolarp.NewClient()
+	mac, err := client.Resolve(target)
+	if err != nil || mac == nil {
 		return ""
 	}
-
-	mac := arpLookupLinux(target)
-	if mac == "" {
-		arpProbe(target)
-		mac = arpLookupLinux(target)
-	}
-
-	return mac
-}
-
-func arpLookupLinux(target string) string {
-	file, err := os.Open("/proc/net/arp")
-	if err != nil {
-		return ""
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	if !scanner.Scan() {
-		return ""
-	}
-
-	for scanner.Scan() {
-		fields := strings.Fields(scanner.Text())
-		if len(fields) >= 4 && fields[0] == target {
-			return fields[3]
-		}
-	}
-
-	return ""
-}
-
-func arpProbe(target string) {
-	exec.Command("ping", "-c", "1", "-W", "1", target).Run()
+	return mac.String()
 }
 
 func probeHTTP(target string, timeout time.Duration) []string {
