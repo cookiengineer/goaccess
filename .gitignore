@@ -1,0 +1,40 @@
+# Build outputs
+/bin/
+/payload/arm/*
+/payload/arm64/*
+/payload/mips/*
+/payload/mipsle/*
+/payload/mips64/*
+/payload/x86/*
+/payload/x86_64/*
+
+# Keep directory structure
+!/payload/arm/.gitkeep
+!/payload/arm64/.gitkeep
+!/payload/mips/.gitkeep
+!/payload/mipsle/.gitkeep
+!/payload/mips64/.gitkeep
+!/payload/x86/.gitkeep
+!/payload/x86_64/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test artifacts
+*.test
+*.out
+coverage.txt
+
+# Go
+vendor/
+
+# Other
+reference_codebases/
