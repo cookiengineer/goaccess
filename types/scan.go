@@ -1,6 +1,9 @@
 package types
 
-import "time"
+import (
+	"io"
+	"time"
+)
 
 // ScanConfig specifies the parameters for a scan operation.
 type ScanConfig struct {
@@ -38,6 +41,10 @@ type ScanConfig struct {
 
 	// LPORT is the listening port for reverse shell connections.
 	LPORT int
+
+	// ProgressWriter receives progress messages during identification.
+	// If nil, no progress is emitted.
+	ProgressWriter io.Writer
 }
 
 // ScanResult is emitted by the scanner for each exploit or credentials module checked.

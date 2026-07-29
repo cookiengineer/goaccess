@@ -1,8 +1,12 @@
 package scanner
 
 import (
+	"bufio"
 	"fmt"
 	"net"
+	"os"
+	"os/exec"
+	"strings"
 	"sync"
 	"time"
 
@@ -74,6 +78,8 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 	}
 
 	// Phase 1: Port scanning
+	scanner.progress(config, "\r[*] Phase 1/6: Port scanning...")
+
 	timeout := config.Timeout
 	if timeout <= 0 {
 		timeout = 2 * time.Second
@@ -81,7 +87,11 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 	openPorts := ScanPorts(target, CommonIOTPorts, timeout)
 	result.Services = openPorts
 
+	scanner.progress(config, "\r[*] Phase 1/6: Port scanning... done (%d ports open)\n", len(openPorts))
+
 	// Phase 2: MAC OUI lookup (same subnet only)
+	scanner.progress(config, "\r[*] Phase 2/6: MAC OUI lookup...")
+
 	macAddress := resolveMAC(target)
 	if macAddress != "" {
 		result.MAC = macAddress
@@ -91,19 +101,33 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 		}
 	}
 
+	scanner.progress(config, "\r[*] Phase 2/6: MAC OUI lookup... done (%s)\n",
+		func() string { if macAddress != "" { return macAddress } else { return "not in ARP cache" } }())
+
 	// Phase 3: HTTP banner probe
+	scanner.progress(config, "\r[*] Phase 3/6: HTTP banner probe...")
+
 	httpResult := probeHTTP(target, timeout)
 	if httpResult != nil {
 		result.Hints = append(result.Hints, httpResult...)
 	}
 
+	scanner.progress(config, "\r[*] Phase 3/6: HTTP banner probe... done (%d hints)\n", len(httpResult))
+
 	// Phase 4: UPnP SSDP probe
+	scanner.progress(config, "\r[*] Phase 4/6: UPnP SSDP probe...")
+
 	upnpResult := probeUPnP(target, timeout)
 	if upnpResult != "" {
 		result.Hints = append(result.Hints, fmt.Sprintf("UPnP: %s", upnpResult))
 	}
 
+	scanner.progress(config, "\r[*] Phase 4/6: UPnP SSDP probe... %s\n",
+		func() string { if upnpResult != "" { return "done (found)" } else { return "nothing found" } }())
+
 	// Phase 5: SNMP sysDescr probe
+	scanner.progress(config, "\r[*] Phase 5/6: SNMP sysDescr probe...")
+
 	community := "public"
 	if config != nil && config.MACAddress != "" {
 		// Use MAC-derived community? Not yet implemented.
@@ -113,7 +137,12 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 		result.Hints = append(result.Hints, fmt.Sprintf("SNMP sysDescr: %s", snmpDesc))
 	}
 
+	scanner.progress(config, "\r[*] Phase 5/6: SNMP sysDescr probe... %s\n",
+		func() string { if snmpDesc != "" { return "done (found)" } else { return "no response" } }())
+
 	// Phase 6: Match fingerprints from registered exploits
+	scanner.progress(config, "\r[*] Phase 6/6: Fingerprint matching...")
+
 	vendor, model, confidence := matchFingerprints(target, result, timeout)
 	if vendor != "" {
 		result.Vendor = vendor
@@ -122,6 +151,8 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 		result.Model = model
 	}
 	result.Confidence = confidence
+
+	scanner.progress(config, "\r[*] Phase 6/6: Fingerprint matching... done (%.1f%% confidence)\n", confidence*100)
 
 	scanner.mutex.Lock()
 	scanner.fingerprint = result
@@ -478,9 +509,40 @@ func resolveMAC(target string) string {
 	if ip == nil {
 		return ""
 	}
-	// ARP-based MAC resolution requires root/system access
-	// For now, return empty — MAC must be supplied via config.MACAddress
+
+	mac := arpLookupLinux(target)
+	if mac == "" {
+		arpProbe(target)
+		mac = arpLookupLinux(target)
+	}
+
+	return mac
+}
+
+func arpLookupLinux(target string) string {
+	file, err := os.Open("/proc/net/arp")
+	if err != nil {
+		return ""
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	if !scanner.Scan() {
+		return ""
+	}
+
+	for scanner.Scan() {
+		fields := strings.Fields(scanner.Text())
+		if len(fields) >= 4 && fields[0] == target {
+			return fields[3]
+		}
+	}
+
 	return ""
+}
+
+func arpProbe(target string) {
+	exec.Command("ping", "-c", "1", "-W", "1", target).Run()
 }
 
 func probeHTTP(target string, timeout time.Duration) []string {
@@ -726,4 +788,10 @@ func deduplicateVulnerabilities(vulns []*types.VulnResult) []*types.VulnResult {
 	}
 
 	return unique
+}
+
+func (scanner *Scanner) progress(config *types.ScanConfig, format string, arguments ...interface{}) {
+	if config != nil && config.ProgressWriter != nil {
+		fmt.Fprintf(config.ProgressWriter, format, arguments...)
+	}
 }

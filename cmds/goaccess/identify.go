@@ -45,6 +45,7 @@ func runIdentify(arguments []string) {
 	config.Threads = *threads
 	config.Verbose = *verbose
 	config.Timeout = time.Duration(*timeoutSeconds) * time.Second
+	config.ProgressWriter = os.Stderr
 
 	if *ouiOnly {
 		macAddress := config.MACAddress
@@ -57,7 +58,6 @@ func runIdentify(arguments []string) {
 	}
 
 	scanEngine := defaultScanner(config)
-	output.Status("Identifying %s...", target)
 
 	result, err := scanEngine.Identify(target, config)
 	if err != nil {

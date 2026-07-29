@@ -7,7 +7,7 @@ LDFLAGS      := -ldflags="-s -w"
 OUTPUT_DIR   := bin
 PAYLOAD_DIR  := payload
 
-.PHONY: all build payloads test lint clean
+.PHONY: all build payloads test lint clean oui-update
 
 all: build
 
@@ -62,3 +62,7 @@ clean:
 	rm -f $(PAYLOAD_DIR)/mips64/reverse_tcp $(PAYLOAD_DIR)/mips64/bind_tcp
 	rm -f $(PAYLOAD_DIR)/x86/reverse_tcp $(PAYLOAD_DIR)/x86/bind_tcp
 	rm -f $(PAYLOAD_DIR)/x86_64/reverse_tcp $(PAYLOAD_DIR)/x86_64/bind_tcp
+
+oui-update:
+	@echo "Downloading IEEE OUI database..."
+	$(GO) run ./cmds/oui-update

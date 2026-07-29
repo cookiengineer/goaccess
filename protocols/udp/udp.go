@@ -43,6 +43,12 @@ func (client *Client) Send(data []byte) error {
 	if client.connection == nil {
 		return fmt.Errorf("udp: not connected")
 	}
+
+	deadline := time.Now().Add(client.Timeout)
+	if err := client.connection.SetWriteDeadline(deadline); err != nil {
+		return fmt.Errorf("udp: set write deadline failed: %w", err)
+	}
+
 	_, err := client.connection.Write(data)
 	if err != nil {
 		return fmt.Errorf("udp: send failed: %w", err)
@@ -54,6 +60,11 @@ func (client *Client) Send(data []byte) error {
 func (client *Client) Recv(length int) ([]byte, error) {
 	if client.connection == nil {
 		return nil, fmt.Errorf("udp: not connected")
+	}
+
+	deadline := time.Now().Add(client.Timeout)
+	if err := client.connection.SetReadDeadline(deadline); err != nil {
+		return nil, fmt.Errorf("udp: set read deadline failed: %w", err)
 	}
 
 	buffer := make([]byte, length)
