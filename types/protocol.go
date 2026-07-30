@@ -12,6 +12,7 @@ const (
 	ProtocolTelnet                  // Telnet (TCP port 23)
 	ProtocolFTP                     // FTP (TCP port 21)
 	ProtocolSNMP                    // SNMP (UDP port 161)
+	ProtocolVTwoSDK                 // DJI vtwo_sdk binary TLV protocol (TCP port 10000)
 )
 
 // String returns the human-readable protocol name.
@@ -33,6 +34,8 @@ func (protocol Protocol) String() string {
 		return "ftp"
 	case ProtocolSNMP:
 		return "snmp"
+	case ProtocolVTwoSDK:
+		return "vtwo_sdk"
 	default:
 		return "unknown"
 	}
@@ -55,6 +58,8 @@ func (protocol Protocol) DefaultPort() int {
 		return 161
 	case ProtocolTCP, ProtocolUDP:
 		return 0 // No default; must be specified
+	case ProtocolVTwoSDK:
+		return 10000
 	default:
 		return 0
 	}

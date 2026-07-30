@@ -45,7 +45,8 @@ var deviceTypeOrder = map[string]int{
 	"generic": 0,
 	"router":  1,
 	"camera":  2,
-	"misc":    3,
+	"drone":   3,
+	"misc":    4,
 }
 
 func sortExploits(exploits []interfaces.Exploit) {

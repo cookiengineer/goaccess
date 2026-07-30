@@ -83,6 +83,12 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 	openPorts := ScanPorts(target, CommonIOTPorts, timeout)
 	result.Services = openPorts
 
+	droneHints := DroneServiceHints(openPorts)
+	if len(droneHints) > 0 {
+		result.Hints = append(result.Hints, "[Drone] Drone-specific services detected:")
+		result.Hints = append(result.Hints, droneHints...)
+	}
+
 	scanner.progress(config, "\r[*] Phase 1/6: Port scanning... done (%d ports open)\n", len(openPorts))
 
 	// Phase 2: ARP probe
@@ -94,6 +100,12 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 		result.OUI = oui.Lookup(macAddress)
 		if result.OUI != "" {
 			result.Hints = append(result.Hints, fmt.Sprintf("MAC OUI: %s", result.OUI))
+			if droneVendor, isDrone := IsDroneOUI(cleanMACForOUI(macAddress)); isDrone {
+				result.Hints = append(result.Hints, fmt.Sprintf("[Drone] MAC OUI matches drone vendor: %s", droneVendor))
+				if result.Vendor == "" {
+					result.Vendor = droneVendor
+				}
+			}
 		}
 	}
 
@@ -758,4 +770,18 @@ func (scanner *Scanner) progress(config *types.ScanConfig, format string, argume
 	if config != nil && config.ProgressWriter != nil {
 		fmt.Fprintf(config.ProgressWriter, format, arguments...)
 	}
+}
+
+func cleanMACForOUI(mac string) string {
+	cleaned := make([]byte, 0, 12)
+	for _, char := range mac {
+		if char >= '0' && char <= '9' {
+			cleaned = append(cleaned, byte(char))
+		} else if char >= 'A' && char <= 'F' {
+			cleaned = append(cleaned, byte(char))
+		} else if char >= 'a' && char <= 'f' {
+			cleaned = append(cleaned, byte(char)-32)
+		}
+	}
+	return string(cleaned)
 }

@@ -18,7 +18,56 @@ var CommonIOTPorts = []int{
 	1900,  // UPnP SSDP
 	8080,  // HTTP-alt
 	8291,  // MikroTik WinBox
+	10000, // DJI vtwo_sdk
 	32764, // SerComm backdoor
+}
+
+// DroneOUIs maps known drone vendor MAC OUI prefixes to vendor names.
+var DroneOUIs = map[string]string{
+	"60601F": "DJI",
+	"E04F43": "DJI",
+	"34D262": "DJI",
+	"28E5B6": "DJI",
+	"A0143D": "Parrot",
+	"9003B7": "Parrot",
+	"00267E": "Parrot",
+	"AC3A7A": "Ryze (Tello)",
+}
+
+// DroneServicePorts maps drone-relevant ports to service descriptions.
+var DroneServicePorts = map[int]string{
+	21:    "FTP (Anonymous — Parrot, DJI, DBPOWER)",
+	23:    "Telnet (No auth / root — Parrot AR Drone)",
+	80:    "HTTP Media API (CVE-2023-6949 — DJI)",
+	554:   "RTSP Video Stream",
+	5555:  "Raw H.264 Video Stream (Parrot AR Drone)",
+	8889:  "UDP SDK Command (Ryze Tello)",
+	10000: "vtwo_sdk Root Service (DJI)",
+	11111: "UDP Video Stream (Ryze Tello)",
+}
+
+// IsDroneOUI checks if a MAC OUI prefix matches a known drone vendor.
+func IsDroneOUI(ouiPrefix string) (string, bool) {
+	if len(ouiPrefix) < 6 {
+		return "", false
+	}
+	vendor, ok := DroneOUIs[ouiPrefix[:6]]
+	return vendor, ok
+}
+
+// DroneServiceHints returns service description hints for open drone ports.
+func DroneServiceHints(openPorts []int) []string {
+	var hints []string
+	for _, port := range openPorts {
+		if description, ok := DroneServicePorts[port]; ok {
+			hints = append(hints, "port "+itos(port)+": "+description)
+		}
+	}
+	return hints
+}
+
+func itos(value int) string {
+	return fmt.Sprintf("%d", value)
 }
 
 // ScanPort checks if a single TCP port is open on the target.

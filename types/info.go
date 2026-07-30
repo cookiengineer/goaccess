@@ -8,6 +8,7 @@ const (
 	DeviceCamera  DeviceType = "camera"
 	DeviceMisc    DeviceType = "misc"
 	DeviceGeneric DeviceType = "generic"
+	DeviceDrone   DeviceType = "drone"
 )
 
 // Info holds static metadata for an exploit or credentials module.

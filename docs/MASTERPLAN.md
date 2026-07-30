@@ -422,6 +422,34 @@ goaccess/                                          # Git repo root = Go module
 │       └── wepresent/
 │           └── wipg1000_rce/
 │
+│   └── drones/                                    # Commercial drone exploits (NEW)
+│       ├── imports.go
+│       ├── parrot/
+│       │   ├── imports.go
+│       │   ├── credentials/ (ftp_default, http_default, telnet_default)
+│       │   ├── ar_drone_telnet_root/
+│       │   ├── ar_drone_ftp_anon/
+│       │   └── bebop_ftp_anon/
+│       ├── dji/
+│       │   ├── imports.go
+│       │   ├── credentials/ (ftp_default, http_default)
+│       │   ├── http_media_api/
+│       │   ├── vtwo_sdk_crash/
+│       │   ├── vtwo_sdk_rce/
+│       │   └── ftp_diagnostic_dos/
+│       ├── tello/
+│       │   ├── imports.go
+│       │   ├── credentials/ (udp_default)
+│       │   └── udp_control_land/
+│       ├── dbpower/
+│       │   ├── imports.go
+│       │   └── u818a_ftp_anon/
+│       └── generic/
+│           ├── imports.go
+│           ├── drone_identify/
+│           ├── drone_open_ports/
+│           └── drone_creds/
+│
 ├── cmds/
 │   ├── goaccess/
 │   │   └── main.go                                # CLI binary (flag-based, no runtime deps)
@@ -464,6 +492,7 @@ const (
     ProtocolTelnet                   // Telnet (TCP port 23)
     ProtocolFTP                      // FTP (TCP port 21)
     ProtocolSNMP                     // SNMP (UDP port 161)
+    ProtocolVTwoSDK                  // DJI vtwo_sdk TLV protocol (TCP port 10000)
 )
 
 func (p Protocol) String() string
@@ -482,6 +511,7 @@ const (
     DeviceCamera  DeviceType = "camera"
     DeviceMisc    DeviceType = "misc"
     DeviceGeneric DeviceType = "generic"
+    DeviceDrone   DeviceType = "drone"
 )
 
 type Info struct {

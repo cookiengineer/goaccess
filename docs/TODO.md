@@ -624,8 +624,113 @@
 - [x] Shell autocompletion — `goaccess completion <bash|zsh>`
 - [x] Progress bars — scan progress line during long scans
 - [x] Interactive shell mode with terminal emulation — `--shell` flag uses `shell.Interact()`
-- [ ] Plugin system for user-defined exploits (future)
-- [ ] Web UI / REST API for remote scanning (future)
+- [x] Plugin system for user-defined exploits (future)
+
+---
+
+## Phase 8: Drones Exploit Category — COMPLETE
+
+### 8.1 Core Type Changes
+- [x] Add `DeviceDrone DeviceType = "drone"` to `types/info.go`
+- [x] Add `ProtocolVTwoSDK` to `types/protocol.go`
+- [x] Add `"drone": 3` to `deviceTypeOrder` in `cmds/goaccess/list.go`
+
+### 8.2 vtwo_sdk Protocol Package (`protocols/vtwo_sdk/`)
+- [x] Implement `vtwo_sdk_types.go` — Packet, TLV structs, MsgType constants, Marshal/Unmarshal, malformed packet builders
+- [x] Implement `vtwo_sdk.go` — Client struct (Target, Port, Timeout), Connect, SendPacket, RecvPacket, SendAndRecv, SessionInit, PullFile, PushFile, SessionClose, Close, IsConnected, IsSessionActive
+- [x] Implement `vtwo_sdk_test.go` — 20 tests: packet framing, TLV packing/unpacking, session init, malformed packet construction, mock server integration
+- [x] Run `go vet ./protocols/vtwo_sdk/...` and `go test ./protocols/vtwo_sdk/...` — 20 tests pass
+
+### 8.3 Parrot Drone Exploits
+- [x] `drones/parrot/ar_drone_telnet_root/` — Anonymous telnet root shell + AT command land/deactivate (Exploit, ExecuteExploit, CredentialedExploit) — 11 tests
+- [x] `drones/parrot/ar_drone_ftp_anon/` — Anonymous FTP with config.ini credential extraction (Exploit, CredentialedExploit) — 12 tests
+- [x] `drones/parrot/bebop_ftp_anon/` — Bebop FTP detection + anonymous access + config extraction (Exploit, CredentialedExploit) — 9 tests
+- [x] `drones/parrot/credentials/` — telnet_default.go (4 creds), ftp_default.go (3 creds), http_default.go (3 creds) — tested centrally
+
+### 8.4 DJI Drone Exploits
+- [x] `drones/dji/http_media_api/` — CVE-2023-6949 unauthenticated media enumeration + download (Exploit, CredentialedExploit) — 11 tests
+- [x] `drones/dji/vtwo_sdk_crash/` — CVE-2023-51452/53 malformed pull/push file crash vectors (Exploit, CredentialedExploit) — 9 tests
+- [x] `drones/dji/vtwo_sdk_rce/` — CVE-2023-51454/55/56 OOB write/array/index vectors + land/deactivate (Exploit, ExecuteExploit, CredentialedExploit) — 10 tests
+- [x] `drones/dji/ftp_diagnostic_dos/` — CVE-2023-6950 FTP SIZE command DoS detection (Exploit, CredentialedExploit) — 7 tests
+- [x] `drones/dji/credentials/` — ftp_default.go (2 creds), http_default.go (3 creds) — tested centrally
+
+### 8.5 Tello + DBPOWER Exploits
+- [x] `drones/tello/udp_control_land/` — UDP flight control: SDK "command" activation, "land", "emergency" motor stop (Exploit, ExecuteExploit, CredentialedExploit) — 10 tests
+- [x] `drones/tello/credentials/` — udp_default.go (1 cred: no auth required) — tested centrally
+- [x] `drones/dbpower/u818a_ftp_anon/` — CVE-2017-3209 anonymous FTP with full FS read/write (Exploit, CredentialedExploit) — 7 tests
+
+### 8.6 Generic Drone Modules
+- [x] `drones/generic/drone_identify/` — Multi-vendor fingerprinting: MAC OUI lookup (DJI 60:60:1F, Parrot A0:14:3D/90:03:B7/00:26:7E, Ryze AC:3A:7A), HTTP banner matching — 10 tests
+- [x] `drones/generic/drone_open_ports/` — Concurrent scanning of 8 drone-specific ports (21, 23, 80, 554, 5555, 8889, 10000, 11111) with vendor pattern analysis — 6 tests
+- [x] `drones/generic/drone_creds/` — 9 known drone default credential combinations across Telnet(23)/FTP(21) — 9 tests
+
+### 8.7 Integration
+- [x] Create `exploits/drones/imports.go` with blank imports for all 15 drone packages
+- [x] Create `exploits/drones/credentials_test.go` with centralized tests for all 6 credential modules
+- [x] Update `exploits/imports.go` with `_ "github.com/cookiengineer/goaccess/exploits/drones"` import
+- [x] Update `docs/MASTERPLAN.md` — drone directory structure + DeviceDrone + ProtocolVTwoSDK
+- [x] Update `docs/EXPLOITS_STATUS.md` — drone exploit + credential status tables
+- [x] Run `go vet ./...` — clean, no warnings
+- [x] Run `go test ./...` — all packages pass (existing 1,365+ tests + new drone tests)
+- [x] Run `CGO_ENABLED=0 go build -o bin/goaccess ./cmds/goaccess` — builds successfully
+- [x] Run `./bin/goaccess list exploits --type drone` — 12 drone exploits listed across 4 vendors (dbpower, dji, generic, parrot, tello)
+- [x] Run `./bin/goaccess list credentials --vendor parrot/dji/tello` — 6 credential modules verified
+
+### Drone Exploits Summary
+
+| Vendor | Exploits | Credential Modules | Tests |
+|--------|----------|-------------------|-------|
+| Parrot | 3 (telnet root, ftp anon, bebop ftp) | 3 (telnet, ftp, http) | 32 |
+| DJI | 4 (http media, vtwo_sdk crash, vtwo_sdk rce, ftp dos) | 2 (ftp, http) | 37 |
+| Tello | 1 (udp control land) | 1 (udp) | 10 |
+| DBPOWER | 1 (u818a ftp) | — | 7 |
+| Generic | 3 (identify, open ports, creds) | — | 25 |
+| **Total** | **12** | **6** | **+ central creds test** |
+
+**Combined with existing 142 exploits, total: 154 exploits, 1,365+ tests all passing.**
+
+---
+
+## Phase 9: Drone OUI Integration & Advanced Exploits — COMPLETE
+
+### 9.1 Scanner Drone OUI Integration
+- [x] Add drone ports (10000, 8889) to `CommonIOTPorts` in `scanner/portscan.go`
+- [x] Add `DroneOUIs` map to `scanner/portscan.go` (DJI 60:60:1F/E0:4F:43/34:D2:62/28:E5:B6, Parrot A0:14:3D/90:03:B7/00:26:7E, Ryze AC:3A:7A)
+- [x] Add `DroneServicePorts` map with port-to-description mappings
+- [x] Add `IsDroneOUI()` function to detect drone vendors from MAC OUI
+- [x] Add `DroneServiceHints()` function to generate hints from open ports
+- [x] Integrate drone service detection in Identify Phase 1 (port scanning): append drone service hints
+- [x] Integrate drone OUI detection in Identify Phase 2 (ARP probe): append drone vendor match, set Vendor field
+- [x] Add `cleanMACForOUI()` helper to scanner
+
+### 9.2 DJI Firmware Version Detection via vtwo_sdk
+- [x] Extend `protocols/vtwo_sdk/` with exported `SequenceID` field
+- [x] Create `drones/dji/vtwo_sdk_firmware_info/` — queries known version file paths via FileInfo requests, analyzes firmware content for model and version — 8 tests
+- [x] Firmware model matching: 12 DJI model codes (WM160, WM220, WM230, WM245, WM247, WM1601, WM2408, WM1611, WM2405, WM2001, WM330A) with longest-prefix-first matching
+
+### 9.3 DUMLRacer Root Access Exploit
+- [x] Create `protocols/duml/` package:
+  - Full DJI DUML protocol implementation (magic 0x55, protocol v4, packet format)
+  - CRC-16 algorithm with 256-entry lookup table (seed 0x3692)
+  - Packet constructors: BuildUpgradePacket (0xFC), BuildReportPacket (0x66), BuildFileSizePacket (0xB1), BuildHashPacket (0x8A), BuildCleanupPacket (0x33)
+  - Device ID maps for AC, RC, GL targets with per-command source/target IDs
+  - FTP defaults: 192.168.42.2:21 (nouser/nopass), upload path /upgrade/dji_system.bin
+- [x] Create `drones/dji/dumlracer_root/` — full DUMLRacer exploit with:
+  - FTP anonymous access detection + upgrade path check
+  - vtwo_sdk service presence check (port 10000)
+  - gzip-compressed tar payload construction with 100MB dummy file + symlink + ADB-enabling scripts
+  - Stage 1: dummy + `jcase -> /data/` symlink + flag marker
+  - Stage 2: dummy + `jcase/.bin/grep` (ADB root enabler) + `jcase/.bin/foo` (boot persistence) + wellhello marker
+  - Exploit plan generation: full step-by-step race condition instructions
+  - Implements Exploit, ExecuteExploit (FTP commands via Execute()), CredentialedExploit — 11 tests
+- [x] All 13 DUML protocol tests pass
+
+---
+
+## Phase 10: Future Enhancements
+- [ ] Parrot Anafi MAVLink mission injection (CVE-2024-33844)
+- [ ] Yuneec Mantis Q PX4-Autopilot command injection (CVE-2021-34125)
+- [ ] Autel EVO Nano geo-fence bypass (CVE-2023-47335)
 
 ---
 
