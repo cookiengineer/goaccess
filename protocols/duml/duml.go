@@ -81,22 +81,22 @@ type TargetIDs struct {
 
 var DeviceIDMap = map[string]TargetIDs{
 	TargetAC: {
-		Upgrade:  DeviceIDs{Source: 0x282A, Target: 0x5765},
-		Report:   DeviceIDs{Source: 0x282A, Target: 0x5768},
-		FileSize: DeviceIDs{Source: 0x282A, Target: 0x576B},
-		Hash:     DeviceIDs{Source: 0x282A, Target: 0x57F6},
+		Upgrade:  DeviceIDs{Source: 0x2A28, Target: 0x6557},
+		Report:   DeviceIDs{Source: 0x2A28, Target: 0x6857},
+		FileSize: DeviceIDs{Source: 0x2A28, Target: 0x6B57},
+		Hash:     DeviceIDs{Source: 0x2A28, Target: 0xF657},
 	},
 	TargetRC: {
-		Upgrade:  DeviceIDs{Source: 0x2D2A, Target: 0x27E7},
-		Report:   DeviceIDs{Source: 0x2D2A, Target: 0x27EA},
-		FileSize: DeviceIDs{Source: 0x2D2A, Target: 0x27EC},
-		Hash:     DeviceIDs{Source: 0x2D2A, Target: 0x2802},
+		Upgrade:  DeviceIDs{Source: 0x2A2D, Target: 0xE727},
+		Report:   DeviceIDs{Source: 0x2A2D, Target: 0xEA27},
+		FileSize: DeviceIDs{Source: 0x2A2D, Target: 0xEC27},
+		Hash:     DeviceIDs{Source: 0x2A2D, Target: 0x0228},
 	},
 	TargetGL: {
-		Upgrade:  DeviceIDs{Source: 0x3C2A, Target: 0x35F7},
-		Report:   DeviceIDs{Source: 0x3C2A, Target: 0x35FA},
-		FileSize: DeviceIDs{Source: 0x3C2A, Target: 0x35FD},
-		Hash:     DeviceIDs{Source: 0x3C2A, Target: 0x365B},
+		Upgrade:  DeviceIDs{Source: 0x2A3C, Target: 0xF735},
+		Report:   DeviceIDs{Source: 0x2A3C, Target: 0xFA35},
+		FileSize: DeviceIDs{Source: 0x2A3C, Target: 0xFD35},
+		Hash:     DeviceIDs{Source: 0x2A3C, Target: 0x5B36},
 	},
 }
 
@@ -156,7 +156,7 @@ func BuildFileSizePacket(targetType string, fileSize uint32) []byte {
 		byte(ids.FileSize.Source >> 8), byte(ids.FileSize.Source & 0xFF),
 		byte(ids.FileSize.Target >> 8), byte(ids.FileSize.Target & 0xFF),
 		PacketTypeFlag, 0x00, 0x08, 0x00,
-		byte(fileSize >> 24), byte(fileSize >> 16), byte(fileSize >> 8), byte(fileSize),
+		byte(fileSize), byte(fileSize >> 8), byte(fileSize >> 16), byte(fileSize >> 24),
 		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x04,
 	}
 	return AppendCRC(packet)
@@ -177,7 +177,6 @@ func BuildHashPacket(targetType string, md5Hash []byte) []byte {
 		PacketTypeFlag, 0x00, 0x0A, 0x00,
 	}
 	packet = append(packet, md5Hash[:16]...)
-	packet = append(packet, 0x00, 0x00)
 	return AppendCRC(packet)
 }
 
@@ -185,12 +184,11 @@ func BuildCleanupPacket(targetType string) []byte {
 	if targetType != TargetAC {
 		return nil
 	}
-	packet := []byte{
+	return []byte{
 		MagicByte, 0x0D, ProtocolVersion, CmdCleanup,
 		0x2A, 0x28, 0x68, 0x57,
 		0x00, 0x00, 0x0A, 0xF0, 0x3C,
 	}
-	return packet
 }
 
 func BitmaskUint32(value uint32) []byte {
