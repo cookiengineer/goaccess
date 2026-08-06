@@ -115,6 +115,9 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 		}
 	}
 
+	// Try drone firmware extraction (vtwo_sdk, telnet) if drone ports are open
+	probeDroneFirmware(target, openPorts, timeout, result)
+
 	// Phase 3: ARP probe
 	scanner.progress(config, "\r[*] Phase 3/6: ARP probe...")
 

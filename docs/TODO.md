@@ -783,17 +783,46 @@
 - [x] Extract firmware from known server software version patterns in HTTP response headers
 - [x] Patterns: `cisco-IOS/X.Y`, `uFOS/X.Y`, `RomPager/X.Y`, `GoAhead-Webs/X.Y`, `mini_httpd/X.Y`, `lighttpd/X.Y`, `thttpd/X.Y`, `Boa/X.Y`
 
-### 9.6.5 Firmware Patterns Coverage (33 vendors)
-- [x] ASUS, Actiontec, Arris, BT, Belkin, Billion, Buffalo, Cisco, Comtrend
-- [x] D-Link, DD-WRT, DrayTek, Fortinet, FreshTomato, Gargoyle, Huawei
-- [x] Juniper, Linksys, MikroTik, NETGEAR, OPNsense, OpenWrt, Sagemcom
-- [x] Sercomm, TP-Link, Technicolor, Thomson, Tomato, Ubiquiti, VyOS
-- [x] ZTE, ZyXEL, pfSense
+### 9.6.5 Firmware Patterns Coverage (138 vendors)
+- [x] Routers (58): ASUS, Aruba, Belkin, Billion, Buffalo, Cisco, Comtrend, D-Link, DD-WRT, DrayTek, Fortinet, FreshTomato, Gargoyle, Huawei, IPFire, Juniper, Linksys, MikroTik, NETGEAR, OpenWrt, OPNsense, Palo Alto, pfSense, Sagemcom, SonicWall, TP-Link, Technicolor, Thomson, Tomato, TRENDnet, Tenda, Ubiquiti, VyOS, ZTE, ZyXEL, and others
+- [x] Cameras (28): ACTi, Arecont, Avigilon, Avtech, Axis, Basler, Beward, Brickcom, Canon, GeoVision, Geutebruck, Grandstream, Hikvision, Honeywell, IQinVision, JVC, Jovision, Mobotix, MVPower, Samsung, Sentry360, Speco, StarDot, Vacron, VideoIQ, XiongMai, and others
+- [x] ISPs (14): AT&T, BT, Comcast/Xfinity, Orange/Livebox, Sky, Spectrum, Swisscom, Telstra, Virgin Media, Vodafone, KPN, StarHub, Beeline, and others
+- [x] Industrial/Enterprise (20): Alcatel-Lucent, Calix, Cambium, Cradlepoint, Digi, Edimax, EnGenius, Extreme, FiberHome, Hitron, Lancom, Luxul, Motorola, Moxa, NetComm, Peplink, Ruckus, Sierra Wireless, Teltonika, Zhone, and others
+- [x] Misc/IoT (8): Amazon/Eero, Google/Nest, GL.iNet, LG, Miele, Plume, WatchGuard, WePresent, Western Digital, Xiaomi
+- [x] Legacy/Niche (10): 2wire, 3Com, Actiontec, Asmax, BEC, Bhu, Corega, Netsys, SMC, Shuttle, and others
 
 ### 9.6.6 Documentation
 - [x] Update `docs/MASTERPLAN.md` — firmware extraction mechanisms in Identify pipeline
-- [x] Update `docs/PROGRESS.md` — firmware patterns coverage list
+- [x] Update `docs/PROGRESS.md` — firmware patterns coverage list, drone probe section
 - [x] Update `docs/TODO.md` — this section
+
+---
+
+## Phase 9.7: Drone Firmware Extraction — COMPLETE
+
+### 9.7.1 DJI Drone Firmware
+- [x] Create `scanner/drone_probes.go` — `probeDJIFirmware()` using vtwo_sdk protocol
+- [x] Connect to port 10000, session init, FileInfo requests for known firmware paths
+- [x] Regex extract from TLV payload values
+- [x] Paths: `/etc/version`, `/etc/dji_version`, `/system/build.prop`, `/etc/os-release`, `/proc/version`
+
+### 9.7.2 Parrot Drone Firmware
+- [x] `probeParrotFirmware()` using telnet protocol (no auth root shell)
+- [x] Connect to port 23, read banner, execute `uname -a`, `cat /etc/version`
+
+### 9.7.3 HTTP Indicators for Drones
+- [x] Add 2 DJI HTTP Media API indicators to `http_indicators.json`
+- [x] GET `/` with title/body containing "DJI"
+- [x] GET `/v2` with JSON response containing "path", "name"
+
+### 9.7.4 Scanner Integration
+- [x] Wire `probeDroneFirmware()` into Identify pipeline after Phase 2 firmware probe
+- [x] Called when drone-relevant ports (10000, 23) are open
+
+### 9.7.5 Verification
+- [x] `go vet ./...` — clean
+- [x] `go build ./...` — clean
+- [x] `go test ./...` — all pass
 
 ---
 

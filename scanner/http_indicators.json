@@ -109,7 +109,9 @@
     "path": "/",
     "title": [
       "Cisco Wireless"
-    ]
+    ],
+    "firmware_regex": "(?:Version|Software)\\s+[:=]\\s*([0-9][0-9.()A-Za-z]+)",
+    "firmware_group": 1
   },
   {
     "vendor": "Cisco",
@@ -328,7 +330,9 @@
     "title": [
       "Palo Alto",
       "PAN-OS"
-    ]
+    ],
+    "firmware_regex": "PAN-OS\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Palo Alto",
@@ -336,7 +340,9 @@
     "path": "/",
     "content": [
       "Palo Alto"
-    ]
+    ],
+    "firmware_regex": "PAN-OS\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Palo Alto",
@@ -361,7 +367,9 @@
     "vendor": "Palo Alto",
     "product": "PAN-OS",
     "path": "/favicon.ico",
-    "md5": "c3d5e7f9a1b3c5d7e9f1g3h5j7k9l1m3"
+    "md5": "c3d5e7f9a1b3c5d7e9f1g3h5j7k9l1m3",
+    "firmware_regex": "PAN-OS\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "SonicWall",
@@ -370,7 +378,9 @@
     "title": [
       "SonicWall",
       "SonicOS"
-    ]
+    ],
+    "firmware_regex": "(?:SonicOS|SonicWall)\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "SonicWall",
@@ -378,7 +388,9 @@
     "path": "/",
     "content": [
       "SonicWall"
-    ]
+    ],
+    "firmware_regex": "(?:SonicOS|SonicWall)\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "SonicWall",
@@ -417,7 +429,9 @@
     "vendor": "SonicWall",
     "product": "SonicOS",
     "path": "/favicon.ico",
-    "md5": "d4e6f8g0a2b4c6d8e0f2g4h6j8k0l2m4"
+    "md5": "d4e6f8g0a2b4c6d8e0f2g4h6j8k0l2m4",
+    "firmware_regex": "(?:SonicOS|SonicWall)\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "WatchGuard",
@@ -426,7 +440,9 @@
     "title": [
       "WatchGuard",
       "Firebox"
-    ]
+    ],
+    "firmware_regex": "(?:Fireware|WatchGuard)\\s+(?:OS\\s+)?v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "WatchGuard",
@@ -434,7 +450,9 @@
     "path": "/",
     "header_content": [
       "WatchGuard"
-    ]
+    ],
+    "firmware_regex": "(?:Fireware|WatchGuard)\\s+(?:OS\\s+)?v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "WatchGuard",
@@ -442,7 +460,9 @@
     "path": "/",
     "content": [
       "WatchGuard"
-    ]
+    ],
+    "firmware_regex": "(?:Fireware|WatchGuard)\\s+(?:OS\\s+)?v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "WatchGuard",
@@ -450,7 +470,9 @@
     "path": "/",
     "title": [
       "WatchGuard Cloud"
-    ]
+    ],
+    "firmware_regex": "(?:Version|Release)\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
   },
   {
     "vendor": "Aruba",
@@ -459,7 +481,9 @@
     "title": [
       "Aruba",
       "ArubaOS"
-    ]
+    ],
+    "firmware_regex": "(?:ArubaOS|Aruba\\s+Instant)\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Aruba",
@@ -467,7 +491,9 @@
     "path": "/",
     "header_content": [
       "Aruba"
-    ]
+    ],
+    "firmware_regex": "(?:ArubaOS|Aruba\\s+Instant)\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Aruba",
@@ -497,7 +523,9 @@
     "path": "/",
     "title": [
       "Ruckus"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ruckus",
@@ -505,7 +533,9 @@
     "path": "/",
     "header_content": [
       "Ruckus"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ruckus",
@@ -513,7 +543,9 @@
     "path": "/",
     "title": [
       "ZoneDirector"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ruckus",
@@ -521,7 +553,9 @@
     "path": "/",
     "title": [
       "SmartZone"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ruckus",
@@ -541,7 +575,9 @@
     "title": [
       "Extreme Networks",
       "ExtremeXOS"
-    ]
+    ],
+    "firmware_regex": "(?:ExtremeXOS|EXOS)\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Extreme",
@@ -549,7 +585,9 @@
     "path": "/",
     "header_content": [
       "Extreme"
-    ]
+    ],
+    "firmware_regex": "(?:ExtremeXOS|EXOS)\\s+v?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Extreme",
@@ -568,7 +606,9 @@
     "path": "/",
     "title": [
       "Alcatel"
-    ]
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Alcatel-Lucent",
@@ -576,7 +616,9 @@
     "path": "/",
     "content": [
       "Alcatel"
-    ]
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Alcatel-Lucent",
@@ -592,7 +634,9 @@
     "path": "/",
     "title": [
       "Nokia"
-    ]
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Nokia",
@@ -600,7 +644,9 @@
     "path": "/",
     "content": [
       "Nokia"
-    ]
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Nokia",
@@ -818,7 +864,9 @@
     ],
     "content": [
       "TP-Link"
-    ]
+    ],
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
   },
   {
     "vendor": "TP-Link",
@@ -829,7 +877,9 @@
     ],
     "content": [
       "TP-Link"
-    ]
+    ],
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
   },
   {
     "vendor": "TP-Link",
@@ -840,7 +890,9 @@
     ],
     "content": [
       "TP-Link"
-    ]
+    ],
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
   },
   {
     "vendor": "TP-Link",
@@ -851,7 +903,9 @@
     ],
     "content": [
       "TP-Link"
-    ]
+    ],
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
   },
   {
     "vendor": "TP-Link",
@@ -862,7 +916,9 @@
     ],
     "content": [
       "TP-Link"
-    ]
+    ],
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
   },
   {
     "vendor": "TP-Link",
@@ -931,7 +987,9 @@
     ],
     "content": [
       "D-Link"
-    ]
+    ],
+    "firmware_regex": "(?:firmwareVersion|fw_ver|firmware_version)\\s*=\\s*\"([^\"]+)\"",
+    "firmware_group": 1
   },
   {
     "vendor": "D-Link",
@@ -942,7 +1000,9 @@
     ],
     "content": [
       "D-Link"
-    ]
+    ],
+    "firmware_regex": "(?:firmwareVersion|fw_ver|firmware_version)\\s*=\\s*\"([^\"]+)\"",
+    "firmware_group": 1
   },
   {
     "vendor": "D-Link",
@@ -953,7 +1013,9 @@
     ],
     "content": [
       "D-Link"
-    ]
+    ],
+    "firmware_regex": "(?:firmwareVersion|fw_ver|firmware_version)\\s*=\\s*\"([^\"]+)\"",
+    "firmware_group": 1
   },
   {
     "vendor": "D-Link",
@@ -1220,7 +1282,9 @@
     "path": "/",
     "title": [
       "Xiaomi"
-    ]
+    ],
+    "firmware_regex": "(?:ROM\\s+Version|Firmware)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Xiaomi",
@@ -1228,7 +1292,9 @@
     "path": "/",
     "content": [
       "Xiaomi"
-    ]
+    ],
+    "firmware_regex": "(?:ROM\\s+Version|Firmware)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Xiaomi",
@@ -1262,7 +1328,9 @@
     "vendor": "Xiaomi",
     "product": "Xiaomi Router",
     "path": "/favicon.ico",
-    "md5": "j0c2d4e6f8g0h2j4k6l8m0n2o4p6q8r0"
+    "md5": "j0c2d4e6f8g0h2j4k6l8m0n2o4p6q8r0",
+    "firmware_regex": "(?:ROM\\s+Version|Firmware)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Google",
@@ -1270,7 +1338,9 @@
     "path": "/",
     "title": [
       "Google Wifi"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Google",
@@ -1278,7 +1348,9 @@
     "path": "/",
     "content": [
       "Google Wifi"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Google",
@@ -1286,7 +1358,9 @@
     "path": "/",
     "title": [
       "Nest Wifi"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Google",
@@ -1294,7 +1368,9 @@
     "path": "/",
     "content": [
       "Nest Wifi"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Google",
@@ -1311,7 +1387,9 @@
     "title": [
       "Eero",
       "eero"
-    ]
+    ],
+    "firmware_regex": "(?:eeroOS|software\\s*version)\\s*[:=v]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Amazon",
@@ -1319,7 +1397,9 @@
     "path": "/",
     "header_content": [
       "eero"
-    ]
+    ],
+    "firmware_regex": "(?:eeroOS|software\\s*version)\\s*[:=v]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Plume",
@@ -1327,7 +1407,9 @@
     "path": "/",
     "title": [
       "Plume"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Plume",
@@ -1335,7 +1417,9 @@
     "path": "/",
     "content": [
       "Plume"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "MikroTik",
@@ -1754,7 +1838,9 @@
     "path": "/",
     "title": [
       "TRENDnet"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "TRENDnet",
@@ -1762,7 +1848,9 @@
     "path": "/",
     "header_content": [
       "TRENDnet"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "TRENDnet",
@@ -1792,7 +1880,9 @@
     "path": "/",
     "title": [
       "Tenda"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Tenda",
@@ -1800,7 +1890,9 @@
     "path": "/",
     "header_content": [
       "Tenda"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Tenda",
@@ -1809,7 +1901,9 @@
     "title": [
       "Tenda | login",
       "Tenda|登录"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Tenda",
@@ -1818,7 +1912,9 @@
     "title": [
       "Tenda | Web Master",
       "Tenda | Wireless Router"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Tenda",
@@ -1857,7 +1953,9 @@
     "vendor": "Tenda",
     "product": "Tenda Router",
     "path": "/favicon.ico",
-    "md5": "fa31b29eab2da688b11d8fafc5fc6b27"
+    "md5": "fa31b29eab2da688b11d8fafc5fc6b27",
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Netis",
@@ -1892,7 +1990,9 @@
     "path": "/",
     "title": [
       "Edimax"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Edimax",
@@ -1900,7 +2000,9 @@
     "path": "/",
     "header_content": [
       "Edimax"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Edimax",
@@ -1930,7 +2032,9 @@
     "path": "/",
     "title": [
       "LevelOne"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "LevelOne",
@@ -1938,7 +2042,9 @@
     "path": "/",
     "header_content": [
       "LevelOne"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "LevelOne",
@@ -1968,7 +2074,9 @@
     "path": "/",
     "title": [
       "SMC"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "SMC",
@@ -1976,7 +2084,9 @@
     "path": "/",
     "header_content": [
       "SMC"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Lancom",
@@ -1984,7 +2094,9 @@
     "path": "/",
     "title": [
       "Lancom"
-    ]
+    ],
+    "firmware_regex": "(?:LCOS|Firmware)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Lancom",
@@ -1992,7 +2104,9 @@
     "path": "/",
     "content": [
       "Lancom"
-    ]
+    ],
+    "firmware_regex": "(?:LCOS|Firmware)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Lancom",
@@ -2008,7 +2122,9 @@
     "path": "/",
     "title": [
       "Grandstream"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Grandstream",
@@ -2016,7 +2132,9 @@
     "path": "/",
     "content": [
       "Grandstream"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Grandstream",
@@ -2027,7 +2145,9 @@
     ],
     "content": [
       "Grandstream"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "EnGenius",
@@ -2035,7 +2155,9 @@
     "path": "/",
     "title": [
       "EnGenius"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "EnGenius",
@@ -2043,7 +2165,9 @@
     "path": "/",
     "content": [
       "EnGenius"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "EnGenius",
@@ -2062,7 +2186,9 @@
     "path": "/",
     "title": [
       "Cambium"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Cambium",
@@ -2070,7 +2196,9 @@
     "path": "/",
     "content": [
       "Cambium"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Cambium",
@@ -2086,7 +2214,9 @@
     "path": "/",
     "title": [
       "GL.iNet"
-    ]
+    ],
+    "firmware_regex": "(?:OpenWrt|GL-SDK)\\s+(?:SNAPSHOT\\s+r[0-9]+-)?(?:[a-zA-Z]+\\s+)?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
   },
   {
     "vendor": "GL.iNet",
@@ -2094,7 +2224,9 @@
     "path": "/",
     "content": [
       "GL.iNet"
-    ]
+    ],
+    "firmware_regex": "(?:OpenWrt|GL-SDK)\\s+(?:SNAPSHOT\\s+r[0-9]+-)?(?:[a-zA-Z]+\\s+)?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
   },
   {
     "vendor": "GL.iNet",
@@ -2113,7 +2245,9 @@
     "path": "/",
     "title": [
       "Luxul"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Luxul",
@@ -2121,7 +2255,9 @@
     "path": "/",
     "content": [
       "Luxul"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Luxul",
@@ -2140,7 +2276,9 @@
     "path": "/",
     "title": [
       "Peplink"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Firmware\\s+Version)\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Peplink",
@@ -2148,7 +2286,9 @@
     "path": "/",
     "content": [
       "Peplink"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Firmware\\s+Version)\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Peplink",
@@ -2175,7 +2315,9 @@
     "path": "/",
     "title": [
       "Cradlepoint"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|NetCloud\\s+OS|NCOS)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Cradlepoint",
@@ -2183,7 +2325,9 @@
     "path": "/",
     "content": [
       "Cradlepoint"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|NetCloud\\s+OS|NCOS)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Cradlepoint",
@@ -2199,7 +2343,9 @@
     "path": "/",
     "title": [
       "Sierra"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|ALEOS)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sierra Wireless",
@@ -2207,7 +2353,9 @@
     "path": "/",
     "content": [
       "Sierra"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|ALEOS)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sierra Wireless",
@@ -2223,7 +2371,9 @@
     "path": "/",
     "title": [
       "Digi"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Digi",
@@ -2231,7 +2381,9 @@
     "path": "/",
     "content": [
       "Digi"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Digi",
@@ -2258,7 +2410,9 @@
     "path": "/",
     "title": [
       "Teltonika"
-    ]
+    ],
+    "firmware_regex": "RUT\\S*\\s+(?:Firmware\\s+)?R_?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Teltonika",
@@ -2266,7 +2420,9 @@
     "path": "/",
     "content": [
       "Teltonika"
-    ]
+    ],
+    "firmware_regex": "RUT\\S*\\s+(?:Firmware\\s+)?R_?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Teltonika",
@@ -2307,7 +2463,9 @@
     "path": "/",
     "title": [
       "Robustel"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Robustel",
@@ -2315,7 +2473,9 @@
     "path": "/",
     "content": [
       "Robustel"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Robustel",
@@ -2331,7 +2491,9 @@
     "path": "/",
     "title": [
       "InHand"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "InHand",
@@ -2339,7 +2501,9 @@
     "path": "/",
     "content": [
       "InHand"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Moxa",
@@ -2347,7 +2511,9 @@
     "path": "/",
     "title": [
       "Moxa"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Moxa",
@@ -2355,7 +2521,9 @@
     "path": "/",
     "content": [
       "Moxa"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Actiontec",
@@ -2476,7 +2644,9 @@
     "path": "/",
     "title": [
       "BEC"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "BEC",
@@ -2484,7 +2654,9 @@
     "path": "/",
     "content": [
       "BEC"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Billion",
@@ -2534,7 +2706,9 @@
     "path": "/",
     "title": [
       "Calix"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Calix",
@@ -2542,7 +2716,9 @@
     "path": "/",
     "content": [
       "Calix"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Calix",
@@ -2600,7 +2776,9 @@
     "path": "/",
     "title": [
       "Corega"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Corega",
@@ -2608,7 +2786,9 @@
     "path": "/",
     "content": [
       "Corega"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "FiberHome",
@@ -2616,7 +2796,9 @@
     "path": "/",
     "title": [
       "FiberHome"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "FiberHome",
@@ -2624,7 +2806,9 @@
     "path": "/",
     "content": [
       "FiberHome"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Hitron",
@@ -2632,7 +2816,9 @@
     "path": "/",
     "title": [
       "Hitron"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Hitron",
@@ -2640,7 +2826,9 @@
     "path": "/",
     "header_content": [
       "Hitron"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Hitron",
@@ -2670,7 +2858,9 @@
     "path": "/",
     "title": [
       "iBall"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "iBall",
@@ -2678,7 +2868,9 @@
     "path": "/",
     "content": [
       "iBall"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Motorola",
@@ -2686,7 +2878,9 @@
     "path": "/",
     "title": [
       "Motorola"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Motorola",
@@ -2694,7 +2888,9 @@
     "path": "/",
     "header_content": [
       "Motorola"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Motorola",
@@ -2724,7 +2920,9 @@
     "path": "/",
     "title": [
       "NetComm"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "NetComm",
@@ -2732,7 +2930,9 @@
     "path": "/",
     "header_content": [
       "NetComm"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "NetComm",
@@ -2762,7 +2962,9 @@
     "path": "/",
     "title": [
       "Nexxt"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Nexxt",
@@ -2770,7 +2972,9 @@
     "path": "/",
     "content": [
       "Nexxt"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ovislink",
@@ -2778,7 +2982,9 @@
     "path": "/",
     "title": [
       "Ovislink"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ovislink",
@@ -2786,7 +2992,9 @@
     "path": "/",
     "content": [
       "Ovislink"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Pace",
@@ -2794,7 +3002,9 @@
     "path": "/",
     "title": [
       "Pace"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Pace",
@@ -2802,7 +3012,9 @@
     "path": "/",
     "header_content": [
       "Pace"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Pace",
@@ -2821,7 +3033,9 @@
     "path": "/",
     "title": [
       "Planex"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Planex",
@@ -2829,7 +3043,9 @@
     "path": "/",
     "content": [
       "Planex"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Proscend",
@@ -2837,7 +3053,9 @@
     "path": "/",
     "title": [
       "Proscend"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Proscend",
@@ -2845,7 +3063,9 @@
     "path": "/",
     "content": [
       "Proscend"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Repotec",
@@ -2853,7 +3073,9 @@
     "path": "/",
     "title": [
       "Repotec"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Repotec",
@@ -2861,7 +3083,9 @@
     "path": "/",
     "content": [
       "Repotec"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sagemcom",
@@ -2890,7 +3114,9 @@
     "title": [
       "Fast",
       "F@ST"
-    ]
+    ],
+    "firmware_regex": "(?:Software\\s*Version|Firmware)\\s*[:=]\\s*\"?V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sercomm",
@@ -2918,7 +3144,9 @@
     "path": "/",
     "title": [
       "Siemens"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Siemens",
@@ -2926,7 +3154,9 @@
     "path": "/",
     "header_content": [
       "Siemens"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Siemens",
@@ -2934,7 +3164,9 @@
     "path": "/",
     "title": [
       "Gigaset"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Siemens",
@@ -2953,7 +3185,9 @@
     "path": "/",
     "title": [
       "Sitecom"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sitecom",
@@ -2961,7 +3195,9 @@
     "path": "/",
     "content": [
       "Sitecom"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "SparkLAN",
@@ -2969,7 +3205,9 @@
     "path": "/",
     "title": [
       "SparkLAN"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "SparkLAN",
@@ -2977,7 +3215,9 @@
     "path": "/",
     "content": [
       "SparkLAN"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Technicolor",
@@ -3077,7 +3317,9 @@
     "path": "/",
     "title": [
       "Ubee"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ubee",
@@ -3085,7 +3327,9 @@
     "path": "/",
     "header_content": [
       "Ubee"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Ubee",
@@ -3115,7 +3359,9 @@
     "path": "/",
     "title": [
       "UPVEL"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "UPVEL",
@@ -3123,7 +3369,9 @@
     "path": "/",
     "content": [
       "UPVEL"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Verifone",
@@ -3131,7 +3379,9 @@
     "path": "/",
     "title": [
       "Verifone"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Verifone",
@@ -3139,7 +3389,9 @@
     "path": "/",
     "content": [
       "Verifone"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "VTech",
@@ -3147,7 +3399,9 @@
     "path": "/",
     "title": [
       "VTech"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "VTech",
@@ -3155,7 +3409,9 @@
     "path": "/",
     "content": [
       "VTech"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Western Digital",
@@ -3163,7 +3419,9 @@
     "path": "/",
     "title": [
       "Western Digital"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|OS)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Western Digital",
@@ -3171,7 +3429,9 @@
     "path": "/",
     "title": [
       "My Net"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|OS)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Western Digital",
@@ -3179,7 +3439,9 @@
     "path": "/",
     "title": [
       "My Cloud"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|OS)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "XAVI",
@@ -3187,7 +3449,9 @@
     "path": "/",
     "title": [
       "XAVI"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "XAVI",
@@ -3195,7 +3459,9 @@
     "path": "/",
     "content": [
       "XAVI"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Z-Com",
@@ -3203,7 +3469,9 @@
     "path": "/",
     "title": [
       "Z-Com"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Z-Com",
@@ -3211,7 +3479,9 @@
     "path": "/",
     "content": [
       "Z-Com"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Zhone",
@@ -3219,7 +3489,9 @@
     "path": "/",
     "title": [
       "Zhone"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Zhone",
@@ -3227,7 +3499,9 @@
     "path": "/",
     "header_content": [
       "Zhone"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Zhone",
@@ -3246,7 +3520,9 @@
     "path": "/",
     "title": [
       "Xfinity"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|eMTA)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Comcast",
@@ -3254,7 +3530,9 @@
     "path": "/",
     "content": [
       "Xfinity"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|eMTA)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Comcast",
@@ -3270,7 +3548,9 @@
     "path": "/",
     "title": [
       "Spectrum"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Spectrum",
@@ -3278,7 +3558,9 @@
     "path": "/",
     "content": [
       "Spectrum"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "AT&T",
@@ -3286,7 +3568,9 @@
     "path": "/",
     "title": [
       "AT&T"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "AT&T",
@@ -3294,7 +3578,9 @@
     "path": "/",
     "content": [
       "AT&T"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "AT&T",
@@ -3369,7 +3655,9 @@
     "path": "/",
     "title": [
       "Virgin Media"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Virgin Media",
@@ -3377,7 +3665,9 @@
     "path": "/",
     "content": [
       "Virgin Media"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Virgin Media",
@@ -3395,7 +3685,9 @@
     "title": [
       "Sky Q",
       "Sky Hub"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sky",
@@ -3414,7 +3706,9 @@
     "path": "/",
     "title": [
       "Vodafone"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Vodafone",
@@ -3422,7 +3716,9 @@
     "path": "/",
     "content": [
       "Vodafone"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Vodafone",
@@ -3441,7 +3737,9 @@
     "path": "/",
     "title": [
       "Orange"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Livebox\\s+OS)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Orange",
@@ -3449,7 +3747,9 @@
     "path": "/",
     "content": [
       "Orange"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Livebox\\s+OS)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Orange",
@@ -3465,7 +3765,9 @@
     "path": "/",
     "title": [
       "Telstra"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Telstra",
@@ -3473,7 +3775,9 @@
     "path": "/",
     "content": [
       "Telstra"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Telstra",
@@ -3489,7 +3793,9 @@
     "path": "/",
     "title": [
       "Swisscom"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Swisscom",
@@ -3497,7 +3803,9 @@
     "path": "/",
     "content": [
       "Swisscom"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "KPN",
@@ -3505,7 +3813,9 @@
     "path": "/",
     "title": [
       "KPN"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "KPN",
@@ -3513,7 +3823,9 @@
     "path": "/",
     "content": [
       "KPN"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "KPN",
@@ -3524,7 +3836,9 @@
     ],
     "content": [
       "KPN"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "StarHub",
@@ -3532,7 +3846,9 @@
     "path": "/",
     "title": [
       "StarHub"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Beeline",
@@ -3540,7 +3856,9 @@
     "path": "/",
     "title": [
       "Beeline"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Beeline",
@@ -3548,7 +3866,9 @@
     "path": "/",
     "content": [
       "Beeline"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "OpenWrt",
@@ -3576,7 +3896,9 @@
     "path": "/",
     "title": [
       "LEDE"
-    ]
+    ],
+    "firmware_regex": "(?:LEDE|OpenWrt)\\s+(?:SNAPSHOT\\s+r[0-9]+-)?(?:[a-zA-Z]+\\s+)?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
   },
   {
     "vendor": "OpenWrt",
@@ -3584,7 +3906,9 @@
     "path": "/",
     "content": [
       "LEDE"
-    ]
+    ],
+    "firmware_regex": "(?:LEDE|OpenWrt)\\s+(?:SNAPSHOT\\s+r[0-9]+-)?(?:[a-zA-Z]+\\s+)?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
   },
   {
     "vendor": "DD-WRT",
@@ -3735,7 +4059,9 @@
       "3Com",
       "OfficeConnect",
       "3Com OfficeConnect"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "3Com",
@@ -3743,7 +4069,9 @@
     "path": "/",
     "header_content": [
       "3Com"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "3Com",
@@ -3753,7 +4081,9 @@
       "Intelligent Management Center",
       "3Com IMC",
       "3Com"
-    ]
+    ],
+    "firmware_regex": "(?:IMC|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "3Com",
@@ -3771,7 +4101,9 @@
       "2Wire",
       "2Wire Gateway",
       "HomePortal"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "2wire",
@@ -3780,7 +4112,9 @@
     "content": [
       "2Wire",
       "HomePortal"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "2wire",
@@ -3799,7 +4133,9 @@
       "AR 804",
       "AR 1004G",
       "AR-"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Asmax",
@@ -3807,7 +4143,9 @@
     "path": "/",
     "header_content": [
       "Asmax"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Asmax",
@@ -3826,7 +4164,9 @@
       "BHU",
       "URouter",
       "Bhu URouter"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Bhu",
@@ -3835,7 +4175,9 @@
     "content": [
       "Bhu",
       "URouter"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "IPFire",
@@ -3844,7 +4186,9 @@
     "title": [
       "IPFire",
       "IPFire Administration"
-    ]
+    ],
+    "firmware_regex": "IPFire\\s+(?:Core\\s+)?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
   },
   {
     "vendor": "IPFire",
@@ -3853,7 +4197,9 @@
     "content": [
       "IPFire",
       "ipfire"
-    ]
+    ],
+    "firmware_regex": "IPFire\\s+(?:Core\\s+)?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
   },
   {
     "vendor": "IPFire",
@@ -3861,7 +4207,9 @@
     "path": "/",
     "header_content": [
       "IPFire"
-    ]
+    ],
+    "firmware_regex": "IPFire\\s+(?:Core\\s+)?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
   },
   {
     "vendor": "LG",
@@ -3871,7 +4219,9 @@
       "LG",
       "LG Network Storage",
       "LG NAS"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|OS)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "LG",
@@ -3880,7 +4230,9 @@
     "content": [
       "LG",
       "Network Storage"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|OS)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Movistar",
@@ -3918,7 +4270,9 @@
       "Netcore",
       "Netis",
       "Netis Router"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Netcore",
@@ -3927,7 +4281,9 @@
     "content": [
       "Netcore",
       "Netis"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Netcore",
@@ -3935,7 +4291,9 @@
     "path": "/",
     "header_content": [
       "Netcore"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Netsys",
@@ -3944,7 +4302,9 @@
     "title": [
       "Netsys",
       "Netsys Router"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Netsys",
@@ -3952,7 +4312,9 @@
     "path": "/",
     "content": [
       "Netsys"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Shuttle",
@@ -3962,7 +4324,9 @@
       "Shuttle",
       "915WM",
       "Shuttle 915 WM"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Shuttle",
@@ -3970,7 +4334,9 @@
     "path": "/",
     "content": [
       "Shuttle"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "ZTE",
@@ -4012,7 +4378,9 @@
       "ACTi",
       "ACTi Camera",
       "ACM-"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "ACTi",
@@ -4021,7 +4389,9 @@
     "content": [
       "ACTi",
       "ACM-"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "ACTi",
@@ -4039,7 +4409,9 @@
       "Avigilon",
       "Avigilon Camera",
       "ACC"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Avigilon",
@@ -4048,7 +4420,9 @@
     "content": [
       "Avigilon",
       "ACC"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Avigilon",
@@ -4056,7 +4430,9 @@
     "path": "/",
     "header_content": [
       "Avigilon"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Beward",
@@ -4067,7 +4443,9 @@
       "BEWARD",
       "N100",
       "IP Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Beward",
@@ -4075,7 +4453,9 @@
     "path": "/",
     "content": [
       "Beward"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Brickcom",
@@ -4085,7 +4465,9 @@
       "Brickcom",
       "Brickcom Camera",
       "Network Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Brickcom",
@@ -4096,7 +4478,9 @@
       "WCB-",
       "OB-",
       "VD-"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Geutebruck",
@@ -4107,7 +4491,9 @@
       "Geutebruck",
       "G-Cam",
       "EFD-2250"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Geutebruck",
@@ -4115,7 +4501,9 @@
     "path": "/",
     "content": [
       "Geutebrück"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Hikvision",
@@ -4127,7 +4515,9 @@
       "iVMS",
       "Network Camera",
       "IPC"
-    ]
+    ],
+    "firmware_regex": "(?:firmwareVersion|Firmware\\s+Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9_\\s]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Hikvision",
@@ -4136,7 +4526,9 @@
     "content": [
       "Hikvision",
       "iVMS-4200"
-    ]
+    ],
+    "firmware_regex": "(?:firmwareVersion|Firmware\\s+Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9_\\s]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Hikvision",
@@ -4144,7 +4536,9 @@
     "path": "/",
     "header_content": [
       "Hikvision"
-    ]
+    ],
+    "firmware_regex": "(?:firmwareVersion|Firmware\\s+Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9_\\s]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Honeywell",
@@ -4155,7 +4549,9 @@
       "HICC-",
       "Honeywell Camera",
       "Honeywell IP"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Honeywell",
@@ -4163,7 +4559,9 @@
     "path": "/",
     "content": [
       "Honeywell"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Jovision",
@@ -4173,7 +4571,9 @@
       "Jovision",
       "JVS-",
       "Jovision Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Jovision",
@@ -4181,7 +4581,9 @@
     "path": "/",
     "content": [
       "Jovision"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "MVPower",
@@ -4192,7 +4594,9 @@
       "DVR",
       "TV-7104HE",
       "JAWS"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?(?:JAWS\\s+)?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "MVPower",
@@ -4201,7 +4605,9 @@
     "content": [
       "MVPower",
       "TV-7104HE"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?(?:JAWS\\s+)?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "XiongMai",
@@ -4212,7 +4618,9 @@
       "XIONGMAI",
       "UC-HTTPd",
       "NetSurveillance"
-    ]
+    ],
+    "firmware_regex": "(?:UC-HTTPd|Firmware|Software)\\s*[:/]\\s*V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "XiongMai",
@@ -4221,7 +4629,9 @@
     "content": [
       "XiongMai",
       "UC-HTTPd"
-    ]
+    ],
+    "firmware_regex": "(?:UC-HTTPd|Firmware|Software)\\s*[:/]\\s*V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "XiongMai",
@@ -4229,7 +4639,9 @@
     "path": "/",
     "header_content": [
       "UC-HTTPd"
-    ]
+    ],
+    "firmware_regex": "(?:UC-HTTPd|Firmware|Software)\\s*[:/]\\s*V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "American Dynamics",
@@ -4238,7 +4650,9 @@
     "title": [
       "American Dynamics",
       "American Dynamics Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "American Dynamics",
@@ -4246,7 +4660,9 @@
     "path": "/",
     "content": [
       "American Dynamics"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Arecont",
@@ -4256,7 +4672,9 @@
       "Arecont",
       "Arecont Vision",
       "Arecont Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Arecont",
@@ -4265,7 +4683,9 @@
     "content": [
       "Arecont",
       "Arecont Vision"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Axis",
@@ -4277,7 +4697,9 @@
       "Axis Communications",
       "Network Camera",
       "Live View"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware\\s+[Vv]ersion|firmware)\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Axis",
@@ -4287,7 +4709,9 @@
       "Axis Communications",
       "\"Axis\"",
       "AXIS"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware\\s+[Vv]ersion|firmware)\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Axis",
@@ -4295,7 +4719,9 @@
     "path": "/",
     "header_content": [
       "Axis"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware\\s+[Vv]ersion|firmware)\\s*[:=]\\s*\"?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Basler",
@@ -4304,7 +4730,9 @@
     "title": [
       "Basler",
       "Basler Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Basler",
@@ -4312,7 +4740,9 @@
     "path": "/",
     "content": [
       "Basler"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Avtech",
@@ -4322,7 +4752,9 @@
       "Avtech",
       "AVTECH",
       "Avtech Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Avtech",
@@ -4330,7 +4762,9 @@
     "path": "/",
     "content": [
       "Avtech"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Canon",
@@ -4340,7 +4774,9 @@
       "Canon",
       "Canon Network Camera",
       "Canon Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Canon",
@@ -4348,7 +4784,9 @@
     "path": "/",
     "content": [
       "Canon"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "GeoVision",
@@ -4358,7 +4796,9 @@
       "GeoVision",
       "GV-",
       "GeoVision Camera"
-    ]
+    ],
+    "firmware_regex": "(?:GV-[A-Z0-9-]+\\s+|Firmware)\\s*(?:Version\\s*[:=]\\s*)?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "GeoVision",
@@ -4367,7 +4807,9 @@
     "content": [
       "GeoVision",
       "GV-"
-    ]
+    ],
+    "firmware_regex": "(?:GV-[A-Z0-9-]+\\s+|Firmware)\\s*(?:Version\\s*[:=]\\s*)?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "IQinVision",
@@ -4376,7 +4818,9 @@
     "title": [
       "IQinVision",
       "IQinVision Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "IQinVision",
@@ -4384,7 +4828,9 @@
     "path": "/",
     "content": [
       "IQinVision"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "JVC",
@@ -4394,7 +4840,9 @@
       "JVC",
       "JVC Camera",
       "JVC Network"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "JVC",
@@ -4402,7 +4850,9 @@
     "path": "/",
     "content": [
       "JVC"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Mobotix",
@@ -4412,7 +4862,9 @@
       "Mobotix",
       "MOBOTIX",
       "Mobotix Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Mobotix",
@@ -4421,7 +4873,9 @@
     "content": [
       "Mobotix",
       "MOBOTIX"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Samsung",
@@ -4432,7 +4886,9 @@
       "Samsung Techwin",
       "Samsung Camera",
       "Samsung Network"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Samsung",
@@ -4440,7 +4896,9 @@
     "path": "/",
     "content": [
       "Samsung Techwin"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sentry360",
@@ -4450,7 +4908,9 @@
       "Sentry360",
       "Sentry 360",
       "Sentry360 Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sentry360",
@@ -4458,7 +4918,9 @@
     "path": "/",
     "content": [
       "Sentry360"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Speco",
@@ -4468,7 +4930,9 @@
       "Speco",
       "Speco Technologies",
       "Speco Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Speco",
@@ -4476,7 +4940,9 @@
     "path": "/",
     "content": [
       "Speco"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "StarDot",
@@ -4486,7 +4952,9 @@
       "StarDot",
       "StarDot Technologies",
       "StarDot Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "StarDot",
@@ -4494,7 +4962,9 @@
     "path": "/",
     "content": [
       "StarDot"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Vacron",
@@ -4503,7 +4973,9 @@
     "title": [
       "Vacron",
       "Vacron Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Vacron",
@@ -4511,7 +4983,9 @@
     "path": "/",
     "content": [
       "Vacron"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "VideoIQ",
@@ -4520,7 +4994,9 @@
     "title": [
       "VideoIQ",
       "VideoIQ Camera"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "VideoIQ",
@@ -4528,7 +5004,9 @@
     "path": "/",
     "content": [
       "VideoIQ"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Miele",
@@ -4538,7 +5016,9 @@
       "Miele",
       "Miele Professional",
       "PG 8528"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Miele",
@@ -4547,7 +5027,9 @@
     "content": [
       "Miele",
       "PG 8528"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "WePresent",
@@ -4557,7 +5039,9 @@
       "WePresent",
       "WiPG-1000",
       "WiPG"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "WePresent",
@@ -4566,7 +5050,9 @@
     "content": [
       "WePresent",
       "WiPG"
-    ]
+    ],
+    "firmware_regex": "(?:Firmware|Software|Version)\\s*[:=]\\s*\"?V?([0-9]+\\.[0-9.]+[A-Za-z0-9]*)",
+    "firmware_group": 1
   },
   {
     "vendor": "Sagemcom",
@@ -4617,6 +5103,26 @@
     "content": [
       "F5359s",
       "ProductClass"
+    ]
+  },
+  {
+    "vendor": "DJI",
+    "product": "DJI Drone HTTP Media API",
+    "path": "/",
+    "content": [
+      "DJI"
+    ],
+    "title": [
+      "DJI"
+    ]
+  },
+  {
+    "vendor": "DJI",
+    "product": "DJI Drone HTTP Media API",
+    "path": "/v2",
+    "content": [
+      "path",
+      "name"
     ]
   }
 ]

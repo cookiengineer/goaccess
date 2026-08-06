@@ -36,7 +36,7 @@
 | File | Description |
 |------|-------------|
 | `types/http_indicator.go` | HTTPIndicator struct with FirmwareRegex/FirmwareGroup fields |
-| `scanner/http_indicators.json` | go:embed 501 entries across 103 vendors (93 with firmware patterns) |
+| `scanner/http_indicators.json` | go:embed 501 entries across 103 vendors (336 with firmware patterns) |
 | `scanner/http_indicators.go` | Matching engine, firmware extraction, POST probes, Server header patterns |
 | `scanner/fingerprint_test.go` | Updated tests for fingerprinting + firmware extraction |
 
@@ -44,11 +44,31 @@
 
 Firmware versions are extracted during identify via three mechanisms:
 
-1. **FirmwareRegex on HTTPIndicator** (93 entries, 33 vendors) — applied to cached response body when indicator matches
+1. **FirmwareRegex on HTTPIndicator** (336 entries, 138 vendors) — applied to cached response body when indicator matches
 2. **POST-based firmware probes** (Sagemcom SAH `/ws/DeviceInfo`) — tried after Phase 2 if vendor is known
 3. **Server header fallback** — known patterns (`cisco-IOS/X.Y`, `uFOS/X.Y`, `RomPager/X.Y`, `GoAhead-Webs/X.Y`, etc.)
 
-Firmware patterns cover: ASUS, Actiontec, Arris, BT, Belkin, Billion, Buffalo, Cisco, Comtrend, D-Link, DD-WRT, DrayTek, Fortinet, FreshTomato, Gargoyle, Huawei, Juniper, Linksys, MikroTik, NETGEAR, OPNsense, OpenWrt, Sagemcom, Sercomm, TP-Link, Technicolor, Thomson, Tomato, Ubiquiti, VyOS, ZTE, ZyXEL, pfSense.
+Firmware patterns cover all device categories:
+- **Routers** (58 vendors): ASUS, Aruba, Belkin, Billion, Buffalo, Cisco, Comtrend, D-Link, DD-WRT, DrayTek, Fortinet, FreshTomato, Gargoyle, Huawei, IPFire, Juniper, Linksys, MikroTik, NETGEAR, OpenWrt, OPNsense, Palo Alto, pfSense, Sagemcom, SonicWall, TP-Link, Technicolor, Thomson, Tomato, TRENDnet, Tenda, Ubiquiti, VyOS, ZTE, ZyXEL, etc.
+- **Cameras/DVRs** (28 vendors): ACTi, Arecont, Avigilon, Avtech, Axis, Basler, Beward, Brickcom, Canon, GeoVision, Geutebruck, Grandstream, Hikvision, Honeywell, IQinVision, JVC, Jovision, Mobotix, MVPower, Samsung, Sentry360, Speco, StarDot, Vacron, VideoIQ, XiongMai, etc.
+- **Gateways/ISPs** (14 vendors): AT&T, BT, Comcast/Xfinity, Orange/Livebox, Sky, Spectrum, Swisscom, Telstra, Virgin Media, Vodafone, KPN, StarHub, Beeline, etc.
+- **Industrial/Enterprise** (20 vendors): Alcatel-Lucent, Calix, Cambium, Cradlepoint, Digi, Edimax, EnGenius, Extreme, FiberHome, Hitron, Lancom, Luxul, Motorola, Moxa, NetComm, Peplink, Ruckus, Sierra Wireless, Teltonika, Zhone, etc.
+- **Misc** (8 vendors): Amazon/Eero, Google/Nest, GL.iNet, LG, Miele, Plume, WatchGuard, WePresent, Western Digital, Xiaomi
+- **Legacy/Niche** (10 vendors): 2wire, 3Com, Actiontec, Asmax, BEC, Bhu, Corega, Netsys, SMC, Shuttle, etc.
+
+### Drone Firmware Extraction
+
+Drone firmware is extracted via protocol-specific probes (non-HTTP):
+
+| File | Description |
+|------|-------------|
+| `scanner/drone_probes.go` | `probeDroneFirmware()`, `probeDJIFirmware()`, `probeParrotFirmware()` |
+| `scanner/http_indicators.json` | 503 entries total (2 DJI HTTP Media API indicators added) |
+
+- **DJI** (port 10000): vtwo_sdk session init → FileInfo requests to known firmware paths → regex extract from payload. Paths: `/etc/version`, `/etc/dji_version`, `/system/build.prop`, `/etc/os-release`, `/proc/version`.
+- **Parrot** (port 23): telnet root shell → read banner → execute `uname -a`, `cat /etc/version` → regex extract.
+- **Tello** (port 8889): UDP SDK protocol; not probed (requires custom UDP packet exchange).
+- **DBPOWER** (port 21): FTP; not probed (requires FTP login + file enumeration).
 
 ## Interfaces
 

@@ -636,7 +636,7 @@ type HTTPIndicator struct {
 }
 ```
 
-When an indicator matches, the optional `FirmwareRegex` is applied to the cached response body. If the capture group matches, `FingerprintResult.Firmware` is populated. 93 of 501 indicators across 33 vendors carry firmware patterns.
+When an indicator matches, the optional `FirmwareRegex` is applied to the cached response body. If the capture group matches, `FingerprintResult.Firmware` is populated. 336 of 501 indicators across 138 vendors carry firmware patterns.
 
 Additionally, a POST-based firmware probe registry (`firmwareProbes` in `scanner/http_indicators.go:init()`) tries known API endpoints (e.g. Sagemcom SAH `/ws/DeviceInfo`), and a Server header fallback detects version strings from known server software patterns (`cisco-IOS/X.Y`, `uFOS/X.Y`, `RomPager/X.Y`).
 
