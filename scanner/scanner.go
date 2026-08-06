@@ -91,8 +91,32 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 
 	scanner.progress(config, "\r[*] Phase 1/6: Port scanning... done (%d ports open)\n", len(openPorts))
 
-	// Phase 2: ARP probe
-	scanner.progress(config, "\r[*] Phase 2/6: ARP probe...")
+	// Phase 2: HTTP welcome page fingerprinting
+	scanner.progress(config, "\r[*] Phase 2/6: HTTP welcome page fingerprinting...")
+
+	probeHTTPIndicators(target, openPorts, timeout, result)
+
+	matched := ""
+	if result.Vendor != "" {
+		matched = fmt.Sprintf("done (%s)", result.Vendor)
+	} else {
+		matched = "no match"
+	}
+	scanner.progress(config, "\r[*] Phase 2/6: HTTP welcome page fingerprinting... %s\n", matched)
+
+	// Try POST-based firmware extraction if vendor is known
+	if result.Vendor != "" {
+		for _, port := range openPorts {
+			if port == 80 || port == 443 || port == 8080 {
+				if probeFirmware(target, result.Vendor, port, timeout, result) {
+					break
+				}
+			}
+		}
+	}
+
+	// Phase 3: ARP probe
+	scanner.progress(config, "\r[*] Phase 3/6: ARP probe...")
 
 	macAddress := probeARP(target)
 	if macAddress != "" {
@@ -109,18 +133,8 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 		}
 	}
 
-	scanner.progress(config, "\r[*] Phase 2/6: ARP probe... done (%s)\n",
+	scanner.progress(config, "\r[*] Phase 3/6: ARP probe... done (%s)\n",
 		func() string { if macAddress != "" { return macAddress } else { return "not resolved" } }())
-
-	// Phase 3: HTTP banner probe
-	scanner.progress(config, "\r[*] Phase 3/6: HTTP banner probe...")
-
-	httpResult := probeHTTP(target, timeout)
-	if httpResult != nil {
-		result.Hints = append(result.Hints, httpResult...)
-	}
-
-	scanner.progress(config, "\r[*] Phase 3/6: HTTP banner probe... done (%d hints)\n", len(httpResult))
 
 	// Phase 4: UPnP SSDP probe
 	scanner.progress(config, "\r[*] Phase 4/6: UPnP SSDP probe...")
@@ -165,6 +179,16 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 	scanner.mutex.Lock()
 	scanner.fingerprint = result
 	scanner.mutex.Unlock()
+
+	if result.Vendor != "" {
+		candidates := exploit.ByVendor(result.Vendor)
+		for _, candidate := range candidates {
+			info := candidate.Info()
+			if info != nil {
+				result.ExploitCandidates = append(result.ExploitCandidates, info.Name)
+			}
+		}
+	}
 
 	return result, nil
 }
@@ -519,44 +543,6 @@ func probeARP(target string) string {
 		return ""
 	}
 	return mac.String()
-}
-
-func probeHTTP(target string, timeout time.Duration) []string {
-	var hints []string
-
-	client := protocolhttp.NewClient()
-	client.Target = target
-	client.Timeout = timeout
-
-	for _, port := range []int{80, 443, 8080} {
-		client.Port = port
-		client.SSL = (port == 443)
-
-		response, err := client.Get("/", nil)
-		if err != nil {
-			continue
-		}
-
-		server := response.Headers.Get("Server")
-		if server != "" {
-			hints = append(hints, fmt.Sprintf("HTTP:%d Server: %s", port, server))
-		}
-
-		wwwAuth := response.Headers.Get("WWW-Authenticate")
-		if wwwAuth != "" {
-			hints = append(hints, fmt.Sprintf("HTTP:%d WWW-Authenticate: %s", port, wwwAuth))
-		}
-
-		if len(response.Body) > 0 {
-			title := extractTitle(response.Body)
-			if title != "" {
-				hints = append(hints, fmt.Sprintf("HTTP:%d Title: %s", port, title))
-			}
-		}
-		break // Only probe first reachable port
-	}
-
-	return hints
 }
 
 func probeUPnP(target string, timeout time.Duration) string {

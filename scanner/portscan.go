@@ -38,7 +38,6 @@ var DroneOUIs = map[string]string{
 var DroneServicePorts = map[int]string{
 	21:    "FTP (Anonymous — Parrot, DJI, DBPOWER)",
 	23:    "Telnet (No auth / root — Parrot AR Drone)",
-	80:    "HTTP Media API (CVE-2023-6949 — DJI)",
 	554:   "RTSP Video Stream",
 	5555:  "Raw H.264 Video Stream (Parrot AR Drone)",
 	8889:  "UDP SDK Command (Ryze Tello)",

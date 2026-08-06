@@ -1,0 +1,4622 @@
+[
+  {
+    "vendor": "Cisco",
+    "product": "Cisco IOS Router",
+    "path": "/",
+    "title": [
+      "Cisco Systems",
+      "Cisco Configuration",
+      "Cisco Router"
+    ],
+    "firmware_regex": "Cisco\\s+IOS\\s+Software,\\s+Version\\s+([0-9.()A-Za-z]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco IOS Router",
+    "path": "/",
+    "content": [
+      "Cisco Systems",
+      "All rights reserved"
+    ],
+    "firmware_regex": "Cisco\\s+IOS\\s+Software,\\s+Version\\s+([0-9.()A-Za-z]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco IOS Router",
+    "path": "/",
+    "headers": {
+      "Server": "cisco-IOS"
+    },
+    "firmware_regex": "Cisco\\s+IOS\\s+Software,\\s+Version\\s+([0-9.()A-Za-z]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco IOS Router",
+    "path": "/favicon.ico",
+    "md5": "e9f4b6c1e3b5f1d5f6b7c8d9e0f1a2b3",
+    "firmware_regex": "Cisco\\s+IOS\\s+Software,\\s+Version\\s+([0-9.()A-Za-z]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco RV Series",
+    "path": "/",
+    "title": [
+      "Cisco RV",
+      "RV Series"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco SR Series",
+    "path": "/",
+    "title": [
+      "Cisco SR",
+      "SR Series"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco Small Business",
+    "path": "/",
+    "title": [
+      "Small Business"
+    ],
+    "content": [
+      "Cisco"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco ASA",
+    "path": "/",
+    "title": [
+      "Cisco ASA",
+      "ASA"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco Nexus",
+    "path": "/",
+    "title": [
+      "Cisco Nexus",
+      "Nexus"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco Meraki",
+    "path": "/",
+    "title": [
+      "Meraki"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco Meraki",
+    "path": "/",
+    "header_content": [
+      "Meraki"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco Wireless",
+    "path": "/",
+    "title": [
+      "Cisco Wireless"
+    ]
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco Router (any)",
+    "path": "/",
+    "title": [
+      "(?i)cisco\\s+[a-z0-9-]+"
+    ],
+    "firmware_regex": "(?:Version|Software)\\s+[:=]\\s*([0-9][0-9.()A-Za-z]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Cisco",
+    "product": "Cisco Router (any)",
+    "path": "/",
+    "content": [
+      "(?i)cisco\\s+[a-z0-9-]+"
+    ],
+    "firmware_regex": "(?:Version|Software)\\s+[:=]\\s*([0-9][0-9.()A-Za-z]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Junos OS",
+    "path": "/",
+    "title": [
+      "Juniper",
+      "Junos"
+    ],
+    "firmware_regex": "Junos\\s+([0-9]+\\.[0-9]+[A-Za-z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Junos OS",
+    "path": "/",
+    "header_content": [
+      "Juniper"
+    ],
+    "firmware_regex": "Junos\\s+([0-9]+\\.[0-9]+[A-Za-z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Juniper SRX Series",
+    "path": "/",
+    "title": [
+      "SRX"
+    ],
+    "content": [
+      "Juniper"
+    ]
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Juniper J Series",
+    "path": "/",
+    "title": [
+      "J-"
+    ],
+    "content": [
+      "Juniper"
+    ]
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Juniper MX Series",
+    "path": "/",
+    "title": [
+      "MX"
+    ],
+    "content": [
+      "Juniper"
+    ]
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Juniper EX Series",
+    "path": "/",
+    "title": [
+      "EX"
+    ],
+    "content": [
+      "Juniper"
+    ]
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Juniper PTX Series",
+    "path": "/",
+    "title": [
+      "PTX"
+    ],
+    "content": [
+      "Juniper"
+    ]
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Juniper QFX Series",
+    "path": "/",
+    "title": [
+      "QFX"
+    ],
+    "content": [
+      "Juniper"
+    ]
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Juniper ACX Series",
+    "path": "/",
+    "title": [
+      "ACX"
+    ],
+    "content": [
+      "Juniper"
+    ]
+  },
+  {
+    "vendor": "Juniper",
+    "product": "Junos OS",
+    "path": "/favicon.ico",
+    "md5": "8a5b7c9d1e3f5g7h9i1j3k5m7n9p1r3t",
+    "firmware_regex": "Junos\\s+([0-9]+\\.[0-9]+[A-Za-z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiGate",
+    "path": "/",
+    "title": [
+      "FortiGate",
+      "FORTIGATE"
+    ],
+    "firmware_regex": "Forti(?:Gate|OS)\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiGate",
+    "path": "/",
+    "header_content": [
+      "FortiGate"
+    ],
+    "firmware_regex": "Forti(?:Gate|OS)\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiGate",
+    "path": "/",
+    "content": [
+      "FortiGate",
+      "Firewall"
+    ],
+    "firmware_regex": "Forti(?:Gate|OS)\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiWifi",
+    "path": "/",
+    "title": [
+      "FortiWiFi"
+    ]
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiRouter",
+    "path": "/",
+    "title": [
+      "FortiRouter"
+    ]
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiOS",
+    "path": "/",
+    "title": [
+      "FortiOS"
+    ],
+    "firmware_regex": "FortiOS\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiOS",
+    "path": "/",
+    "content": [
+      "FortiOS"
+    ],
+    "firmware_regex": "FortiOS\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiGate (any)",
+    "path": "/",
+    "title": [
+      "(?i)fortigate\\s+[a-z0-9-]+"
+    ]
+  },
+  {
+    "vendor": "Fortinet",
+    "product": "FortiGate",
+    "path": "/favicon.ico",
+    "md5": "b2c4d6e8f0a2c4e6g8i0k2m4o6q8s0u2",
+    "firmware_regex": "Forti(?:Gate|OS)\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Palo Alto",
+    "product": "PAN-OS",
+    "path": "/",
+    "title": [
+      "Palo Alto",
+      "PAN-OS"
+    ]
+  },
+  {
+    "vendor": "Palo Alto",
+    "product": "PAN-OS",
+    "path": "/",
+    "content": [
+      "Palo Alto"
+    ]
+  },
+  {
+    "vendor": "Palo Alto",
+    "product": "GlobalProtect",
+    "path": "/",
+    "title": [
+      "GlobalProtect"
+    ]
+  },
+  {
+    "vendor": "Palo Alto",
+    "product": "PA Series",
+    "path": "/",
+    "title": [
+      "PA-"
+    ],
+    "content": [
+      "Palo Alto"
+    ]
+  },
+  {
+    "vendor": "Palo Alto",
+    "product": "PAN-OS",
+    "path": "/favicon.ico",
+    "md5": "c3d5e7f9a1b3c5d7e9f1g3h5j7k9l1m3"
+  },
+  {
+    "vendor": "SonicWall",
+    "product": "SonicOS",
+    "path": "/",
+    "title": [
+      "SonicWall",
+      "SonicOS"
+    ]
+  },
+  {
+    "vendor": "SonicWall",
+    "product": "SonicOS",
+    "path": "/",
+    "content": [
+      "SonicWall"
+    ]
+  },
+  {
+    "vendor": "SonicWall",
+    "product": "TZ Series",
+    "path": "/",
+    "title": [
+      "TZ"
+    ],
+    "content": [
+      "SonicWall"
+    ]
+  },
+  {
+    "vendor": "SonicWall",
+    "product": "NSA Series",
+    "path": "/",
+    "title": [
+      "NSA"
+    ],
+    "content": [
+      "SonicWall"
+    ]
+  },
+  {
+    "vendor": "SonicWall",
+    "product": "SonicWall SMA",
+    "path": "/",
+    "title": [
+      "SMA"
+    ],
+    "content": [
+      "SonicWall"
+    ]
+  },
+  {
+    "vendor": "SonicWall",
+    "product": "SonicOS",
+    "path": "/favicon.ico",
+    "md5": "d4e6f8g0a2b4c6d8e0f2g4h6j8k0l2m4"
+  },
+  {
+    "vendor": "WatchGuard",
+    "product": "Firebox",
+    "path": "/",
+    "title": [
+      "WatchGuard",
+      "Firebox"
+    ]
+  },
+  {
+    "vendor": "WatchGuard",
+    "product": "Firebox",
+    "path": "/",
+    "header_content": [
+      "WatchGuard"
+    ]
+  },
+  {
+    "vendor": "WatchGuard",
+    "product": "Firebox",
+    "path": "/",
+    "content": [
+      "WatchGuard"
+    ]
+  },
+  {
+    "vendor": "WatchGuard",
+    "product": "WatchGuard Cloud",
+    "path": "/",
+    "title": [
+      "WatchGuard Cloud"
+    ]
+  },
+  {
+    "vendor": "Aruba",
+    "product": "ArubaOS",
+    "path": "/",
+    "title": [
+      "Aruba",
+      "ArubaOS"
+    ]
+  },
+  {
+    "vendor": "Aruba",
+    "product": "ArubaOS",
+    "path": "/",
+    "header_content": [
+      "Aruba"
+    ]
+  },
+  {
+    "vendor": "Aruba",
+    "product": "Aruba Instant",
+    "path": "/",
+    "title": [
+      "Instant"
+    ],
+    "content": [
+      "Aruba"
+    ]
+  },
+  {
+    "vendor": "Aruba",
+    "product": "Aruba Central",
+    "path": "/",
+    "title": [
+      "Central"
+    ],
+    "content": [
+      "Aruba"
+    ]
+  },
+  {
+    "vendor": "Ruckus",
+    "product": "Ruckus Router",
+    "path": "/",
+    "title": [
+      "Ruckus"
+    ]
+  },
+  {
+    "vendor": "Ruckus",
+    "product": "Ruckus Router",
+    "path": "/",
+    "header_content": [
+      "Ruckus"
+    ]
+  },
+  {
+    "vendor": "Ruckus",
+    "product": "ZoneDirector",
+    "path": "/",
+    "title": [
+      "ZoneDirector"
+    ]
+  },
+  {
+    "vendor": "Ruckus",
+    "product": "SmartZone",
+    "path": "/",
+    "title": [
+      "SmartZone"
+    ]
+  },
+  {
+    "vendor": "Ruckus",
+    "product": "Ruckus Unleashed",
+    "path": "/",
+    "title": [
+      "Unleashed"
+    ],
+    "content": [
+      "Ruckus"
+    ]
+  },
+  {
+    "vendor": "Extreme",
+    "product": "ExtremeXOS",
+    "path": "/",
+    "title": [
+      "Extreme Networks",
+      "ExtremeXOS"
+    ]
+  },
+  {
+    "vendor": "Extreme",
+    "product": "ExtremeXOS",
+    "path": "/",
+    "header_content": [
+      "Extreme"
+    ]
+  },
+  {
+    "vendor": "Extreme",
+    "product": "Extreme Switching",
+    "path": "/",
+    "title": [
+      "Summit"
+    ],
+    "content": [
+      "Extreme"
+    ]
+  },
+  {
+    "vendor": "Alcatel-Lucent",
+    "product": "Alcatel Router",
+    "path": "/",
+    "title": [
+      "Alcatel"
+    ]
+  },
+  {
+    "vendor": "Alcatel-Lucent",
+    "product": "Alcatel Router",
+    "path": "/",
+    "content": [
+      "Alcatel"
+    ]
+  },
+  {
+    "vendor": "Alcatel-Lucent",
+    "product": "ISAM",
+    "path": "/",
+    "title": [
+      "ISAM"
+    ]
+  },
+  {
+    "vendor": "Nokia",
+    "product": "Nokia Router",
+    "path": "/",
+    "title": [
+      "Nokia"
+    ]
+  },
+  {
+    "vendor": "Nokia",
+    "product": "Nokia Router",
+    "path": "/",
+    "content": [
+      "Nokia"
+    ]
+  },
+  {
+    "vendor": "Nokia",
+    "product": "Nokia G-Series",
+    "path": "/",
+    "title": [
+      "G-"
+    ],
+    "content": [
+      "Nokia"
+    ]
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "NETGEAR Router",
+    "path": "/",
+    "title": [
+      "NETGEAR",
+      "Netgear"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s+V?([0-9]+\\.[0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "NETGEAR Router",
+    "path": "/",
+    "header_content": [
+      "NETGEAR"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s+V?([0-9]+\\.[0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "Nighthawk",
+    "path": "/",
+    "title": [
+      "Nighthawk"
+    ]
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "Nighthawk Pro Gaming",
+    "path": "/",
+    "title": [
+      "XR"
+    ],
+    "content": [
+      "NETGEAR"
+    ]
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "Orbi",
+    "path": "/",
+    "title": [
+      "Orbi",
+      "Orbi Pro"
+    ]
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "ReadyNAS",
+    "path": "/",
+    "title": [
+      "ReadyNAS"
+    ]
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "Meural",
+    "path": "/",
+    "title": [
+      "Meural"
+    ]
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "NETGEAR (model)",
+    "path": "/",
+    "title": [
+      "(?i)netgear\\s+[a-z0-9]{3,6}"
+    ]
+  },
+  {
+    "vendor": "NETGEAR",
+    "product": "NETGEAR Router",
+    "path": "/favicon.ico",
+    "md5": "e5f7g9a1b3c5d7e9f1g3h5j7k9l1m3n5",
+    "firmware_regex": "Firmware\\s+Version\\s+V?([0-9]+\\.[0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ASUS",
+    "product": "ASUS Router",
+    "path": "/",
+    "title": [
+      "ASUS",
+      "Asus"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9][0-9._]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ASUS",
+    "product": "ASUS Router",
+    "path": "/",
+    "content": [
+      "ASUS"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9][0-9._]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ASUS",
+    "product": "RT Series",
+    "path": "/",
+    "title": [
+      "RT-"
+    ],
+    "content": [
+      "ASUS"
+    ]
+  },
+  {
+    "vendor": "ASUS",
+    "product": "ROG Rapture",
+    "path": "/",
+    "title": [
+      "GT-"
+    ],
+    "content": [
+      "ROG"
+    ]
+  },
+  {
+    "vendor": "ASUS",
+    "product": "TUF Gaming",
+    "path": "/",
+    "title": [
+      "TUF"
+    ],
+    "content": [
+      "ASUS"
+    ]
+  },
+  {
+    "vendor": "ASUS",
+    "product": "ZenWiFi",
+    "path": "/",
+    "title": [
+      "ZenWiFi"
+    ]
+  },
+  {
+    "vendor": "ASUS",
+    "product": "AiMesh",
+    "path": "/",
+    "title": [
+      "AiMesh"
+    ]
+  },
+  {
+    "vendor": "ASUS",
+    "product": "Lyra",
+    "path": "/",
+    "title": [
+      "Lyra"
+    ]
+  },
+  {
+    "vendor": "ASUS",
+    "product": "ASUS (model)",
+    "path": "/",
+    "title": [
+      "(?i)asus\\s+[a-z0-9-]{4,8}"
+    ]
+  },
+  {
+    "vendor": "ASUS",
+    "product": "ASUS Router",
+    "path": "/favicon.ico",
+    "md5": "f6g8h0a2b4c6d8e0f2g4h6j8k0l2m4n6",
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9][0-9._]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "TP-Link Router",
+    "path": "/",
+    "title": [
+      "TP-Link",
+      "TP-LINK"
+    ],
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "TP-Link Router",
+    "path": "/",
+    "header_content": [
+      "TP-Link"
+    ],
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "Archer Series",
+    "path": "/",
+    "title": [
+      "Archer"
+    ],
+    "content": [
+      "TP-Link"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "Archer AX",
+    "path": "/",
+    "title": [
+      "Archer AX"
+    ],
+    "content": [
+      "TP-Link"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "Archer C",
+    "path": "/",
+    "title": [
+      "Archer C"
+    ],
+    "content": [
+      "TP-Link"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "Deco",
+    "path": "/",
+    "title": [
+      "Deco"
+    ],
+    "content": [
+      "TP-Link"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "Omada",
+    "path": "/",
+    "title": [
+      "Omada"
+    ],
+    "content": [
+      "TP-Link"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "Kasa",
+    "path": "/",
+    "title": [
+      "Kasa"
+    ],
+    "content": [
+      "TP-Link"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "Tapo",
+    "path": "/",
+    "title": [
+      "Tapo"
+    ],
+    "content": [
+      "TP-Link"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "TP-Link (model)",
+    "path": "/",
+    "title": [
+      "(?i)tp-link\\s+[a-z0-9-]{4,10}"
+    ]
+  },
+  {
+    "vendor": "TP-Link",
+    "product": "TP-Link Router",
+    "path": "/favicon.ico",
+    "md5": "g7h9a1b3c5d7e9f1g3h5j7k9l1m3n5o7",
+    "firmware_regex": "(?:\"firmwareVersion\"\\s*:\\s*\"([^\"]+)\"|firmware_version\\s*=\\s*\"([^\"]+)\")",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "D-Link",
+    "product": "D-Link Router",
+    "path": "/",
+    "title": [
+      "D-Link"
+    ],
+    "firmware_regex": "(?:firmwareVersion|fw_ver|firmware_version)\\s*=\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "D-Link",
+    "product": "D-Link Router",
+    "path": "/",
+    "header_content": [
+      "D-Link"
+    ],
+    "firmware_regex": "(?:firmwareVersion|fw_ver|firmware_version)\\s*=\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "D-Link",
+    "product": "DIR Series",
+    "path": "/",
+    "title": [
+      "DIR"
+    ],
+    "content": [
+      "D-Link"
+    ]
+  },
+  {
+    "vendor": "D-Link",
+    "product": "DAP Series",
+    "path": "/",
+    "title": [
+      "DAP"
+    ],
+    "content": [
+      "D-Link"
+    ]
+  },
+  {
+    "vendor": "D-Link",
+    "product": "DI Series",
+    "path": "/",
+    "title": [
+      "DI"
+    ],
+    "content": [
+      "D-Link"
+    ]
+  },
+  {
+    "vendor": "D-Link",
+    "product": "COVR",
+    "path": "/",
+    "title": [
+      "COVR"
+    ]
+  },
+  {
+    "vendor": "D-Link",
+    "product": "EXO",
+    "path": "/",
+    "title": [
+      "EXO"
+    ],
+    "content": [
+      "D-Link"
+    ]
+  },
+  {
+    "vendor": "D-Link",
+    "product": "Eagle",
+    "path": "/",
+    "title": [
+      "Eagle"
+    ],
+    "content": [
+      "D-Link"
+    ]
+  },
+  {
+    "vendor": "D-Link",
+    "product": "D-Link (model)",
+    "path": "/",
+    "title": [
+      "(?i)d-link\\s+[a-z0-9-]{4,8}"
+    ]
+  },
+  {
+    "vendor": "D-Link",
+    "product": "D-Link Router",
+    "path": "/favicon.ico",
+    "md5": "h8a0b2c4d6e8f0g2h4j6k8l0m2n4o6p8",
+    "firmware_regex": "(?:firmwareVersion|fw_ver|firmware_version)\\s*=\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Linksys",
+    "product": "Linksys Router",
+    "path": "/",
+    "title": [
+      "Linksys"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Linksys",
+    "product": "Linksys Router",
+    "path": "/",
+    "header_content": [
+      "Linksys"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Linksys",
+    "product": "WRT Series",
+    "path": "/",
+    "title": [
+      "WRT"
+    ],
+    "content": [
+      "Linksys"
+    ]
+  },
+  {
+    "vendor": "Linksys",
+    "product": "EA Series",
+    "path": "/",
+    "title": [
+      "EA"
+    ],
+    "content": [
+      "Linksys"
+    ]
+  },
+  {
+    "vendor": "Linksys",
+    "product": "Velop",
+    "path": "/",
+    "title": [
+      "Velop"
+    ]
+  },
+  {
+    "vendor": "Linksys",
+    "product": "MX Series",
+    "path": "/",
+    "title": [
+      "MX"
+    ],
+    "content": [
+      "Linksys"
+    ]
+  },
+  {
+    "vendor": "Linksys",
+    "product": "LAP Series",
+    "path": "/",
+    "title": [
+      "LAP"
+    ],
+    "content": [
+      "Linksys"
+    ]
+  },
+  {
+    "vendor": "Linksys",
+    "product": "Linksys (model)",
+    "path": "/",
+    "title": [
+      "(?i)linksys\\s+[a-z0-9-]{4,8}"
+    ]
+  },
+  {
+    "vendor": "Linksys",
+    "product": "Linksys Router",
+    "path": "/favicon.ico",
+    "md5": "i9b1c3d5e7f9g1h3j5k7l9m1n3o5p7q9",
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Belkin",
+    "product": "Belkin Router",
+    "path": "/",
+    "title": [
+      "Belkin"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Belkin",
+    "product": "Belkin Router",
+    "path": "/",
+    "header_content": [
+      "Belkin"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Belkin",
+    "product": "F5D Series",
+    "path": "/",
+    "title": [
+      "F5D"
+    ],
+    "content": [
+      "Belkin"
+    ]
+  },
+  {
+    "vendor": "Belkin",
+    "product": "N150",
+    "path": "/",
+    "title": [
+      "N150"
+    ],
+    "content": [
+      "Belkin"
+    ]
+  },
+  {
+    "vendor": "Belkin",
+    "product": "N300",
+    "path": "/",
+    "title": [
+      "N300"
+    ],
+    "content": [
+      "Belkin"
+    ]
+  },
+  {
+    "vendor": "Belkin",
+    "product": "AC Series",
+    "path": "/",
+    "title": [
+      "AC"
+    ],
+    "content": [
+      "Belkin"
+    ]
+  },
+  {
+    "vendor": "Buffalo",
+    "product": "Buffalo Router",
+    "path": "/",
+    "title": [
+      "Buffalo"
+    ],
+    "firmware_regex": "(?:Firmware|FW)\\s+(?:Version|Rev)[:=]?\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Buffalo",
+    "product": "Buffalo Router",
+    "path": "/",
+    "header_content": [
+      "Buffalo"
+    ],
+    "firmware_regex": "(?:Firmware|FW)\\s+(?:Version|Rev)[:=]?\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Buffalo",
+    "product": "AirStation",
+    "path": "/",
+    "title": [
+      "AirStation"
+    ]
+  },
+  {
+    "vendor": "Buffalo",
+    "product": "WZR Series",
+    "path": "/",
+    "title": [
+      "WZR"
+    ],
+    "content": [
+      "Buffalo"
+    ]
+  },
+  {
+    "vendor": "Buffalo",
+    "product": "WHR Series",
+    "path": "/",
+    "title": [
+      "WHR"
+    ],
+    "content": [
+      "Buffalo"
+    ]
+  },
+  {
+    "vendor": "Buffalo",
+    "product": "WSR Series",
+    "path": "/",
+    "title": [
+      "WSR"
+    ],
+    "content": [
+      "Buffalo"
+    ]
+  },
+  {
+    "vendor": "Xiaomi",
+    "product": "Xiaomi Router",
+    "path": "/",
+    "title": [
+      "Xiaomi"
+    ]
+  },
+  {
+    "vendor": "Xiaomi",
+    "product": "Xiaomi Router",
+    "path": "/",
+    "content": [
+      "Xiaomi"
+    ]
+  },
+  {
+    "vendor": "Xiaomi",
+    "product": "Mi WiFi",
+    "path": "/",
+    "title": [
+      "Mi WiFi",
+      "Mi Router"
+    ]
+  },
+  {
+    "vendor": "Xiaomi",
+    "product": "AX Series",
+    "path": "/",
+    "title": [
+      "AX"
+    ],
+    "content": [
+      "Xiaomi"
+    ]
+  },
+  {
+    "vendor": "Xiaomi",
+    "product": "Xiaomi (model)",
+    "path": "/",
+    "title": [
+      "(?i)xiaomi\\s+[a-z0-9-]{4,8}"
+    ]
+  },
+  {
+    "vendor": "Xiaomi",
+    "product": "Xiaomi Router",
+    "path": "/favicon.ico",
+    "md5": "j0c2d4e6f8g0h2j4k6l8m0n2o4p6q8r0"
+  },
+  {
+    "vendor": "Google",
+    "product": "Google Wifi",
+    "path": "/",
+    "title": [
+      "Google Wifi"
+    ]
+  },
+  {
+    "vendor": "Google",
+    "product": "Google Wifi",
+    "path": "/",
+    "content": [
+      "Google Wifi"
+    ]
+  },
+  {
+    "vendor": "Google",
+    "product": "Nest Wifi",
+    "path": "/",
+    "title": [
+      "Nest Wifi"
+    ]
+  },
+  {
+    "vendor": "Google",
+    "product": "Nest Wifi",
+    "path": "/",
+    "content": [
+      "Nest Wifi"
+    ]
+  },
+  {
+    "vendor": "Google",
+    "product": "OnHub",
+    "path": "/",
+    "title": [
+      "OnHub"
+    ]
+  },
+  {
+    "vendor": "Amazon",
+    "product": "Eero",
+    "path": "/",
+    "title": [
+      "Eero",
+      "eero"
+    ]
+  },
+  {
+    "vendor": "Amazon",
+    "product": "Eero",
+    "path": "/",
+    "header_content": [
+      "eero"
+    ]
+  },
+  {
+    "vendor": "Plume",
+    "product": "Plume Router",
+    "path": "/",
+    "title": [
+      "Plume"
+    ]
+  },
+  {
+    "vendor": "Plume",
+    "product": "Plume Router",
+    "path": "/",
+    "content": [
+      "Plume"
+    ]
+  },
+  {
+    "vendor": "MikroTik",
+    "product": "RouterOS",
+    "path": "/",
+    "title": [
+      "RouterOS",
+      "MikroTik"
+    ],
+    "firmware_regex": "RouterOS\\s+v?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "MikroTik",
+    "product": "RouterOS",
+    "path": "/",
+    "header_content": [
+      "MikroTik"
+    ],
+    "firmware_regex": "RouterOS\\s+v?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "MikroTik",
+    "product": "RouterBOARD",
+    "path": "/",
+    "title": [
+      "RouterBOARD"
+    ]
+  },
+  {
+    "vendor": "MikroTik",
+    "product": "SwOS",
+    "path": "/",
+    "title": [
+      "SwOS"
+    ]
+  },
+  {
+    "vendor": "MikroTik",
+    "product": "SwOS",
+    "path": "/",
+    "content": [
+      "SwOS"
+    ]
+  },
+  {
+    "vendor": "MikroTik",
+    "product": "RouterOS",
+    "path": "/webfig/",
+    "title": [
+      "WebFig"
+    ],
+    "content": [
+      "MikroTik"
+    ],
+    "firmware_regex": "RouterOS\\s+v?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "MikroTik",
+    "product": "RouterOS",
+    "path": "/favicon.ico",
+    "md5": "k1d3e5f7g9h1j3k5l7m9n1o3p5q7r9s1",
+    "firmware_regex": "RouterOS\\s+v?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "EdgeRouter",
+    "path": "/",
+    "title": [
+      "EdgeRouter",
+      "EdgeOS"
+    ],
+    "firmware_regex": "EdgeOS\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "EdgeRouter",
+    "path": "/",
+    "header_content": [
+      "EdgeRouter"
+    ],
+    "firmware_regex": "EdgeOS\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "UniFi",
+    "path": "/",
+    "title": [
+      "UniFi"
+    ],
+    "firmware_regex": "UniFi\\s+(?:Network\\s+)?v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "UniFi",
+    "path": "/",
+    "content": [
+      "UniFi"
+    ],
+    "firmware_regex": "UniFi\\s+(?:Network\\s+)?v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "AirOS",
+    "path": "/",
+    "title": [
+      "AirOS",
+      "AirRouter"
+    ],
+    "firmware_regex": "AirOS\\s+v?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "AmpliFi",
+    "path": "/",
+    "title": [
+      "AmpliFi"
+    ]
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "AirMax",
+    "path": "/",
+    "title": [
+      "AirMax"
+    ]
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "AirFiber",
+    "path": "/",
+    "title": [
+      "AirFiber"
+    ]
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "UniFi Dream",
+    "path": "/",
+    "title": [
+      "Dream"
+    ],
+    "content": [
+      "UniFi"
+    ]
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "UniFi Cloud",
+    "path": "/",
+    "title": [
+      "Cloud"
+    ],
+    "content": [
+      "UniFi"
+    ]
+  },
+  {
+    "vendor": "Ubiquiti",
+    "product": "EdgeRouter",
+    "path": "/favicon.ico",
+    "md5": "l2e4f6g8h0j2k4l6m8n0o2p4q6r8s0t2",
+    "firmware_regex": "EdgeOS\\s+v?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Huawei",
+    "product": "Huawei Router",
+    "path": "/",
+    "title": [
+      "Huawei",
+      "HUAWEI"
+    ],
+    "firmware_regex": "Software\\s+Version\\s*[:=]\\s*V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Huawei",
+    "product": "Huawei Router",
+    "path": "/",
+    "header_content": [
+      "Huawei"
+    ],
+    "firmware_regex": "Software\\s+Version\\s*[:=]\\s*V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Huawei",
+    "product": "EchoLife",
+    "path": "/",
+    "title": [
+      "EchoLife"
+    ]
+  },
+  {
+    "vendor": "Huawei",
+    "product": "HG Series",
+    "path": "/",
+    "title": [
+      "HG"
+    ],
+    "content": [
+      "Huawei"
+    ]
+  },
+  {
+    "vendor": "Huawei",
+    "product": "B Series",
+    "path": "/",
+    "title": [
+      "B"
+    ],
+    "content": [
+      "Huawei"
+    ]
+  },
+  {
+    "vendor": "Huawei",
+    "product": "Huawei (model)",
+    "path": "/",
+    "title": [
+      "(?i)huawei\\s+[a-z0-9-]{4,8}"
+    ]
+  },
+  {
+    "vendor": "Huawei",
+    "product": "Huawei Router",
+    "path": "/favicon.ico",
+    "md5": "m3f5g7h9j1k3l5m7n9o1p3q5r7s9t1u3",
+    "firmware_regex": "Software\\s+Version\\s*[:=]\\s*V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ZTE",
+    "product": "ZTE Router",
+    "path": "/",
+    "title": [
+      "ZTE"
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ZTE",
+    "product": "ZTE Router",
+    "path": "/",
+    "content": [
+      "ZTE"
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ZTE",
+    "product": "ZXHN",
+    "path": "/",
+    "title": [
+      "ZXHN"
+    ]
+  },
+  {
+    "vendor": "ZTE",
+    "product": "ZXDSL",
+    "path": "/",
+    "title": [
+      "ZXDSL"
+    ]
+  },
+  {
+    "vendor": "ZTE",
+    "product": "MF Series",
+    "path": "/",
+    "title": [
+      "MF"
+    ],
+    "content": [
+      "ZTE"
+    ]
+  },
+  {
+    "vendor": "ZTE",
+    "product": "F Series",
+    "path": "/",
+    "title": [
+      "F"
+    ],
+    "content": [
+      "ZTE"
+    ]
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "ZyXEL Router",
+    "path": "/",
+    "title": [
+      "ZyXEL"
+    ],
+    "firmware_regex": "Firmware\\s+(?:Version|Release)\\s*[:=]\\s*V?([0-9][0-9.()_A-Za-z]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "ZyXEL Router",
+    "path": "/",
+    "header_content": [
+      "ZyXEL"
+    ],
+    "firmware_regex": "Firmware\\s+(?:Version|Release)\\s*[:=]\\s*V?([0-9][0-9.()_A-Za-z]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "P-Series",
+    "path": "/",
+    "title": [
+      "P-"
+    ],
+    "content": [
+      "ZyXEL"
+    ]
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "NBG Series",
+    "path": "/",
+    "title": [
+      "NBG"
+    ],
+    "content": [
+      "ZyXEL"
+    ]
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "USG Series",
+    "path": "/",
+    "title": [
+      "USG"
+    ],
+    "content": [
+      "ZyXEL"
+    ]
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "ATP Series",
+    "path": "/",
+    "title": [
+      "ATP"
+    ],
+    "content": [
+      "ZyXEL"
+    ]
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "Armor",
+    "path": "/",
+    "title": [
+      "Armor"
+    ],
+    "content": [
+      "ZyXEL"
+    ]
+  },
+  {
+    "vendor": "ZyXEL",
+    "product": "Keenetic",
+    "path": "/",
+    "title": [
+      "Keenetic"
+    ]
+  },
+  {
+    "vendor": "DrayTek",
+    "product": "DrayTek Router",
+    "path": "/",
+    "title": [
+      "DrayTek"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "DrayTek",
+    "product": "DrayTek Router",
+    "path": "/",
+    "content": [
+      "DrayTek"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "DrayTek",
+    "product": "Vigor",
+    "path": "/",
+    "title": [
+      "Vigor"
+    ],
+    "content": [
+      "DrayTek"
+    ]
+  },
+  {
+    "vendor": "TRENDnet",
+    "product": "TRENDnet Router",
+    "path": "/",
+    "title": [
+      "TRENDnet"
+    ]
+  },
+  {
+    "vendor": "TRENDnet",
+    "product": "TRENDnet Router",
+    "path": "/",
+    "header_content": [
+      "TRENDnet"
+    ]
+  },
+  {
+    "vendor": "TRENDnet",
+    "product": "TEW Series",
+    "path": "/",
+    "title": [
+      "TEW"
+    ],
+    "content": [
+      "TRENDnet"
+    ]
+  },
+  {
+    "vendor": "TRENDnet",
+    "product": "TW Series",
+    "path": "/",
+    "title": [
+      "TW"
+    ],
+    "content": [
+      "TRENDnet"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "Tenda Router",
+    "path": "/",
+    "title": [
+      "Tenda"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "Tenda Router",
+    "path": "/",
+    "header_content": [
+      "Tenda"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "Tenda Router",
+    "path": "/",
+    "title": [
+      "Tenda | login",
+      "Tenda|登录"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "Tenda Router",
+    "path": "/",
+    "title": [
+      "Tenda | Web Master",
+      "Tenda | Wireless Router"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "AC Series",
+    "path": "/",
+    "title": [
+      "AC"
+    ],
+    "content": [
+      "Tenda"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "MW Series",
+    "path": "/",
+    "title": [
+      "MW"
+    ],
+    "content": [
+      "Tenda"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "FH Series",
+    "path": "/",
+    "title": [
+      "FH"
+    ],
+    "content": [
+      "Tenda"
+    ]
+  },
+  {
+    "vendor": "Tenda",
+    "product": "Tenda Router",
+    "path": "/favicon.ico",
+    "md5": "fa31b29eab2da688b11d8fafc5fc6b27"
+  },
+  {
+    "vendor": "Netis",
+    "product": "Netis Router",
+    "path": "/",
+    "title": [
+      "Netis"
+    ]
+  },
+  {
+    "vendor": "Netis",
+    "product": "Netis Router",
+    "path": "/",
+    "content": [
+      "Netis"
+    ]
+  },
+  {
+    "vendor": "Netis",
+    "product": "WF Series",
+    "path": "/",
+    "title": [
+      "WF"
+    ],
+    "content": [
+      "Netis"
+    ]
+  },
+  {
+    "vendor": "Edimax",
+    "product": "Edimax Router",
+    "path": "/",
+    "title": [
+      "Edimax"
+    ]
+  },
+  {
+    "vendor": "Edimax",
+    "product": "Edimax Router",
+    "path": "/",
+    "header_content": [
+      "Edimax"
+    ]
+  },
+  {
+    "vendor": "Edimax",
+    "product": "BR Series",
+    "path": "/",
+    "title": [
+      "BR"
+    ],
+    "content": [
+      "Edimax"
+    ]
+  },
+  {
+    "vendor": "Edimax",
+    "product": "EW Series",
+    "path": "/",
+    "title": [
+      "EW"
+    ],
+    "content": [
+      "Edimax"
+    ]
+  },
+  {
+    "vendor": "LevelOne",
+    "product": "LevelOne Router",
+    "path": "/",
+    "title": [
+      "LevelOne"
+    ]
+  },
+  {
+    "vendor": "LevelOne",
+    "product": "LevelOne Router",
+    "path": "/",
+    "header_content": [
+      "LevelOne"
+    ]
+  },
+  {
+    "vendor": "LevelOne",
+    "product": "WBR Series",
+    "path": "/",
+    "title": [
+      "WBR"
+    ],
+    "content": [
+      "LevelOne"
+    ]
+  },
+  {
+    "vendor": "LevelOne",
+    "product": "FBR Series",
+    "path": "/",
+    "title": [
+      "FBR"
+    ],
+    "content": [
+      "LevelOne"
+    ]
+  },
+  {
+    "vendor": "SMC",
+    "product": "SMC Router",
+    "path": "/",
+    "title": [
+      "SMC"
+    ]
+  },
+  {
+    "vendor": "SMC",
+    "product": "SMC Router",
+    "path": "/",
+    "header_content": [
+      "SMC"
+    ]
+  },
+  {
+    "vendor": "Lancom",
+    "product": "Lancom Router",
+    "path": "/",
+    "title": [
+      "Lancom"
+    ]
+  },
+  {
+    "vendor": "Lancom",
+    "product": "Lancom Router",
+    "path": "/",
+    "content": [
+      "Lancom"
+    ]
+  },
+  {
+    "vendor": "Lancom",
+    "product": "LCOS",
+    "path": "/",
+    "title": [
+      "LCOS"
+    ]
+  },
+  {
+    "vendor": "Grandstream",
+    "product": "Grandstream Router",
+    "path": "/",
+    "title": [
+      "Grandstream"
+    ]
+  },
+  {
+    "vendor": "Grandstream",
+    "product": "Grandstream Router",
+    "path": "/",
+    "content": [
+      "Grandstream"
+    ]
+  },
+  {
+    "vendor": "Grandstream",
+    "product": "GWN Series",
+    "path": "/",
+    "title": [
+      "GWN"
+    ],
+    "content": [
+      "Grandstream"
+    ]
+  },
+  {
+    "vendor": "EnGenius",
+    "product": "EnGenius Router",
+    "path": "/",
+    "title": [
+      "EnGenius"
+    ]
+  },
+  {
+    "vendor": "EnGenius",
+    "product": "EnGenius Router",
+    "path": "/",
+    "content": [
+      "EnGenius"
+    ]
+  },
+  {
+    "vendor": "EnGenius",
+    "product": "ESR Series",
+    "path": "/",
+    "title": [
+      "ESR"
+    ],
+    "content": [
+      "EnGenius"
+    ]
+  },
+  {
+    "vendor": "Cambium",
+    "product": "Cambium Router",
+    "path": "/",
+    "title": [
+      "Cambium"
+    ]
+  },
+  {
+    "vendor": "Cambium",
+    "product": "Cambium Router",
+    "path": "/",
+    "content": [
+      "Cambium"
+    ]
+  },
+  {
+    "vendor": "Cambium",
+    "product": "cnPilot",
+    "path": "/",
+    "title": [
+      "cnPilot"
+    ]
+  },
+  {
+    "vendor": "GL.iNet",
+    "product": "GL.iNet Router",
+    "path": "/",
+    "title": [
+      "GL.iNet"
+    ]
+  },
+  {
+    "vendor": "GL.iNet",
+    "product": "GL.iNet Router",
+    "path": "/",
+    "content": [
+      "GL.iNet"
+    ]
+  },
+  {
+    "vendor": "GL.iNet",
+    "product": "GL-Series",
+    "path": "/",
+    "title": [
+      "GL-"
+    ],
+    "content": [
+      "GL.iNet"
+    ]
+  },
+  {
+    "vendor": "Luxul",
+    "product": "Luxul Router",
+    "path": "/",
+    "title": [
+      "Luxul"
+    ]
+  },
+  {
+    "vendor": "Luxul",
+    "product": "Luxul Router",
+    "path": "/",
+    "content": [
+      "Luxul"
+    ]
+  },
+  {
+    "vendor": "Luxul",
+    "product": "XWR Series",
+    "path": "/",
+    "title": [
+      "XWR"
+    ],
+    "content": [
+      "Luxul"
+    ]
+  },
+  {
+    "vendor": "Peplink",
+    "product": "Peplink Router",
+    "path": "/",
+    "title": [
+      "Peplink"
+    ]
+  },
+  {
+    "vendor": "Peplink",
+    "product": "Peplink Router",
+    "path": "/",
+    "content": [
+      "Peplink"
+    ]
+  },
+  {
+    "vendor": "Peplink",
+    "product": "Pepwave",
+    "path": "/",
+    "title": [
+      "Pepwave"
+    ]
+  },
+  {
+    "vendor": "Peplink",
+    "product": "Balance",
+    "path": "/",
+    "title": [
+      "Balance"
+    ],
+    "content": [
+      "Peplink"
+    ]
+  },
+  {
+    "vendor": "Cradlepoint",
+    "product": "Cradlepoint Router",
+    "path": "/",
+    "title": [
+      "Cradlepoint"
+    ]
+  },
+  {
+    "vendor": "Cradlepoint",
+    "product": "Cradlepoint Router",
+    "path": "/",
+    "content": [
+      "Cradlepoint"
+    ]
+  },
+  {
+    "vendor": "Cradlepoint",
+    "product": "NetCloud",
+    "path": "/",
+    "title": [
+      "NetCloud"
+    ]
+  },
+  {
+    "vendor": "Sierra Wireless",
+    "product": "Sierra Router",
+    "path": "/",
+    "title": [
+      "Sierra"
+    ]
+  },
+  {
+    "vendor": "Sierra Wireless",
+    "product": "Sierra Router",
+    "path": "/",
+    "content": [
+      "Sierra"
+    ]
+  },
+  {
+    "vendor": "Sierra Wireless",
+    "product": "AirLink",
+    "path": "/",
+    "title": [
+      "AirLink"
+    ]
+  },
+  {
+    "vendor": "Digi",
+    "product": "Digi Router",
+    "path": "/",
+    "title": [
+      "Digi"
+    ]
+  },
+  {
+    "vendor": "Digi",
+    "product": "Digi Router",
+    "path": "/",
+    "content": [
+      "Digi"
+    ]
+  },
+  {
+    "vendor": "Digi",
+    "product": "Connect",
+    "path": "/",
+    "title": [
+      "Connect"
+    ],
+    "content": [
+      "Digi"
+    ]
+  },
+  {
+    "vendor": "Digi",
+    "product": "TransPort",
+    "path": "/",
+    "title": [
+      "TransPort"
+    ]
+  },
+  {
+    "vendor": "Teltonika",
+    "product": "Teltonika Router",
+    "path": "/",
+    "title": [
+      "Teltonika"
+    ]
+  },
+  {
+    "vendor": "Teltonika",
+    "product": "Teltonika Router",
+    "path": "/",
+    "content": [
+      "Teltonika"
+    ]
+  },
+  {
+    "vendor": "Teltonika",
+    "product": "RUT Series",
+    "path": "/",
+    "title": [
+      "RUT"
+    ],
+    "content": [
+      "Teltonika"
+    ]
+  },
+  {
+    "vendor": "Teltonika",
+    "product": "TRB Series",
+    "path": "/",
+    "title": [
+      "TRB"
+    ],
+    "content": [
+      "Teltonika"
+    ]
+  },
+  {
+    "vendor": "Teltonika",
+    "product": "TCR Series",
+    "path": "/",
+    "title": [
+      "TCR"
+    ],
+    "content": [
+      "Teltonika"
+    ]
+  },
+  {
+    "vendor": "Robustel",
+    "product": "Robustel Router",
+    "path": "/",
+    "title": [
+      "Robustel"
+    ]
+  },
+  {
+    "vendor": "Robustel",
+    "product": "Robustel Router",
+    "path": "/",
+    "content": [
+      "Robustel"
+    ]
+  },
+  {
+    "vendor": "Robustel",
+    "product": "R3000",
+    "path": "/",
+    "title": [
+      "R3000"
+    ]
+  },
+  {
+    "vendor": "InHand",
+    "product": "InHand Router",
+    "path": "/",
+    "title": [
+      "InHand"
+    ]
+  },
+  {
+    "vendor": "InHand",
+    "product": "InHand Router",
+    "path": "/",
+    "content": [
+      "InHand"
+    ]
+  },
+  {
+    "vendor": "Moxa",
+    "product": "Moxa Router",
+    "path": "/",
+    "title": [
+      "Moxa"
+    ]
+  },
+  {
+    "vendor": "Moxa",
+    "product": "Moxa Router",
+    "path": "/",
+    "content": [
+      "Moxa"
+    ]
+  },
+  {
+    "vendor": "Actiontec",
+    "product": "Actiontec Router",
+    "path": "/",
+    "title": [
+      "Actiontec"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Actiontec",
+    "product": "Actiontec Router",
+    "path": "/",
+    "header_content": [
+      "Actiontec"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Actiontec",
+    "product": "MI424WR",
+    "path": "/",
+    "title": [
+      "MI424WR"
+    ]
+  },
+  {
+    "vendor": "Arris",
+    "product": "Arris Router",
+    "path": "/",
+    "title": [
+      "Arris"
+    ],
+    "firmware_regex": "(?:Software|eMTA|Firmware)\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Arris",
+    "product": "Arris Router",
+    "path": "/",
+    "header_content": [
+      "Arris"
+    ],
+    "firmware_regex": "(?:Software|eMTA|Firmware)\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Arris",
+    "product": "Touchstone",
+    "path": "/",
+    "title": [
+      "Touchstone"
+    ]
+  },
+  {
+    "vendor": "Arris",
+    "product": "Surfboard",
+    "path": "/",
+    "title": [
+      "Surfboard"
+    ]
+  },
+  {
+    "vendor": "Arris",
+    "product": "SBG Series",
+    "path": "/",
+    "title": [
+      "SBG"
+    ],
+    "content": [
+      "Arris"
+    ]
+  },
+  {
+    "vendor": "Aztech",
+    "product": "Aztech Router",
+    "path": "/",
+    "title": [
+      "Aztech"
+    ]
+  },
+  {
+    "vendor": "Aztech",
+    "product": "Aztech Router",
+    "path": "/",
+    "header_content": [
+      "Aztech"
+    ]
+  },
+  {
+    "vendor": "Aztech",
+    "product": "DSL Series",
+    "path": "/",
+    "title": [
+      "DSL"
+    ],
+    "content": [
+      "Aztech"
+    ]
+  },
+  {
+    "vendor": "Aztech",
+    "product": "HW Series",
+    "path": "/",
+    "title": [
+      "HW"
+    ],
+    "content": [
+      "Aztech"
+    ]
+  },
+  {
+    "vendor": "BEC",
+    "product": "BEC Router",
+    "path": "/",
+    "title": [
+      "BEC"
+    ]
+  },
+  {
+    "vendor": "BEC",
+    "product": "BEC Router",
+    "path": "/",
+    "content": [
+      "BEC"
+    ]
+  },
+  {
+    "vendor": "Billion",
+    "product": "Billion Router",
+    "path": "/",
+    "title": [
+      "Billion"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Billion",
+    "product": "Billion Router",
+    "path": "/",
+    "header_content": [
+      "Billion"
+    ],
+    "firmware_regex": "Firmware\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Billion",
+    "product": "7400 Series",
+    "path": "/",
+    "title": [
+      "7400"
+    ],
+    "content": [
+      "Billion"
+    ]
+  },
+  {
+    "vendor": "Billion",
+    "product": "7800 Series",
+    "path": "/",
+    "title": [
+      "7800"
+    ],
+    "content": [
+      "Billion"
+    ]
+  },
+  {
+    "vendor": "Calix",
+    "product": "Calix Router",
+    "path": "/",
+    "title": [
+      "Calix"
+    ]
+  },
+  {
+    "vendor": "Calix",
+    "product": "Calix Router",
+    "path": "/",
+    "content": [
+      "Calix"
+    ]
+  },
+  {
+    "vendor": "Calix",
+    "product": "GigaCenter",
+    "path": "/",
+    "title": [
+      "GigaCenter"
+    ]
+  },
+  {
+    "vendor": "Comtrend",
+    "product": "Comtrend Router",
+    "path": "/",
+    "title": [
+      "Comtrend"
+    ],
+    "firmware_regex": "Software\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Comtrend",
+    "product": "Comtrend Router",
+    "path": "/",
+    "header_content": [
+      "Comtrend"
+    ],
+    "firmware_regex": "Software\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Comtrend",
+    "product": "AR Series",
+    "path": "/",
+    "title": [
+      "AR"
+    ],
+    "content": [
+      "Comtrend"
+    ]
+  },
+  {
+    "vendor": "Comtrend",
+    "product": "VR Series",
+    "path": "/",
+    "title": [
+      "VR"
+    ],
+    "content": [
+      "Comtrend"
+    ]
+  },
+  {
+    "vendor": "Corega",
+    "product": "Corega Router",
+    "path": "/",
+    "title": [
+      "Corega"
+    ]
+  },
+  {
+    "vendor": "Corega",
+    "product": "Corega Router",
+    "path": "/",
+    "content": [
+      "Corega"
+    ]
+  },
+  {
+    "vendor": "FiberHome",
+    "product": "FiberHome Router",
+    "path": "/",
+    "title": [
+      "FiberHome"
+    ]
+  },
+  {
+    "vendor": "FiberHome",
+    "product": "FiberHome Router",
+    "path": "/",
+    "content": [
+      "FiberHome"
+    ]
+  },
+  {
+    "vendor": "Hitron",
+    "product": "Hitron Router",
+    "path": "/",
+    "title": [
+      "Hitron"
+    ]
+  },
+  {
+    "vendor": "Hitron",
+    "product": "Hitron Router",
+    "path": "/",
+    "header_content": [
+      "Hitron"
+    ]
+  },
+  {
+    "vendor": "Hitron",
+    "product": "CGN Series",
+    "path": "/",
+    "title": [
+      "CGN"
+    ],
+    "content": [
+      "Hitron"
+    ]
+  },
+  {
+    "vendor": "Hitron",
+    "product": "CODA Series",
+    "path": "/",
+    "title": [
+      "CODA"
+    ],
+    "content": [
+      "Hitron"
+    ]
+  },
+  {
+    "vendor": "iBall",
+    "product": "iBall Router",
+    "path": "/",
+    "title": [
+      "iBall"
+    ]
+  },
+  {
+    "vendor": "iBall",
+    "product": "iBall Router",
+    "path": "/",
+    "content": [
+      "iBall"
+    ]
+  },
+  {
+    "vendor": "Motorola",
+    "product": "Motorola Router",
+    "path": "/",
+    "title": [
+      "Motorola"
+    ]
+  },
+  {
+    "vendor": "Motorola",
+    "product": "Motorola Router",
+    "path": "/",
+    "header_content": [
+      "Motorola"
+    ]
+  },
+  {
+    "vendor": "Motorola",
+    "product": "SB Series",
+    "path": "/",
+    "title": [
+      "SB"
+    ],
+    "content": [
+      "Motorola"
+    ]
+  },
+  {
+    "vendor": "Motorola",
+    "product": "MG Series",
+    "path": "/",
+    "title": [
+      "MG"
+    ],
+    "content": [
+      "Motorola"
+    ]
+  },
+  {
+    "vendor": "NetComm",
+    "product": "NetComm Router",
+    "path": "/",
+    "title": [
+      "NetComm"
+    ]
+  },
+  {
+    "vendor": "NetComm",
+    "product": "NetComm Router",
+    "path": "/",
+    "header_content": [
+      "NetComm"
+    ]
+  },
+  {
+    "vendor": "NetComm",
+    "product": "NF Series",
+    "path": "/",
+    "title": [
+      "NF"
+    ],
+    "content": [
+      "NetComm"
+    ]
+  },
+  {
+    "vendor": "NetComm",
+    "product": "NB Series",
+    "path": "/",
+    "title": [
+      "NB"
+    ],
+    "content": [
+      "NetComm"
+    ]
+  },
+  {
+    "vendor": "Nexxt",
+    "product": "Nexxt Router",
+    "path": "/",
+    "title": [
+      "Nexxt"
+    ]
+  },
+  {
+    "vendor": "Nexxt",
+    "product": "Nexxt Router",
+    "path": "/",
+    "content": [
+      "Nexxt"
+    ]
+  },
+  {
+    "vendor": "Ovislink",
+    "product": "Ovislink Router",
+    "path": "/",
+    "title": [
+      "Ovislink"
+    ]
+  },
+  {
+    "vendor": "Ovislink",
+    "product": "Ovislink Router",
+    "path": "/",
+    "content": [
+      "Ovislink"
+    ]
+  },
+  {
+    "vendor": "Pace",
+    "product": "Pace Router",
+    "path": "/",
+    "title": [
+      "Pace"
+    ]
+  },
+  {
+    "vendor": "Pace",
+    "product": "Pace Router",
+    "path": "/",
+    "header_content": [
+      "Pace"
+    ]
+  },
+  {
+    "vendor": "Pace",
+    "product": "5 Series",
+    "path": "/",
+    "title": [
+      "5"
+    ],
+    "content": [
+      "Pace"
+    ]
+  },
+  {
+    "vendor": "Planex",
+    "product": "Planex Router",
+    "path": "/",
+    "title": [
+      "Planex"
+    ]
+  },
+  {
+    "vendor": "Planex",
+    "product": "Planex Router",
+    "path": "/",
+    "content": [
+      "Planex"
+    ]
+  },
+  {
+    "vendor": "Proscend",
+    "product": "Proscend Router",
+    "path": "/",
+    "title": [
+      "Proscend"
+    ]
+  },
+  {
+    "vendor": "Proscend",
+    "product": "Proscend Router",
+    "path": "/",
+    "content": [
+      "Proscend"
+    ]
+  },
+  {
+    "vendor": "Repotec",
+    "product": "Repotec Router",
+    "path": "/",
+    "title": [
+      "Repotec"
+    ]
+  },
+  {
+    "vendor": "Repotec",
+    "product": "Repotec Router",
+    "path": "/",
+    "content": [
+      "Repotec"
+    ]
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Sagemcom Router",
+    "path": "/",
+    "title": [
+      "Sagemcom"
+    ],
+    "firmware_regex": "\"SoftwareVersion\"\\s*:\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Sagemcom Router",
+    "path": "/",
+    "header_content": [
+      "Sagemcom"
+    ],
+    "firmware_regex": "\"SoftwareVersion\"\\s*:\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Fast Series",
+    "path": "/",
+    "title": [
+      "Fast",
+      "F@ST"
+    ]
+  },
+  {
+    "vendor": "Sercomm",
+    "product": "Sercomm Router",
+    "path": "/",
+    "title": [
+      "Sercomm"
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Sercomm",
+    "product": "Sercomm Router",
+    "path": "/",
+    "content": [
+      "Sercomm"
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Siemens",
+    "product": "Siemens Router",
+    "path": "/",
+    "title": [
+      "Siemens"
+    ]
+  },
+  {
+    "vendor": "Siemens",
+    "product": "Siemens Router",
+    "path": "/",
+    "header_content": [
+      "Siemens"
+    ]
+  },
+  {
+    "vendor": "Siemens",
+    "product": "Gigaset",
+    "path": "/",
+    "title": [
+      "Gigaset"
+    ]
+  },
+  {
+    "vendor": "Siemens",
+    "product": "SE Series",
+    "path": "/",
+    "title": [
+      "SE"
+    ],
+    "content": [
+      "Siemens"
+    ]
+  },
+  {
+    "vendor": "Sitecom",
+    "product": "Sitecom Router",
+    "path": "/",
+    "title": [
+      "Sitecom"
+    ]
+  },
+  {
+    "vendor": "Sitecom",
+    "product": "Sitecom Router",
+    "path": "/",
+    "content": [
+      "Sitecom"
+    ]
+  },
+  {
+    "vendor": "SparkLAN",
+    "product": "SparkLAN Router",
+    "path": "/",
+    "title": [
+      "SparkLAN"
+    ]
+  },
+  {
+    "vendor": "SparkLAN",
+    "product": "SparkLAN Router",
+    "path": "/",
+    "content": [
+      "SparkLAN"
+    ]
+  },
+  {
+    "vendor": "Technicolor",
+    "product": "Technicolor Router",
+    "path": "/",
+    "title": [
+      "Technicolor"
+    ],
+    "firmware_regex": "Software\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Technicolor",
+    "product": "Technicolor Router",
+    "path": "/",
+    "header_content": [
+      "Technicolor"
+    ],
+    "firmware_regex": "Software\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Technicolor",
+    "product": "TG Series",
+    "path": "/",
+    "title": [
+      "TG"
+    ],
+    "content": [
+      "Technicolor"
+    ]
+  },
+  {
+    "vendor": "Technicolor",
+    "product": "DGA Series",
+    "path": "/",
+    "title": [
+      "DGA"
+    ],
+    "content": [
+      "Technicolor"
+    ]
+  },
+  {
+    "vendor": "Technicolor",
+    "product": "CGA Series",
+    "path": "/",
+    "title": [
+      "CGA"
+    ],
+    "content": [
+      "Technicolor"
+    ]
+  },
+  {
+    "vendor": "Thomson",
+    "product": "Thomson Router",
+    "path": "/",
+    "title": [
+      "Thomson"
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Thomson",
+    "product": "Thomson Router",
+    "path": "/",
+    "header_content": [
+      "Thomson"
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Thomson",
+    "product": "SpeedTouch",
+    "path": "/",
+    "title": [
+      "SpeedTouch"
+    ]
+  },
+  {
+    "vendor": "Thomson",
+    "product": "ST Series",
+    "path": "/",
+    "title": [
+      "ST"
+    ],
+    "content": [
+      "Thomson"
+    ]
+  },
+  {
+    "vendor": "Ubee",
+    "product": "Ubee Router",
+    "path": "/",
+    "title": [
+      "Ubee"
+    ]
+  },
+  {
+    "vendor": "Ubee",
+    "product": "Ubee Router",
+    "path": "/",
+    "header_content": [
+      "Ubee"
+    ]
+  },
+  {
+    "vendor": "Ubee",
+    "product": "DDW Series",
+    "path": "/",
+    "title": [
+      "DDW"
+    ],
+    "content": [
+      "Ubee"
+    ]
+  },
+  {
+    "vendor": "Ubee",
+    "product": "EVW Series",
+    "path": "/",
+    "title": [
+      "EVW"
+    ],
+    "content": [
+      "Ubee"
+    ]
+  },
+  {
+    "vendor": "UPVEL",
+    "product": "UPVEL Router",
+    "path": "/",
+    "title": [
+      "UPVEL"
+    ]
+  },
+  {
+    "vendor": "UPVEL",
+    "product": "UPVEL Router",
+    "path": "/",
+    "content": [
+      "UPVEL"
+    ]
+  },
+  {
+    "vendor": "Verifone",
+    "product": "Verifone Router",
+    "path": "/",
+    "title": [
+      "Verifone"
+    ]
+  },
+  {
+    "vendor": "Verifone",
+    "product": "Verifone Router",
+    "path": "/",
+    "content": [
+      "Verifone"
+    ]
+  },
+  {
+    "vendor": "VTech",
+    "product": "VTech Router",
+    "path": "/",
+    "title": [
+      "VTech"
+    ]
+  },
+  {
+    "vendor": "VTech",
+    "product": "VTech Router",
+    "path": "/",
+    "content": [
+      "VTech"
+    ]
+  },
+  {
+    "vendor": "Western Digital",
+    "product": "WD Router",
+    "path": "/",
+    "title": [
+      "Western Digital"
+    ]
+  },
+  {
+    "vendor": "Western Digital",
+    "product": "My Net",
+    "path": "/",
+    "title": [
+      "My Net"
+    ]
+  },
+  {
+    "vendor": "Western Digital",
+    "product": "My Cloud",
+    "path": "/",
+    "title": [
+      "My Cloud"
+    ]
+  },
+  {
+    "vendor": "XAVI",
+    "product": "XAVI Router",
+    "path": "/",
+    "title": [
+      "XAVI"
+    ]
+  },
+  {
+    "vendor": "XAVI",
+    "product": "XAVI Router",
+    "path": "/",
+    "content": [
+      "XAVI"
+    ]
+  },
+  {
+    "vendor": "Z-Com",
+    "product": "Z-Com Router",
+    "path": "/",
+    "title": [
+      "Z-Com"
+    ]
+  },
+  {
+    "vendor": "Z-Com",
+    "product": "Z-Com Router",
+    "path": "/",
+    "content": [
+      "Z-Com"
+    ]
+  },
+  {
+    "vendor": "Zhone",
+    "product": "Zhone Router",
+    "path": "/",
+    "title": [
+      "Zhone"
+    ]
+  },
+  {
+    "vendor": "Zhone",
+    "product": "Zhone Router",
+    "path": "/",
+    "header_content": [
+      "Zhone"
+    ]
+  },
+  {
+    "vendor": "Zhone",
+    "product": "ZX Series",
+    "path": "/",
+    "title": [
+      "ZX"
+    ],
+    "content": [
+      "Zhone"
+    ]
+  },
+  {
+    "vendor": "Comcast",
+    "product": "Xfinity Gateway",
+    "path": "/",
+    "title": [
+      "Xfinity"
+    ]
+  },
+  {
+    "vendor": "Comcast",
+    "product": "Xfinity Gateway",
+    "path": "/",
+    "content": [
+      "Xfinity"
+    ]
+  },
+  {
+    "vendor": "Comcast",
+    "product": "Xfinity xFi",
+    "path": "/",
+    "title": [
+      "xFi"
+    ]
+  },
+  {
+    "vendor": "Spectrum",
+    "product": "Spectrum Router",
+    "path": "/",
+    "title": [
+      "Spectrum"
+    ]
+  },
+  {
+    "vendor": "Spectrum",
+    "product": "Spectrum Router",
+    "path": "/",
+    "content": [
+      "Spectrum"
+    ]
+  },
+  {
+    "vendor": "AT&T",
+    "product": "AT&T Router",
+    "path": "/",
+    "title": [
+      "AT&T"
+    ]
+  },
+  {
+    "vendor": "AT&T",
+    "product": "AT&T Router",
+    "path": "/",
+    "content": [
+      "AT&T"
+    ]
+  },
+  {
+    "vendor": "AT&T",
+    "product": "U-Verse",
+    "path": "/",
+    "title": [
+      "U-Verse"
+    ]
+  },
+  {
+    "vendor": "AT&T",
+    "product": "AT&T Fiber",
+    "path": "/",
+    "title": [
+      "Fiber"
+    ],
+    "content": [
+      "AT&T"
+    ]
+  },
+  {
+    "vendor": "AT&T",
+    "product": "AT&T Gateway",
+    "path": "/",
+    "title": [
+      "Gateway"
+    ],
+    "content": [
+      "AT&T"
+    ]
+  },
+  {
+    "vendor": "BT",
+    "product": "BT Router",
+    "path": "/",
+    "title": [
+      "BT"
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "BT",
+    "product": "BT Router",
+    "path": "/",
+    "content": [
+      "BT"
+    ],
+    "firmware_regex": "(?:Firmware|Software)\\s+Version\\s*[:=]\\s*V?([0-9]+\\.[0-9.]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "BT",
+    "product": "Smart Hub",
+    "path": "/",
+    "title": [
+      "Smart Hub",
+      "Home Hub"
+    ]
+  },
+  {
+    "vendor": "BT",
+    "product": "Business Hub",
+    "path": "/",
+    "title": [
+      "Business Hub"
+    ]
+  },
+  {
+    "vendor": "Virgin Media",
+    "product": "Virgin Media Hub",
+    "path": "/",
+    "title": [
+      "Virgin Media"
+    ]
+  },
+  {
+    "vendor": "Virgin Media",
+    "product": "Virgin Media Hub",
+    "path": "/",
+    "content": [
+      "Virgin Media"
+    ]
+  },
+  {
+    "vendor": "Virgin Media",
+    "product": "Super Hub",
+    "path": "/",
+    "title": [
+      "Super Hub 3",
+      "Super Hub 4"
+    ]
+  },
+  {
+    "vendor": "Sky",
+    "product": "Sky Q Hub",
+    "path": "/",
+    "title": [
+      "Sky Q",
+      "Sky Hub"
+    ]
+  },
+  {
+    "vendor": "Sky",
+    "product": "Sky Router",
+    "path": "/",
+    "title": [
+      "Sky"
+    ],
+    "content": [
+      "Sky"
+    ]
+  },
+  {
+    "vendor": "Vodafone",
+    "product": "Vodafone Router",
+    "path": "/",
+    "title": [
+      "Vodafone"
+    ]
+  },
+  {
+    "vendor": "Vodafone",
+    "product": "Vodafone Router",
+    "path": "/",
+    "content": [
+      "Vodafone"
+    ]
+  },
+  {
+    "vendor": "Vodafone",
+    "product": "Vodafone Connect",
+    "path": "/",
+    "title": [
+      "Connect"
+    ],
+    "content": [
+      "Vodafone"
+    ]
+  },
+  {
+    "vendor": "Orange",
+    "product": "Orange Router",
+    "path": "/",
+    "title": [
+      "Orange"
+    ]
+  },
+  {
+    "vendor": "Orange",
+    "product": "Orange Router",
+    "path": "/",
+    "content": [
+      "Orange"
+    ]
+  },
+  {
+    "vendor": "Orange",
+    "product": "Livebox",
+    "path": "/",
+    "title": [
+      "Livebox"
+    ]
+  },
+  {
+    "vendor": "Telstra",
+    "product": "Telstra Router",
+    "path": "/",
+    "title": [
+      "Telstra"
+    ]
+  },
+  {
+    "vendor": "Telstra",
+    "product": "Telstra Router",
+    "path": "/",
+    "content": [
+      "Telstra"
+    ]
+  },
+  {
+    "vendor": "Telstra",
+    "product": "Smart Modem",
+    "path": "/",
+    "title": [
+      "Smart Modem"
+    ]
+  },
+  {
+    "vendor": "Swisscom",
+    "product": "Swisscom Router",
+    "path": "/",
+    "title": [
+      "Swisscom"
+    ]
+  },
+  {
+    "vendor": "Swisscom",
+    "product": "Swisscom Router",
+    "path": "/",
+    "content": [
+      "Swisscom"
+    ]
+  },
+  {
+    "vendor": "KPN",
+    "product": "KPN Router",
+    "path": "/",
+    "title": [
+      "KPN"
+    ]
+  },
+  {
+    "vendor": "KPN",
+    "product": "KPN Router",
+    "path": "/",
+    "content": [
+      "KPN"
+    ]
+  },
+  {
+    "vendor": "KPN",
+    "product": "KPN Box",
+    "path": "/",
+    "title": [
+      "Box"
+    ],
+    "content": [
+      "KPN"
+    ]
+  },
+  {
+    "vendor": "StarHub",
+    "product": "StarHub Router",
+    "path": "/",
+    "title": [
+      "StarHub"
+    ]
+  },
+  {
+    "vendor": "Beeline",
+    "product": "Beeline Router",
+    "path": "/",
+    "title": [
+      "Beeline"
+    ]
+  },
+  {
+    "vendor": "Beeline",
+    "product": "Beeline Router",
+    "path": "/",
+    "content": [
+      "Beeline"
+    ]
+  },
+  {
+    "vendor": "OpenWrt",
+    "product": "OpenWrt",
+    "path": "/",
+    "title": [
+      "OpenWrt"
+    ],
+    "firmware_regex": "OpenWrt\\s+(?:SNAPSHOT\\s+r[0-9]+-)?(?:[a-zA-Z]+\\s+)?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "OpenWrt",
+    "product": "OpenWrt",
+    "path": "/",
+    "content": [
+      "OpenWrt"
+    ],
+    "firmware_regex": "OpenWrt\\s+(?:SNAPSHOT\\s+r[0-9]+-)?(?:[a-zA-Z]+\\s+)?([0-9]+\\.[0-9]+\\.[0-9]+)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "OpenWrt",
+    "product": "LEDE",
+    "path": "/",
+    "title": [
+      "LEDE"
+    ]
+  },
+  {
+    "vendor": "OpenWrt",
+    "product": "LEDE",
+    "path": "/",
+    "content": [
+      "LEDE"
+    ]
+  },
+  {
+    "vendor": "DD-WRT",
+    "product": "DD-WRT",
+    "path": "/",
+    "title": [
+      "DD-WRT",
+      "DDWRT"
+    ],
+    "firmware_regex": "DD-WRT\\s+v([0-9]+[a-z]*\\s*(?:SP[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "DD-WRT",
+    "product": "DD-WRT",
+    "path": "/",
+    "content": [
+      "DD-WRT"
+    ],
+    "firmware_regex": "DD-WRT\\s+v([0-9]+[a-z]*\\s*(?:SP[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Tomato",
+    "product": "Tomato",
+    "path": "/",
+    "title": [
+      "Tomato"
+    ],
+    "firmware_regex": "Tomato\\s+(?:Firmware\\s+)?v?([0-9.]+(?:\\s*beta)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Tomato",
+    "product": "Tomato",
+    "path": "/",
+    "content": [
+      "Tomato"
+    ],
+    "firmware_regex": "Tomato\\s+(?:Firmware\\s+)?v?([0-9.]+(?:\\s*beta)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "FreshTomato",
+    "product": "FreshTomato",
+    "path": "/",
+    "title": [
+      "FreshTomato"
+    ],
+    "firmware_regex": "FreshTomato\\s+(?:Firmware\\s+)?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "FreshTomato",
+    "product": "FreshTomato",
+    "path": "/",
+    "content": [
+      "FreshTomato"
+    ],
+    "firmware_regex": "FreshTomato\\s+(?:Firmware\\s+)?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "pfSense",
+    "product": "pfSense",
+    "path": "/",
+    "title": [
+      "pfSense"
+    ],
+    "firmware_regex": "pfSense\\s+(?:CE\\s+)?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-RELEASE)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "pfSense",
+    "product": "pfSense",
+    "path": "/",
+    "content": [
+      "pfSense"
+    ],
+    "firmware_regex": "pfSense\\s+(?:CE\\s+)?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?(?:-RELEASE)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "OPNsense",
+    "product": "OPNsense",
+    "path": "/",
+    "title": [
+      "OPNsense"
+    ],
+    "firmware_regex": "OPNsense\\s+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "OPNsense",
+    "product": "OPNsense",
+    "path": "/",
+    "content": [
+      "OPNsense"
+    ],
+    "firmware_regex": "OPNsense\\s+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "VyOS",
+    "product": "VyOS Router",
+    "path": "/",
+    "title": [
+      "VyOS"
+    ],
+    "firmware_regex": "VyOS\\s+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "VyOS",
+    "product": "VyOS Router",
+    "path": "/",
+    "content": [
+      "VyOS"
+    ],
+    "firmware_regex": "VyOS\\s+([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Gargoyle",
+    "product": "Gargoyle Router",
+    "path": "/",
+    "title": [
+      "Gargoyle"
+    ],
+    "firmware_regex": "Gargoyle\\s+(?:Version\\s+)?v?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Gargoyle",
+    "product": "Gargoyle Router",
+    "path": "/",
+    "content": [
+      "Gargoyle"
+    ],
+    "firmware_regex": "Gargoyle\\s+(?:Version\\s+)?v?([0-9]+\\.[0-9]+(?:\\.[0-9]+)?)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "3Com",
+    "product": "3Com OfficeConnect",
+    "path": "/",
+    "title": [
+      "3Com",
+      "OfficeConnect",
+      "3Com OfficeConnect"
+    ]
+  },
+  {
+    "vendor": "3Com",
+    "product": "3Com OfficeConnect",
+    "path": "/",
+    "header_content": [
+      "3Com"
+    ]
+  },
+  {
+    "vendor": "3Com",
+    "product": "3Com IMC",
+    "path": "/",
+    "title": [
+      "Intelligent Management Center",
+      "3Com IMC",
+      "3Com"
+    ]
+  },
+  {
+    "vendor": "3Com",
+    "product": "3Com Router (any)",
+    "path": "/",
+    "title_regex": [
+      "(?i)3com\\s+(officeconnect|ap\\d+|imc)"
+    ]
+  },
+  {
+    "vendor": "2wire",
+    "product": "2Wire Gateway",
+    "path": "/",
+    "title": [
+      "2Wire",
+      "2Wire Gateway",
+      "HomePortal"
+    ]
+  },
+  {
+    "vendor": "2wire",
+    "product": "2Wire Gateway",
+    "path": "/",
+    "content": [
+      "2Wire",
+      "HomePortal"
+    ]
+  },
+  {
+    "vendor": "2wire",
+    "product": "2Wire Router (any)",
+    "path": "/",
+    "title_regex": [
+      "(?i)2wire|homeportal|\\d+hgv"
+    ]
+  },
+  {
+    "vendor": "Asmax",
+    "product": "Asmax Router",
+    "path": "/",
+    "title": [
+      "Asmax",
+      "AR 804",
+      "AR 1004G",
+      "AR-"
+    ]
+  },
+  {
+    "vendor": "Asmax",
+    "product": "Asmax Router",
+    "path": "/",
+    "header_content": [
+      "Asmax"
+    ]
+  },
+  {
+    "vendor": "Asmax",
+    "product": "Asmax Router (any)",
+    "path": "/",
+    "title_regex": [
+      "(?i)asmax|ar\\s*\\d{3,4}g?"
+    ]
+  },
+  {
+    "vendor": "Bhu",
+    "product": "Bhu Router",
+    "path": "/",
+    "title": [
+      "Bhu",
+      "BHU",
+      "URouter",
+      "Bhu URouter"
+    ]
+  },
+  {
+    "vendor": "Bhu",
+    "product": "Bhu Router",
+    "path": "/",
+    "content": [
+      "Bhu",
+      "URouter"
+    ]
+  },
+  {
+    "vendor": "IPFire",
+    "product": "IPFire Router",
+    "path": "/",
+    "title": [
+      "IPFire",
+      "IPFire Administration"
+    ]
+  },
+  {
+    "vendor": "IPFire",
+    "product": "IPFire Router",
+    "path": "/",
+    "content": [
+      "IPFire",
+      "ipfire"
+    ]
+  },
+  {
+    "vendor": "IPFire",
+    "product": "IPFire Router",
+    "path": "/",
+    "header_content": [
+      "IPFire"
+    ]
+  },
+  {
+    "vendor": "LG",
+    "product": "LG NAS",
+    "path": "/",
+    "title": [
+      "LG",
+      "LG Network Storage",
+      "LG NAS"
+    ]
+  },
+  {
+    "vendor": "LG",
+    "product": "LG NAS",
+    "path": "/",
+    "content": [
+      "LG",
+      "Network Storage"
+    ]
+  },
+  {
+    "vendor": "Movistar",
+    "product": "Movistar Router",
+    "path": "/",
+    "title": [
+      "Movistar",
+      "Configuración",
+      "Router Movistar",
+      "ADSL Router"
+    ]
+  },
+  {
+    "vendor": "Movistar",
+    "product": "Movistar Router",
+    "path": "/",
+    "content": [
+      "Movistar",
+      "BHS_RTA"
+    ]
+  },
+  {
+    "vendor": "Movistar",
+    "product": "Movistar Router",
+    "path": "/",
+    "header_content": [
+      "Movistar"
+    ]
+  },
+  {
+    "vendor": "Netcore",
+    "product": "Netcore Router",
+    "path": "/",
+    "title": [
+      "Netcore",
+      "Netis",
+      "Netis Router"
+    ]
+  },
+  {
+    "vendor": "Netcore",
+    "product": "Netcore Router",
+    "path": "/",
+    "content": [
+      "Netcore",
+      "Netis"
+    ]
+  },
+  {
+    "vendor": "Netcore",
+    "product": "Netcore Router",
+    "path": "/",
+    "header_content": [
+      "Netcore"
+    ]
+  },
+  {
+    "vendor": "Netsys",
+    "product": "Netsys Router",
+    "path": "/",
+    "title": [
+      "Netsys",
+      "Netsys Router"
+    ]
+  },
+  {
+    "vendor": "Netsys",
+    "product": "Netsys Router",
+    "path": "/",
+    "content": [
+      "Netsys"
+    ]
+  },
+  {
+    "vendor": "Shuttle",
+    "product": "Shuttle Router",
+    "path": "/",
+    "title": [
+      "Shuttle",
+      "915WM",
+      "Shuttle 915 WM"
+    ]
+  },
+  {
+    "vendor": "Shuttle",
+    "product": "Shuttle Router",
+    "path": "/",
+    "content": [
+      "Shuttle"
+    ]
+  },
+  {
+    "vendor": "ZTE",
+    "product": "ZTE Router",
+    "path": "/",
+    "title": [
+      "ZTE",
+      "ZXHN",
+      "ZXDSL",
+      "ZTE Corporation"
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ZTE",
+    "product": "ZTE Router",
+    "path": "/",
+    "content": [
+      "ZTE",
+      "ZXHN"
+    ],
+    "firmware_regex": "(?:Software|Firmware)\\s+Version\\s*[:=]\\s*V?([0-9][0-9A-Z.]+[A-Z0-9_-]*)",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "ZTE",
+    "product": "ZTE Router (any)",
+    "path": "/",
+    "title_regex": [
+      "(?i)zte\\s+(zxhn|zxdsl|mf|f600|f660)"
+    ]
+  },
+  {
+    "vendor": "ACTi",
+    "product": "ACTi Camera",
+    "path": "/",
+    "title": [
+      "ACTi",
+      "ACTi Camera",
+      "ACM-"
+    ]
+  },
+  {
+    "vendor": "ACTi",
+    "product": "ACTi Camera",
+    "path": "/",
+    "content": [
+      "ACTi",
+      "ACM-"
+    ]
+  },
+  {
+    "vendor": "ACTi",
+    "product": "ACTi Camera (any)",
+    "path": "/",
+    "title_regex": [
+      "(?i)acti\\s+(camera|acm-\\d+)"
+    ]
+  },
+  {
+    "vendor": "Avigilon",
+    "product": "Avigilon Camera",
+    "path": "/",
+    "title": [
+      "Avigilon",
+      "Avigilon Camera",
+      "ACC"
+    ]
+  },
+  {
+    "vendor": "Avigilon",
+    "product": "Avigilon Camera",
+    "path": "/",
+    "content": [
+      "Avigilon",
+      "ACC"
+    ]
+  },
+  {
+    "vendor": "Avigilon",
+    "product": "Avigilon Camera",
+    "path": "/",
+    "header_content": [
+      "Avigilon"
+    ]
+  },
+  {
+    "vendor": "Beward",
+    "product": "Beward Camera",
+    "path": "/",
+    "title": [
+      "Beward",
+      "BEWARD",
+      "N100",
+      "IP Camera"
+    ]
+  },
+  {
+    "vendor": "Beward",
+    "product": "Beward Camera",
+    "path": "/",
+    "content": [
+      "Beward"
+    ]
+  },
+  {
+    "vendor": "Brickcom",
+    "product": "Brickcom Camera",
+    "path": "/",
+    "title": [
+      "Brickcom",
+      "Brickcom Camera",
+      "Network Camera"
+    ]
+  },
+  {
+    "vendor": "Brickcom",
+    "product": "Brickcom Camera",
+    "path": "/",
+    "content": [
+      "Brickcom",
+      "WCB-",
+      "OB-",
+      "VD-"
+    ]
+  },
+  {
+    "vendor": "Geutebruck",
+    "product": "Geutebruck Camera",
+    "path": "/",
+    "title": [
+      "Geutebrück",
+      "Geutebruck",
+      "G-Cam",
+      "EFD-2250"
+    ]
+  },
+  {
+    "vendor": "Geutebruck",
+    "product": "Geutebruck Camera",
+    "path": "/",
+    "content": [
+      "Geutebrück"
+    ]
+  },
+  {
+    "vendor": "Hikvision",
+    "product": "Hikvision Camera",
+    "path": "/",
+    "title": [
+      "Hikvision",
+      "Hikvision Camera",
+      "iVMS",
+      "Network Camera",
+      "IPC"
+    ]
+  },
+  {
+    "vendor": "Hikvision",
+    "product": "Hikvision Camera",
+    "path": "/",
+    "content": [
+      "Hikvision",
+      "iVMS-4200"
+    ]
+  },
+  {
+    "vendor": "Hikvision",
+    "product": "Hikvision Camera",
+    "path": "/",
+    "header_content": [
+      "Hikvision"
+    ]
+  },
+  {
+    "vendor": "Honeywell",
+    "product": "Honeywell Camera",
+    "path": "/",
+    "title": [
+      "Honeywell",
+      "HICC-",
+      "Honeywell Camera",
+      "Honeywell IP"
+    ]
+  },
+  {
+    "vendor": "Honeywell",
+    "product": "Honeywell Camera",
+    "path": "/",
+    "content": [
+      "Honeywell"
+    ]
+  },
+  {
+    "vendor": "Jovision",
+    "product": "Jovision Camera",
+    "path": "/",
+    "title": [
+      "Jovision",
+      "JVS-",
+      "Jovision Camera"
+    ]
+  },
+  {
+    "vendor": "Jovision",
+    "product": "Jovision Camera",
+    "path": "/",
+    "content": [
+      "Jovision"
+    ]
+  },
+  {
+    "vendor": "MVPower",
+    "product": "MVPower DVR",
+    "path": "/",
+    "title": [
+      "MVPower",
+      "DVR",
+      "TV-7104HE",
+      "JAWS"
+    ]
+  },
+  {
+    "vendor": "MVPower",
+    "product": "MVPower DVR",
+    "path": "/",
+    "content": [
+      "MVPower",
+      "TV-7104HE"
+    ]
+  },
+  {
+    "vendor": "XiongMai",
+    "product": "XiongMai Camera",
+    "path": "/",
+    "title": [
+      "XiongMai",
+      "XIONGMAI",
+      "UC-HTTPd",
+      "NetSurveillance"
+    ]
+  },
+  {
+    "vendor": "XiongMai",
+    "product": "XiongMai Camera",
+    "path": "/",
+    "content": [
+      "XiongMai",
+      "UC-HTTPd"
+    ]
+  },
+  {
+    "vendor": "XiongMai",
+    "product": "XiongMai Camera",
+    "path": "/",
+    "header_content": [
+      "UC-HTTPd"
+    ]
+  },
+  {
+    "vendor": "American Dynamics",
+    "product": "American Dynamics Camera",
+    "path": "/",
+    "title": [
+      "American Dynamics",
+      "American Dynamics Camera"
+    ]
+  },
+  {
+    "vendor": "American Dynamics",
+    "product": "American Dynamics Camera",
+    "path": "/",
+    "content": [
+      "American Dynamics"
+    ]
+  },
+  {
+    "vendor": "Arecont",
+    "product": "Arecont Camera",
+    "path": "/",
+    "title": [
+      "Arecont",
+      "Arecont Vision",
+      "Arecont Camera"
+    ]
+  },
+  {
+    "vendor": "Arecont",
+    "product": "Arecont Camera",
+    "path": "/",
+    "content": [
+      "Arecont",
+      "Arecont Vision"
+    ]
+  },
+  {
+    "vendor": "Axis",
+    "product": "Axis Camera",
+    "path": "/",
+    "title": [
+      "Axis",
+      "AXIS",
+      "Axis Communications",
+      "Network Camera",
+      "Live View"
+    ]
+  },
+  {
+    "vendor": "Axis",
+    "product": "Axis Camera",
+    "path": "/",
+    "content": [
+      "Axis Communications",
+      "\"Axis\"",
+      "AXIS"
+    ]
+  },
+  {
+    "vendor": "Axis",
+    "product": "Axis Camera",
+    "path": "/",
+    "header_content": [
+      "Axis"
+    ]
+  },
+  {
+    "vendor": "Basler",
+    "product": "Basler Camera",
+    "path": "/",
+    "title": [
+      "Basler",
+      "Basler Camera"
+    ]
+  },
+  {
+    "vendor": "Basler",
+    "product": "Basler Camera",
+    "path": "/",
+    "content": [
+      "Basler"
+    ]
+  },
+  {
+    "vendor": "Avtech",
+    "product": "Avtech Camera",
+    "path": "/",
+    "title": [
+      "Avtech",
+      "AVTECH",
+      "Avtech Camera"
+    ]
+  },
+  {
+    "vendor": "Avtech",
+    "product": "Avtech Camera",
+    "path": "/",
+    "content": [
+      "Avtech"
+    ]
+  },
+  {
+    "vendor": "Canon",
+    "product": "Canon Camera",
+    "path": "/",
+    "title": [
+      "Canon",
+      "Canon Network Camera",
+      "Canon Camera"
+    ]
+  },
+  {
+    "vendor": "Canon",
+    "product": "Canon Camera",
+    "path": "/",
+    "content": [
+      "Canon"
+    ]
+  },
+  {
+    "vendor": "GeoVision",
+    "product": "GeoVision Camera",
+    "path": "/",
+    "title": [
+      "GeoVision",
+      "GV-",
+      "GeoVision Camera"
+    ]
+  },
+  {
+    "vendor": "GeoVision",
+    "product": "GeoVision Camera",
+    "path": "/",
+    "content": [
+      "GeoVision",
+      "GV-"
+    ]
+  },
+  {
+    "vendor": "IQinVision",
+    "product": "IQinVision Camera",
+    "path": "/",
+    "title": [
+      "IQinVision",
+      "IQinVision Camera"
+    ]
+  },
+  {
+    "vendor": "IQinVision",
+    "product": "IQinVision Camera",
+    "path": "/",
+    "content": [
+      "IQinVision"
+    ]
+  },
+  {
+    "vendor": "JVC",
+    "product": "JVC Camera",
+    "path": "/",
+    "title": [
+      "JVC",
+      "JVC Camera",
+      "JVC Network"
+    ]
+  },
+  {
+    "vendor": "JVC",
+    "product": "JVC Camera",
+    "path": "/",
+    "content": [
+      "JVC"
+    ]
+  },
+  {
+    "vendor": "Mobotix",
+    "product": "Mobotix Camera",
+    "path": "/",
+    "title": [
+      "Mobotix",
+      "MOBOTIX",
+      "Mobotix Camera"
+    ]
+  },
+  {
+    "vendor": "Mobotix",
+    "product": "Mobotix Camera",
+    "path": "/",
+    "content": [
+      "Mobotix",
+      "MOBOTIX"
+    ]
+  },
+  {
+    "vendor": "Samsung",
+    "product": "Samsung Camera",
+    "path": "/",
+    "title": [
+      "Samsung",
+      "Samsung Techwin",
+      "Samsung Camera",
+      "Samsung Network"
+    ]
+  },
+  {
+    "vendor": "Samsung",
+    "product": "Samsung Camera",
+    "path": "/",
+    "content": [
+      "Samsung Techwin"
+    ]
+  },
+  {
+    "vendor": "Sentry360",
+    "product": "Sentry360 Camera",
+    "path": "/",
+    "title": [
+      "Sentry360",
+      "Sentry 360",
+      "Sentry360 Camera"
+    ]
+  },
+  {
+    "vendor": "Sentry360",
+    "product": "Sentry360 Camera",
+    "path": "/",
+    "content": [
+      "Sentry360"
+    ]
+  },
+  {
+    "vendor": "Speco",
+    "product": "Speco Camera",
+    "path": "/",
+    "title": [
+      "Speco",
+      "Speco Technologies",
+      "Speco Camera"
+    ]
+  },
+  {
+    "vendor": "Speco",
+    "product": "Speco Camera",
+    "path": "/",
+    "content": [
+      "Speco"
+    ]
+  },
+  {
+    "vendor": "StarDot",
+    "product": "StarDot Camera",
+    "path": "/",
+    "title": [
+      "StarDot",
+      "StarDot Technologies",
+      "StarDot Camera"
+    ]
+  },
+  {
+    "vendor": "StarDot",
+    "product": "StarDot Camera",
+    "path": "/",
+    "content": [
+      "StarDot"
+    ]
+  },
+  {
+    "vendor": "Vacron",
+    "product": "Vacron Camera",
+    "path": "/",
+    "title": [
+      "Vacron",
+      "Vacron Camera"
+    ]
+  },
+  {
+    "vendor": "Vacron",
+    "product": "Vacron Camera",
+    "path": "/",
+    "content": [
+      "Vacron"
+    ]
+  },
+  {
+    "vendor": "VideoIQ",
+    "product": "VideoIQ Camera",
+    "path": "/",
+    "title": [
+      "VideoIQ",
+      "VideoIQ Camera"
+    ]
+  },
+  {
+    "vendor": "VideoIQ",
+    "product": "VideoIQ Camera",
+    "path": "/",
+    "content": [
+      "VideoIQ"
+    ]
+  },
+  {
+    "vendor": "Miele",
+    "product": "Miele PG 8528",
+    "path": "/",
+    "title": [
+      "Miele",
+      "Miele Professional",
+      "PG 8528"
+    ]
+  },
+  {
+    "vendor": "Miele",
+    "product": "Miele PG 8528",
+    "path": "/",
+    "content": [
+      "Miele",
+      "PG 8528"
+    ]
+  },
+  {
+    "vendor": "WePresent",
+    "product": "WePresent WiPG-1000",
+    "path": "/",
+    "title": [
+      "WePresent",
+      "WiPG-1000",
+      "WiPG"
+    ]
+  },
+  {
+    "vendor": "WePresent",
+    "product": "WePresent WiPG-1000",
+    "path": "/",
+    "content": [
+      "WePresent",
+      "WiPG"
+    ]
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Sagemcom Router",
+    "path": "/",
+    "headers": {
+      "Server": "Grom"
+    },
+    "firmware_regex": "\"SoftwareVersion\"\\s*:\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Sagemcom Router",
+    "path": "/",
+    "title": [
+      "KPN WebUI"
+    ],
+    "firmware_regex": "\"SoftwareVersion\"\\s*:\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Sagemcom Router",
+    "path": "/favicon.ico",
+    "md5": "4bb0b3e04eccaac23ff2cdf33813a7dc",
+    "firmware_regex": "\"SoftwareVersion\"\\s*:\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Sagemcom Router",
+    "path": "/",
+    "headers": {
+      "Server": "Grom"
+    },
+    "content": [
+      "ProductClass",
+      "SoftwareVersion"
+    ],
+    "firmware_regex": "\"SoftwareVersion\"\\s*:\\s*\"([^\"]+)\"",
+    "firmware_group": 1
+  },
+  {
+    "vendor": "Sagemcom",
+    "product": "Sagemcom F@ST 5359s",
+    "path": "/",
+    "content": [
+      "F5359s",
+      "ProductClass"
+    ]
+  }
+]

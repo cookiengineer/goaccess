@@ -727,6 +727,76 @@
 
 ---
 
+## Phase 9.5: HTTP Welcome Page Fingerprinting — COMPLETE
+
+### 9.5.1 HTTPIndicator Type
+- [x] Create `types/http_indicator.go` — HTTPIndicator struct with Headers, HeaderContent, Title, Content, TitleRegex, ContentRegex, MD5 fields
+- [x] AND-across-fields, OR-within-fields semantics (Content uses AND to match Routeglass `body=X&&body=Y` patterns)
+
+### 9.5.2 Embedded Indicator Database
+- [x] Convert all ~300 Routeglass AdvancedRule entries to HTTPIndicator JSON format
+- [x] Mechanical conversion: split `||` into separate indicators (cross-field OR), merge same-field OR into arrays
+- [x] `scanner/http_indicators.json` — 405 entries covering 103 vendors, `go:embed` into the scanner package
+
+### 9.5.3 Matching Engine
+- [x] `scanner/http_indicators.go` — loadHTTPIndicators(), probeHTTPIndicators(), matchCompiledIndicator()
+- [x] Regex pre-compilation at init time for performance
+- [x] Path-based response caching (each unique path fetched once, shared across indicators)
+- [x] First-match-wins at 0.95 confidence
+
+### 9.5.4 Scanner Integration
+- [x] Insert `probeHTTPIndicators()` as Phase 2 in Identify() pipeline, right after port scanning
+- [x] Removed old `probeHTTP()` — superseded by the more thorough indicator-based scan
+- [x] Phase renumbering: Port scan (1) → HTTP indicators (2) → ARP (3) → UPnP (4) → SNMP (5) → Exploit fingerprints (6)
+- [x] Updated `scanner/fingerprint_test.go` — TestProbeHTTPIndicators_NoMatch
+
+### 9.5.5 Documentation
+- [x] Update `docs/MASTERPLAN.md` — new type docs, repository structure, identify pipeline diagram
+- [x] Update `docs/PROGRESS.md` — scanner file listing, summary table
+- [x] Update `docs/TODO.md` — this section
+
+### 9.5.6 Verification
+- [x] `CGO_ENABLED=0 go build ./...` — all packages compile
+- [x] `go vet ./...` — no warnings
+- [x] `go test ./...` — 1,365+ tests pass (0 failures)
+
+---
+
+## Phase 9.6: Firmware Version Extraction — COMPLETE
+
+### 9.6.1 Type Changes
+- [x] Add `FirmwareRegex` and `FirmwareGroup` fields to `types/http_indicator.go` HTTPIndicator struct
+- [x] `FirmwareRegex`: optional regex with one capture group for the version string
+- [x] `FirmwareGroup`: capture group index (1-based, default 1)
+
+### 9.6.2 In-Band Firmware Extraction (GET)
+- [x] When an HTTPIndicator matches, apply FirmwareRegex to the cached response body
+- [x] Extract version into `FingerprintResult.Firmware`
+- [x] Add firmware regex patterns to 93 indicators across 33 router vendors
+
+### 9.6.3 Out-of-Band Firmware Probes (POST)
+- [x] `firmwareProbes` registry in `http_indicators.go:init()` for POST-based endpoints
+- [x] Sagemcom SAH probe: POST `/ws/DeviceInfo` with `Content-Type: application/x-sah-ws-4-call+json`
+- [x] `probeFirmware()` called after Phase 2 if vendor is known and HTTP port is open
+
+### 9.6.4 Server Header Fallback
+- [x] Extract firmware from known server software version patterns in HTTP response headers
+- [x] Patterns: `cisco-IOS/X.Y`, `uFOS/X.Y`, `RomPager/X.Y`, `GoAhead-Webs/X.Y`, `mini_httpd/X.Y`, `lighttpd/X.Y`, `thttpd/X.Y`, `Boa/X.Y`
+
+### 9.6.5 Firmware Patterns Coverage (33 vendors)
+- [x] ASUS, Actiontec, Arris, BT, Belkin, Billion, Buffalo, Cisco, Comtrend
+- [x] D-Link, DD-WRT, DrayTek, Fortinet, FreshTomato, Gargoyle, Huawei
+- [x] Juniper, Linksys, MikroTik, NETGEAR, OPNsense, OpenWrt, Sagemcom
+- [x] Sercomm, TP-Link, Technicolor, Thomson, Tomato, Ubiquiti, VyOS
+- [x] ZTE, ZyXEL, pfSense
+
+### 9.6.6 Documentation
+- [x] Update `docs/MASTERPLAN.md` — firmware extraction mechanisms in Identify pipeline
+- [x] Update `docs/PROGRESS.md` — firmware patterns coverage list
+- [x] Update `docs/TODO.md` — this section
+
+---
+
 ## Phase 10: Future Enhancements
 - [ ] Parrot Anafi MAVLink mission injection (CVE-2024-33844)
 - [ ] Yuneec Mantis Q PX4-Autopilot command injection (CVE-2021-34125)

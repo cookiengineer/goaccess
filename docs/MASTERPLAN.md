@@ -28,7 +28,8 @@ goaccess/                                          # Git repo root = Go module
 │   ├── protocol.go                                # Protocol enum (iota)
 │   ├── info.go                                     # Info struct (exploit metadata)
 │   ├── options.go                                  # Options struct
-│   ├── fingerprint.go                              # Fingerprint struct
+│   ├── fingerprint.go                              # Fingerprint struct (per-exploit)
+│   ├── http_indicator.go                           # HTTPIndicator struct (welcome page matching)
 │   ├── result.go                                   # VulnResult, CredsResult, ExploitResult
 │   ├── access.go                                   # AccessResult, AccessStep
 │   ├── scan.go                                     # ScanResult, ScanConfig
@@ -41,6 +42,8 @@ goaccess/                                          # Git repo root = Go module
 │   ├── scanner.go                                 # Scanner struct: Identify(), Scan(), Access()
 │   ├── dispatcher.go                              # Worker pool dispatch + job/result channels
 │   ├── portscan.go                                # Lightweight TCP SYN/connect scanner
+│   ├── http_indicators.go                         # Embedded HTTPIndicator DB + welcome page matcher
+│   ├── http_indicators.json                       # go:embed 405 entries, 103 vendors
 │   └── scanner_test.go
 │
 ├── protocols/                                     # Network protocol helpers
@@ -598,6 +601,47 @@ type FirmwarePattern struct {
 }
 ```
 
+### 2.4a `types/http_indicator.go`
+
+```go
+package types
+
+// HTTPIndicator defines patterns to match against a router's HTTP welcome page
+// or other HTTP-accessible resource during the identify phase.
+//
+// All populated field groups must match for the indicator to fire (AND across fields).
+// Within each field group:
+//   - Headers: ALL entries must contain their substring (AND)
+//   - HeaderContent: ANY substring must appear in the concatenated header string (OR)
+//   - Title: ANY substring must match (OR)
+//   - Content: ALL substrings must be present in the response body (AND)
+//   - TitleRegex: ANY regex must match (OR)
+//   - ContentRegex: ANY regex must match (OR)
+//   - MD5: exact body/favicon hash match
+//
+// Fields left at their zero value (nil slice / empty map / empty string) are skipped.
+type HTTPIndicator struct {
+    Vendor        string            `json:"vendor"`
+    Product       string            `json:"product"`
+    Path          string            `json:"path"`            // HTTP path to fetch (default "/")
+    Headers       map[string]string `json:"headers,omitempty"`          // header name → substring (AND)
+    HeaderContent []string          `json:"header_content,omitempty"`   // concatenated header substring (OR)
+    Title         []string          `json:"title,omitempty"`            // title substring (OR)
+    Content       []string          `json:"content,omitempty"`          // body substring (AND)
+    TitleRegex    []string          `json:"title_regex,omitempty"`      // title regex (OR)
+    ContentRegex  []string          `json:"content_regex,omitempty"`    // body regex (OR)
+    MD5           string            `json:"md5,omitempty"`              // favicon/body MD5 hash
+    FirmwareRegex string            `json:"firmware_regex,omitempty"`   // regex to extract firmware version from body
+    FirmwareGroup int               `json:"firmware_group,omitempty"`   // capture group index (1-based, default 1)
+}
+```
+
+When an indicator matches, the optional `FirmwareRegex` is applied to the cached response body. If the capture group matches, `FingerprintResult.Firmware` is populated. 93 of 501 indicators across 33 vendors carry firmware patterns.
+
+Additionally, a POST-based firmware probe registry (`firmwareProbes` in `scanner/http_indicators.go:init()`) tries known API endpoints (e.g. Sagemcom SAH `/ws/DeviceInfo`), and a Server header fallback detects version strings from known server software patterns (`cisco-IOS/X.Y`, `uFOS/X.Y`, `RomPager/X.Y`).
+
+This type is used by the scanner's HTTP welcome page fingerprinting phase. A Go-embedded JSON database (`scanner/http_indicators.json`, 501 entries, 103 vendors) is loaded at startup and matched against HTTP responses. First-match-wins with 0.95 confidence.
+
 ### 2.5 `types/result.go`
 
 ```go
@@ -885,23 +929,41 @@ type job struct {
 ### 5.2 Identify Pipeline
 
 ```
-target ──→ portScan()
-                │
-                ├──→ ARP resolution → MAC → oui.Lookup() → vendor hint
-                │
-                ├──→ HTTP HEAD / → Server header, WWW-Authenticate, title, favicon hash
-                │
-                ├──→ UPnP M-SEARCH → 239.255.255.250:1900 → USN/SERVER headers
-                │
-                ├──→ SNMP GET sysDescr → 1.3.6.1.2.1.1.1.0
-                │
-                ├──→ Iterate ALL registered exploits
-                │    └─→ For each exploit with Fingerprints():
-                │        └─→ Test each fingerprint against target
-                │        └─→ If match → record vendor/model/firmware confidence
-                │
-                ╰──→ FingerprintResult{Vendor, Model, Firmware, Confidence}
+target ──→ Identify()
+               │
+               ├─ Phase 1: portScan() → CommonIOTPorts
+               │
+               ├─ Phase 2: probeHTTPIndicators()
+               │    └─→ Fetch HTTP welcome pages on each unique Path
+               │    └─→ Match against 501 embedded HTTPIndicator entries (103 vendors)
+               │    └─→ First match → set Vendor + 0.95 confidence
+               │    └─→ If indicator has FirmwareRegex → extract version from cached response
+               │
+               ├─ Firmware probe (silent, after Phase 2):
+               │    ├─ POST endpoints (e.g. Sagemcom SAH /ws/DeviceInfo)
+               │    └─ Server header patterns (cisco-IOS/, uFOS/, RomPager/, etc.)
+               │
+               ├─ Phase 3: ARP resolution → MAC → oui.Lookup() → vendor hint
+               │
+               ├─ Phase 4: UPnP M-SEARCH → 239.255.255.250:1900 → USN/SERVER headers
+               │
+               ├─ Phase 5: SNMP GET sysDescr → 1.3.6.1.2.1.1.1.0
+               │
+               ├─ Phase 6: Iterate ALL registered exploits
+               │    └─→ For each exploit with Fingerprints():
+               │        └─→ Test each fingerprint against target
+               │        └─→ If match → record vendor/model/firmware confidence
+               │
+               ╰──→ FingerprintResult{Vendor, Model, Firmware, Confidence, ExploitCandidates}
 ```
+
+Firmware extraction uses three mechanisms:
+
+1. **FirmwareRegex on HTTPIndicator** — When an indicator matches, the optional `firmware_regex` is applied to the already-cached response body. The first capture group (indexed by `firmware_group`, default 1) is extracted as the firmware version. Zero extra HTTP requests. 93 indicators across 33 vendors have firmware regex patterns.
+
+2. **POST-based firmware probes** — A `firmwareProbes` registry (in `scanner/http_indicators.go:init()`) defines known POST endpoints that return firmware version. Currently includes the Sagemcom SAH endpoint (`/ws/DeviceInfo`). Called after Phase 2 if vendor is known and HTTP port is open.
+
+3. **Server header fallback** — Known server header patterns (`cisco-IOS/X.Y`, `uFOS/X.Y`, `RomPager/X.Y`, `GoAhead-Webs/X.Y`, etc.) are extracted from the HTTP response headers collected during Phase 2.
 
 ### 5.3 Scan Pipeline
 

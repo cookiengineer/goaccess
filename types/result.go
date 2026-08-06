@@ -76,4 +76,8 @@ type FingerprintResult struct {
 
 	// Confidence is a score from 0.0 to 1.0 indicating match certainty.
 	Confidence float64
+
+	// ExploitCandidates lists registered exploits matching the identified vendor.
+	// Each entry is a human-readable name of a candidate exploit module.
+	ExploitCandidates []string `json:",omitempty"`
 }

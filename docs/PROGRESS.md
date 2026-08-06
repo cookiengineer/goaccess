@@ -31,6 +31,25 @@
 | Exploits — credentials (generic) | 1 | 41 | ✓ 41 |
 | **Total** | **228** | **1,365** | **✓ 1,365** |
 
+### New — HTTP Welcome Page Fingerprinting
+
+| File | Description |
+|------|-------------|
+| `types/http_indicator.go` | HTTPIndicator struct with FirmwareRegex/FirmwareGroup fields |
+| `scanner/http_indicators.json` | go:embed 501 entries across 103 vendors (93 with firmware patterns) |
+| `scanner/http_indicators.go` | Matching engine, firmware extraction, POST probes, Server header patterns |
+| `scanner/fingerprint_test.go` | Updated tests for fingerprinting + firmware extraction |
+
+### Firmware Extraction
+
+Firmware versions are extracted during identify via three mechanisms:
+
+1. **FirmwareRegex on HTTPIndicator** (93 entries, 33 vendors) — applied to cached response body when indicator matches
+2. **POST-based firmware probes** (Sagemcom SAH `/ws/DeviceInfo`) — tried after Phase 2 if vendor is known
+3. **Server header fallback** — known patterns (`cisco-IOS/X.Y`, `uFOS/X.Y`, `RomPager/X.Y`, `GoAhead-Webs/X.Y`, etc.)
+
+Firmware patterns cover: ASUS, Actiontec, Arris, BT, Belkin, Billion, Buffalo, Cisco, Comtrend, D-Link, DD-WRT, DrayTek, Fortinet, FreshTomato, Gargoyle, Huawei, Juniper, Linksys, MikroTik, NETGEAR, OPNsense, OpenWrt, Sagemcom, Sercomm, TP-Link, Technicolor, Thomson, Tomato, Ubiquiti, VyOS, ZTE, ZyXEL, pfSense.
+
 ## Interfaces
 
 | Interface | Package | Implementations |
@@ -161,8 +180,10 @@
 
 | File | Functions | Tests | Status |
 |------|-----------|-------|--------|
-| `scanner.go` | NewScanner, Identify, Scan, Access, worker, collector, dispatchJobs, filterExploits, resolveMAC, probeHTTP, probeUPnP, probeSNMP, matchFingerprints, testFingerprint | — | ✓ Complete (no unit tests yet) |
+| `scanner.go` | NewScanner, Identify, Scan, Access, worker, collector, dispatchJobs, filterExploits, resolveMAC, probeHTTPIndicators, probeUPnP, probeSNMP, matchFingerprints, testFingerprint | ✓ fingerprint_test.go, scanner_test.go, portscan_test.go, integration_test.go | ✓ Complete |
 | `portscan.go` | ScanPort, ScanPorts | — | ✓ Complete |
+| `http_indicators.go` | loadHTTPIndicators, probeHTTPIndicators, matchCompiledIndicator, headerContains, extractHeaderValue | — | ✓ Complete |
+| `http_indicators.json` | go:embed 405 HTTPIndicator entries (103 vendors) | — | ✓ Complete |
 
 ---
 
@@ -337,9 +358,10 @@ podman integration tests          ✓ SSH, FTP, Telnet containers pass
 
 ## Next Steps
 
-1. **Memory profiling**: Future optimization for large scans
-2. **Plugin system**: User-defined exploit loading
-3. **Web UI / REST API**: Remote scanning interface
+1. **Real MD5 favicon hashes**: Populate `md5` fields in HTTP indicators with actual favicon hashes (currently placeholder values except Tenda)
+2. **Memory profiling**: Future optimization for large scans
+3. **Plugin system**: User-defined exploit loading
+4. **Web UI / REST API**: Remote scanning interface
 
 ---
 

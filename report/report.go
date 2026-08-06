@@ -211,6 +211,12 @@ func (report *Report) PrintFingerprint(fp *types.FingerprintResult) {
 			report.printf("  Hint     : %s\n", hint)
 		}
 	}
+	if len(fp.ExploitCandidates) > 0 {
+		report.printf("\n  Exploit candidates (%d):\n", len(fp.ExploitCandidates))
+		for _, name := range fp.ExploitCandidates {
+			report.printf("    - %s\n", name)
+		}
+	}
 }
 
 // PrintScanResult formats a single ScanResult.

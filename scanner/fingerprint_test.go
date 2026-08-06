@@ -8,10 +8,11 @@ import (
 	"github.com/cookiengineer/goaccess/types"
 )
 
-func TestProbeHTTP_NothingReachable(t *testing.T) {
-	hints := probeHTTP("127.0.0.1", 100*time.Millisecond)
-	if len(hints) > 0 {
-		t.Logf("probeHTTP returned hints for localhost (unexpected): %v", hints)
+func TestProbeHTTPIndicators_NoMatch(t *testing.T) {
+	result := &types.FingerprintResult{IP: "127.0.0.1"}
+	probeHTTPIndicators("127.0.0.1", []int{80}, 100*time.Millisecond, result)
+	if result.Vendor != "" {
+		t.Logf("probeHTTPIndicators set vendor for localhost (unexpected): %s", result.Vendor)
 	}
 }
 
