@@ -27,6 +27,18 @@ type ScanConfig struct {
 	// Empty string means all device types.
 	TypeFilter DeviceType
 
+	// Username is the login username used for authenticated exploit takeover
+	// attempts (supplied via --username).
+	Username string
+
+	// Password is a single password paired with Username (supplied via
+	// --password).
+	Password string
+
+	// Passwords is a list of passwords (supplied via --password-list) to try
+	// with Username during takeover.
+	Passwords []string
+
 	// SkipCredentials disables credential brute-force checks.
 	SkipCredentials bool
 

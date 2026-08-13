@@ -21,6 +21,11 @@ func runAccess(arguments []string) {
 	noExploit := flags.Bool("no-exploit", false, "Skip exploitation, creds only")
 	noCreds := flags.Bool("no-creds", false, "Skip credential checks, exploits only")
 	shellFlag := flags.Bool("shell", false, "Drop to interactive shell after exploitation")
+	usernameFlag := flags.String("username", "admin", "Username for authenticated takeover")
+	passwordFlag := flags.String("password", "", "Password for authenticated takeover")
+	passwordList := flags.String("password-list", "", "File with passwords to try with --username")
+	vendorFilter := flags.String("vendor", "", "Filter exploits by vendor")
+	typeFilter := flags.String("type", "", "Filter exploits by device type")
 	jsonOutput := flags.Bool("json", false, "Output as JSON")
 	outputFile := flags.String("output", "", "Write JSON output to file")
 	verbose := flags.Bool("verbose", false, "Verbose output")
@@ -32,6 +37,16 @@ func runAccess(arguments []string) {
 		fmt.Fprintln(os.Stderr, "Error: target is required")
 		fmt.Fprintln(os.Stderr, "Usage: goaccess access <target> [flags]")
 		os.Exit(1)
+	}
+
+	var suppliedPasswords []string
+	if *passwordList != "" {
+		loaded, err := loadPasswordList(*passwordList)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
+			os.Exit(1)
+		}
+		suppliedPasswords = loaded
 	}
 
 	outputWriter := os.Stdout
@@ -55,6 +70,11 @@ func runAccess(arguments []string) {
 		Verbose:         *verbose,
 		SkipCredentials: *noCreds,
 		SkipExploits:    *noExploit,
+		Username:        *usernameFlag,
+		Password:        *passwordFlag,
+		Passwords:       suppliedPasswords,
+		VendorFilter:    *vendorFilter,
+		TypeFilter:      types.DeviceType(*typeFilter),
 	}
 
 	if *payloadArch != "" {
@@ -82,6 +102,14 @@ func runAccess(arguments []string) {
 	}
 
 	output.Status("Starting access attempt on %s...", target)
+	if *passwordFlag != "" || len(suppliedPasswords) > 0 {
+		count := 0
+		if *passwordFlag != "" {
+			count = 1
+		}
+		count += len(suppliedPasswords)
+		output.Status("Supplied credentials: username=%q, %d password(s)", *usernameFlag, count)
+	}
 
 	result, err := scanEngine.Access(target, config)
 	if err != nil {

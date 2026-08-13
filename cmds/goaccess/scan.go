@@ -13,11 +13,14 @@ import (
 func runScan(arguments []string) {
 	flags := flag.NewFlagSet("scan", flag.ExitOnError)
 	vendor := flags.String("vendor", "", "Filter exploits by vendor")
-	deviceType := flags.String("type", "", "Filter by device type (router, camera, misc)")
+	deviceType := flags.String("type", "", "Filter by device type (router, camera, drone, server, misc)")
 	threads := flags.Int("threads", 8, "Number of parallel threads")
 	timeoutSeconds := flags.Int("timeout", 8, "Timeout in seconds")
 	skipCreds := flags.Bool("skip-creds", false, "Skip credential checks")
 	skipExploits := flags.Bool("skip-exploits", false, "Skip exploit checks")
+	usernameFlag := flags.String("username", "admin", "Username for authenticated takeover")
+	passwordFlag := flags.String("password", "", "Password for authenticated takeover")
+	passwordList := flags.String("password-list", "", "File with passwords to try with --username")
 	jsonOutput := flags.Bool("json", false, "Output as JSON")
 	outputFile := flags.String("output", "", "Write JSON output to file")
 	verbose := flags.Bool("verbose", false, "Verbose output")
@@ -29,6 +32,16 @@ func runScan(arguments []string) {
 		fmt.Fprintln(os.Stderr, "Error: target is required")
 		fmt.Fprintln(os.Stderr, "Usage: goaccess scan <target> [flags]")
 		os.Exit(1)
+	}
+
+	var suppliedPasswords []string
+	if *passwordList != "" {
+		loaded, err := loadPasswordList(*passwordList)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "Error: %s\n", err)
+			os.Exit(1)
+		}
+		suppliedPasswords = loaded
 	}
 
 	outputWriter := os.Stdout
@@ -53,6 +66,9 @@ func runScan(arguments []string) {
 		TypeFilter:      types.DeviceType(*deviceType),
 		SkipCredentials: *skipCreds,
 		SkipExploits:    *skipExploits,
+		Username:        *usernameFlag,
+		Password:        *passwordFlag,
+		Passwords:       suppliedPasswords,
 	}
 
 	scanEngine := defaultScanner(config)
@@ -64,6 +80,14 @@ func runScan(arguments []string) {
 	}
 	if *deviceType != "" {
 		output.Status("Type filter: %s", *deviceType)
+	}
+	if len(suppliedPasswords) > 0 || *passwordFlag != "" {
+		count := 0
+		if *passwordFlag != "" {
+			count = 1
+		}
+		count += len(suppliedPasswords)
+		output.Status("Supplied credentials: username=%q, %d password(s)", *usernameFlag, count)
 	}
 
 	resultChannel, err := scanEngine.Scan(target, config)

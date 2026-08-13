@@ -18,6 +18,8 @@ func TestProtocol_String(t *testing.T) {
 		{ProtocolTelnet, "telnet"},
 		{ProtocolFTP, "ftp"},
 		{ProtocolSNMP, "snmp"},
+		{ProtocolVTwoSDK, "vtwo_sdk"},
+		{ProtocolAJP, "ajp"},
 		{Protocol(999), "unknown"},
 	}
 
@@ -40,6 +42,8 @@ func TestProtocol_DefaultPort(t *testing.T) {
 		{ProtocolTelnet, 23},
 		{ProtocolFTP, 21},
 		{ProtocolSNMP, 161},
+		{ProtocolVTwoSDK, 10000},
+		{ProtocolAJP, 8009},
 		{ProtocolTCP, 0},
 		{ProtocolUDP, 0},
 	}
@@ -64,6 +68,12 @@ func TestDeviceType_Constants(t *testing.T) {
 	}
 	if DeviceGeneric != "generic" {
 		t.Errorf("DeviceGeneric = %q, want %q", DeviceGeneric, "generic")
+	}
+	if DeviceDrone != "drone" {
+		t.Errorf("DeviceDrone = %q, want %q", DeviceDrone, "drone")
+	}
+	if DeviceServer != "server" {
+		t.Errorf("DeviceServer = %q, want %q", DeviceServer, "server")
 	}
 }
 

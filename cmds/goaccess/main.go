@@ -162,11 +162,14 @@ _goaccess() {
                 scan)
                     _arguments \
                         '--vendor[Filter exploits by vendor]:vendor:' \
-                        '--type[Filter by device type]:type:(router camera misc generic)' \
+                        '--type[Filter by device type]:type:(router camera drone server misc generic)' \
                         '--threads[Number of parallel threads]:threads:' \
                         '--timeout[Timeout in seconds]:seconds:' \
                         '--skip-creds[Skip credential checks]' \
                         '--skip-exploits[Skip exploit checks]' \
+                        '--username[Username for authenticated takeover]:username:' \
+                        '--password[Password for authenticated takeover]:password:' \
+                        '--password-list[File with passwords to try]:file:_files' \
                         '--json[Output as JSON]' \
                         '--output[Write JSON output to file]:file:_files' \
                         '--verbose[Verbose output]' \
@@ -181,6 +184,11 @@ _goaccess() {
                         '--shell[Drop to interactive shell]' \
                         '--no-exploit[Skip exploitation]' \
                         '--no-creds[Skip credential checks]' \
+                        '--vendor[Filter exploits by vendor]:vendor:' \
+                        '--type[Filter by device type]:type:(router camera drone server misc generic)' \
+                        '--username[Username for authenticated takeover]:username:' \
+                        '--password[Password for authenticated takeover]:password:' \
+                        '--password-list[File with passwords to try]:file:_files' \
                         '--json[Output as JSON]' \
                         '--output[Write JSON output to file]:file:_files' \
                         '--verbose[Verbose output]' \
@@ -190,7 +198,7 @@ _goaccess() {
                     _arguments \
                         '1:resource:(exploits credentials payloads keys vendors)' \
                         '--vendor[Filter by vendor]:vendor:' \
-                        '--type[Filter by device type]:type:(router camera misc generic)' \
+                        '--type[Filter by device type]:type:(router camera drone server misc generic)' \
                         '--json[Output as JSON]'
                     ;;
                 completion)
@@ -218,6 +226,8 @@ func printUsage() {
 	fmt.Println("  goaccess identify 192.168.1.1")
 	fmt.Println("  goaccess scan 192.168.1.1 --threads 32")
 	fmt.Println("  goaccess access 192.168.1.1 --payload arm")
+	fmt.Println("  goaccess access 192.168.1.1 --username admin --password password --vendor wordpress")
+	fmt.Println("  goaccess access 192.168.1.1 --username admin --password-list rockyou.txt")
 	fmt.Println("  goaccess list exploits --vendor dlink")
 }
 

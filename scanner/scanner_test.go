@@ -276,3 +276,202 @@ func (m *mockCredentialsModule) CheckDefault(target string, options *types.Optio
 }
 
 var _ interfaces.CredentialsModule = (*mockCredentialsModule)(nil)
+
+// mockAuthExploit only succeeds when a specific credential is supplied via
+// options, simulating an authenticated takeover exploit.
+type mockAuthExploit struct {
+	name         string
+	vendor       string
+	requiredUser string
+	requiredPass string
+	attempts     int
+	gotUser      string
+	gotPass      string
+}
+
+func newMockAuthExploit(name, vendor, user, pass string) *mockAuthExploit {
+	return &mockAuthExploit{name: name, vendor: vendor, requiredUser: user, requiredPass: pass}
+}
+
+func (m *mockAuthExploit) Info() *types.Info {
+	return &types.Info{Name: m.name, Vendor: m.vendor, DeviceType: types.DeviceServer}
+}
+
+func (m *mockAuthExploit) Check(target string, options *types.Options) (*types.VulnResult, error) {
+	return nil, nil
+}
+
+func (m *mockAuthExploit) Run(target string, options *types.Options) (*types.ExploitResult, error) {
+	m.attempts++
+	m.gotUser = options.Username
+	m.gotPass = options.Password
+	if options.Username == m.requiredUser && options.Password == m.requiredPass {
+		return &types.ExploitResult{Success: true, Action: "takeover"}, nil
+	}
+	return &types.ExploitResult{Success: false}, nil
+}
+
+func (m *mockAuthExploit) Fingerprints() []*types.Fingerprint { return nil }
+func (m *mockAuthExploit) Options() *types.Options {
+	return &types.Options{Port: 80, Timeout: 5 * time.Second}
+}
+func (m *mockAuthExploit) Protocol() types.Protocol { return types.ProtocolHTTP }
+
+var _ interfaces.Exploit = (*mockAuthExploit)(nil)
+
+func TestRunExploitChain_InjectsCredentials(t *testing.T) {
+	exploit.Reset()
+	defer exploit.Reset()
+
+	auth := newMockAuthExploit("Takeover", "mockauth", "admin", "secret")
+	exploit.Register(auth)
+
+	scanner := NewScanner(&types.ScanConfig{Target: "127.0.0.1"})
+	config := &types.ScanConfig{Timeout: 5 * time.Second}
+	fingerprint := &types.FingerprintResult{Vendor: "mockauth"}
+
+	credentials := []types.Credential{
+		{Username: "wrong", Password: "wrong"},
+		{Username: "admin", Password: "secret"},
+	}
+
+	results := scanner.runExploitChain("127.0.0.1", fingerprint, config, credentials)
+
+	if len(results) != 1 {
+		t.Fatalf("results = %d, want 1", len(results))
+	}
+	if auth.attempts != 2 {
+		t.Errorf("attempts = %d, want 2 (first cred fails, second succeeds)", auth.attempts)
+	}
+	if auth.gotUser != "admin" || auth.gotPass != "secret" {
+		t.Errorf("last attempted credential = %s:%s, want admin:secret", auth.gotUser, auth.gotPass)
+	}
+}
+
+func TestRunExploitChain_NoCredentials(t *testing.T) {
+	exploit.Reset()
+	defer exploit.Reset()
+
+	auth := newMockAuthExploit("Takeover", "mockauth", "admin", "secret")
+	exploit.Register(auth)
+
+	scanner := NewScanner(&types.ScanConfig{Target: "127.0.0.1"})
+	config := &types.ScanConfig{Timeout: 5 * time.Second}
+	fingerprint := &types.FingerprintResult{Vendor: "mockauth"}
+
+	results := scanner.runExploitChain("127.0.0.1", fingerprint, config, nil)
+
+	if len(results) != 0 {
+		t.Fatalf("results = %d, want 0 (no credential supplied)", len(results))
+	}
+	if auth.attempts != 1 {
+		t.Errorf("attempts = %d, want 1", auth.attempts)
+	}
+}
+
+func TestMergeCredentials_Deduplicates(t *testing.T) {
+	merged := mergeCredentials(
+		[]types.Credential{{Username: "admin", Password: "secret"}},
+		[]types.Credential{{Username: "admin", Password: "secret"}, {Username: "root", Password: "toor"}},
+	)
+	if len(merged) != 2 {
+		t.Fatalf("merged = %d, want 2 (deduplicated)", len(merged))
+	}
+	if merged[0].Username != "admin" || merged[1].Username != "root" {
+		t.Errorf("order = %v, want [admin root]", merged)
+	}
+}
+
+func TestSuppliedCredentials(t *testing.T) {
+	credentials := suppliedCredentials(&types.ScanConfig{
+		Username:  "admin",
+		Password:  "single",
+		Passwords: []string{"p1", "p2"},
+	})
+	if len(credentials) != 3 {
+		t.Fatalf("credentials = %d, want 3", len(credentials))
+	}
+	if credentials[0].Username != "admin" || credentials[0].Password != "single" {
+		t.Errorf("credentials[0] = %s:%s, want admin:single", credentials[0].Username, credentials[0].Password)
+	}
+	if credentials[1].Password != "p1" || credentials[2].Password != "p2" {
+		t.Errorf("password list order = %v", credentials)
+	}
+	for _, credential := range credentials {
+		if credential.Username != "admin" {
+			t.Errorf("username = %q, want admin", credential.Username)
+		}
+	}
+}
+
+func TestSuppliedCredentials_DefaultUsername(t *testing.T) {
+	credentials := suppliedCredentials(&types.ScanConfig{Password: "secret"})
+	if len(credentials) != 1 {
+		t.Fatalf("credentials = %d, want 1", len(credentials))
+	}
+	if credentials[0].Username != "admin" || credentials[0].Password != "secret" {
+		t.Errorf("credentials[0] = %s:%s, want admin:secret", credentials[0].Username, credentials[0].Password)
+	}
+}
+
+func TestSuppliedCredentials_Empty(t *testing.T) {
+	if credentials := suppliedCredentials(&types.ScanConfig{}); len(credentials) != 0 {
+		t.Errorf("credentials = %d, want 0", len(credentials))
+	}
+}
+
+func TestCredentialsToStrings(t *testing.T) {
+	got := credentialsToStrings([]types.Credential{
+		{Username: "admin", Password: "p1"},
+		{Username: "admin", Password: "p2"},
+		{Username: "", Password: ""},
+	})
+	if len(got) != 2 {
+		t.Fatalf("got = %d, want 2", len(got))
+	}
+	if got[0] != "admin:p1" || got[1] != "admin:p2" {
+		t.Errorf("got = %v", got)
+	}
+}
+
+// mockRecordingCredentialsModule captures the Defaults wordlist it receives.
+type mockRecordingCredentialsModule struct {
+	mockHTTPExploit
+	receivedDefaults []string
+}
+
+func newMockRecordingCredentialsModule(name, vendor string) *mockRecordingCredentialsModule {
+	return &mockRecordingCredentialsModule{mockHTTPExploit: mockHTTPExploit{name: name, vendor: vendor}}
+}
+
+func (m *mockRecordingCredentialsModule) CheckDefault(target string, options *types.Options) ([]*types.CredsResult, error) {
+	m.receivedDefaults = options.Defaults
+	return nil, nil
+}
+
+var _ interfaces.CredentialsModule = (*mockRecordingCredentialsModule)(nil)
+
+func TestRecoverCredentials_InjectSuppliedList(t *testing.T) {
+	exploit.Reset()
+	defer exploit.Reset()
+
+	mod := newMockRecordingCredentialsModule("Recorder", "recorder")
+	exploit.RegisterCredentials(mod)
+
+	scanner := NewScanner(&types.ScanConfig{Target: "127.0.0.1"})
+	config := &types.ScanConfig{
+		Timeout:   2 * time.Second,
+		Username:  "admin",
+		Passwords: []string{"p1", "p2"},
+	}
+	fingerprint := &types.FingerprintResult{Vendor: "recorder"}
+
+	scanner.recoverCredentials("127.0.0.1", fingerprint, config)
+
+	if len(mod.receivedDefaults) != 2 {
+		t.Fatalf("receivedDefaults = %v, want 2 entries", mod.receivedDefaults)
+	}
+	if mod.receivedDefaults[0] != "admin:p1" || mod.receivedDefaults[1] != "admin:p2" {
+		t.Errorf("receivedDefaults = %v, want [admin:p1 admin:p2]", mod.receivedDefaults)
+	}
+}

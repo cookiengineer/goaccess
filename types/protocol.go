@@ -13,6 +13,7 @@ const (
 	ProtocolFTP                     // FTP (TCP port 21)
 	ProtocolSNMP                    // SNMP (UDP port 161)
 	ProtocolVTwoSDK                 // DJI vtwo_sdk binary TLV protocol (TCP port 10000)
+	ProtocolAJP                     // Apache JServ Protocol (TCP port 8009)
 )
 
 // String returns the human-readable protocol name.
@@ -36,6 +37,8 @@ func (protocol Protocol) String() string {
 		return "snmp"
 	case ProtocolVTwoSDK:
 		return "vtwo_sdk"
+	case ProtocolAJP:
+		return "ajp"
 	default:
 		return "unknown"
 	}
@@ -60,6 +63,8 @@ func (protocol Protocol) DefaultPort() int {
 		return 0 // No default; must be specified
 	case ProtocolVTwoSDK:
 		return 10000
+	case ProtocolAJP:
+		return 8009
 	default:
 		return 0
 	}

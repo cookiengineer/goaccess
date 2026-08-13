@@ -6,7 +6,7 @@
 |----------|---------------|---------------|---------------|
 | Core (types, interfaces, exploit, oui, wordlist, report) | 6 | 60 | ✓ 60 |
 | Protocols (http, tcp, udp, ssh, telnet, ftp, snmp) | 7 | 43 | ✓ 43 |
-| Libraries (lzs) | 1 | 13 | ✓ 13 |
+| Libraries (lzs, sqlinject, webapp) | 3 | ~35 | ✓ ~35 |
 | Parsers (config) | 1 | 8 | ✓ 8 |
 | Infrastructure (shell, payload, ssh_keys) | 3 | 20 | ✓ 20 |
 | Scanner | 1 | 22 | ✓ 22 |
@@ -29,7 +29,8 @@
 | Exploits — credentials (routers) | 27 | 0 | — |
 | Exploits — credentials (cameras) | 25 | 0 | — |
 | Exploits — credentials (generic) | 1 | 41 | ✓ 41 |
-| **Total** | **228** | **1,365** | **✓ 1,365** |
+| Exploits — servers (18 exploits + 10 creds) | 28 | ~180 | ✓ ~180 |
+| **Total** | **245** | **~1,450** | **✓ ~1,450** |
 
 ### New — HTTP Welcome Page Fingerprinting
 
@@ -74,10 +75,10 @@ Drone firmware is extracted via protocol-specific probes (non-HTTP):
 
 | Interface | Package | Implementations |
 |-----------|---------|-----------------|
-| `Exploit` | `interfaces/exploit.go` | 142 exploits |
+| `Exploit` | `interfaces/exploit.go` | 174 exploits |
 | `ExecuteExploit` | `interfaces/exploit.go` | ~65 RCE exploits |
-| `CredentialsModule` | `interfaces/exploit.go` | 168 credentials modules (165 + 3 new brute-force) |
-| `CredentialedExploit` | `interfaces/credentialed.go` | 142 exploits (Credentials() + Login()) |
+| `CredentialsModule` | `interfaces/exploit.go` | 184 credentials modules |
+| `CredentialedExploit` | `interfaces/credentialed.go` | 174 exploits (Credentials() + Login()) |
 | `Scanner` | `interfaces/scanner.go` | 1 (scanner.Scanner) |
 | `PasswordGenerator` | `interfaces/password.go` | 5 (dlink×2, tplink, thomson, netgear) |
 
@@ -328,7 +329,7 @@ GitHub Actions CI                 ✓ .github/workflows/build.yml (vet, test, bu
 | `docs/CONTRIBUTING.md` | Exploit writing guide, credential module guide, password generator guide, test patterns, code conventions | ✓ Complete |
 | `docs/MASTERPLAN.md` | Architecture reference, type definitions, interface specs | ✓ Complete |
 | `docs/EXPLOITS.md` | Exploit porting guide, templates, full inventory | ✓ Complete |
-| `docs/EXPLOITS_STATUS.md` | Status table for all 142 exploits | ✓ Complete |
+| `docs/EXPLOITS_STATUS.md` | Status table for all 174 exploits | ✓ Complete |
 
 ### Polish
 

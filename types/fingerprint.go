@@ -6,6 +6,9 @@ type Fingerprint struct {
 	// URL is the HTTP path to probe, e.g. "/HNAP1/".
 	URL string
 
+	// SSL indicates the probe should be sent over HTTPS (defaults to HTTP).
+	SSL bool
+
 	// Method is the HTTP method for the probe request, e.g. "GET", "POST".
 	Method string
 

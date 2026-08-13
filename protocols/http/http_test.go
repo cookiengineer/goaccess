@@ -3,6 +3,7 @@ package http
 import (
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 	"time"
@@ -141,6 +142,21 @@ func TestSetBasicAuth(t *testing.T) {
 	}
 }
 
+func TestHostHeaderOverride(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Host != "attacker.example.com" {
+			t.Errorf("Host = %q, want attacker.example.com", r.Host)
+		}
+		w.WriteHeader(200)
+	}))
+	defer server.Close()
+
+	client := &Client{Target: strings.TrimPrefix(server.URL, "http://"), Host: "attacker.example.com"}
+	if _, err := client.Get("/", nil); err != nil {
+		t.Fatalf("GET failed: %v", err)
+	}
+}
+
 func TestDo_ConnectionRefused(t *testing.T) {
 	client := &Client{
 		Target:  "127.0.0.1",
@@ -150,5 +166,151 @@ func TestDo_ConnectionRefused(t *testing.T) {
 	_, err := client.Get("/", nil)
 	if err == nil {
 		t.Error("Expected connection error, got nil")
+	}
+}
+
+func TestCookieJar_PersistsSession(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/login":
+			http.SetCookie(w, &http.Cookie{Name: "session", Value: "abc123", Path: "/"})
+			w.WriteHeader(200)
+		case "/admin":
+			cookie, err := r.Cookie("session")
+			if err != nil || cookie.Value != "abc123" {
+				w.WriteHeader(403)
+				return
+			}
+			w.WriteHeader(200)
+		}
+	}))
+	defer server.Close()
+
+	client := &Client{Target: strings.TrimPrefix(server.URL, "http://")}
+	if _, err := client.Get("/login", nil); err != nil {
+		t.Fatalf("login failed: %v", err)
+	}
+	if !client.HasCookies() {
+		t.Fatal("expected session cookie to be stored")
+	}
+	response, err := client.Get("/admin", nil)
+	if err != nil {
+		t.Fatalf("admin request failed: %v", err)
+	}
+	if response.StatusCode != 200 {
+		t.Errorf("StatusCode = %d, want 200 (cookie not forwarded)", response.StatusCode)
+	}
+}
+
+func TestClearCookies(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.SetCookie(w, &http.Cookie{Name: "session", Value: "x", Path: "/"})
+		w.WriteHeader(200)
+	}))
+	defer server.Close()
+
+	client := &Client{Target: strings.TrimPrefix(server.URL, "http://")}
+	if _, err := client.Get("/", nil); err != nil {
+		t.Fatalf("request failed: %v", err)
+	}
+	if !client.HasCookies() {
+		t.Fatal("expected cookie to be set")
+	}
+	client.ClearCookies()
+	if client.HasCookies() {
+		t.Error("expected cookies to be cleared")
+	}
+}
+
+func TestFollowRedirects(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/start":
+			http.Redirect(w, r, "/final", http.StatusFound)
+		case "/final":
+			w.Write([]byte("landing"))
+		}
+	}))
+	defer server.Close()
+
+	// Default: redirects are not followed.
+	client := &Client{Target: strings.TrimPrefix(server.URL, "http://")}
+	response, err := client.Get("/start", nil)
+	if err != nil {
+		t.Fatalf("Get failed: %v", err)
+	}
+	if response.StatusCode != 302 {
+		t.Errorf("default: StatusCode = %d, want 302 (redirect not followed)", response.StatusCode)
+	}
+
+	// Enabled: redirects are followed.
+	follow := &Client{Target: strings.TrimPrefix(server.URL, "http://"), FollowRedirects: true}
+	response, err = follow.Get("/start", nil)
+	if err != nil {
+		t.Fatalf("Get with redirects failed: %v", err)
+	}
+	if response.StatusCode != 200 || !strings.Contains(string(response.Body), "landing") {
+		t.Errorf("follow: StatusCode = %d body = %q, want 200 with 'landing'", response.StatusCode, string(response.Body))
+	}
+}
+
+func TestPostForm(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "POST" {
+			t.Errorf("expected POST, got %s", r.Method)
+		}
+		if ct := r.Header.Get("Content-Type"); !strings.Contains(ct, "application/x-www-form-urlencoded") {
+			t.Errorf("Content-Type = %q, want url-encoded", ct)
+		}
+		if err := r.ParseForm(); err != nil {
+			t.Errorf("ParseForm error: %v", err)
+		}
+		if r.PostForm.Get("user") != "admin" || r.PostForm.Get("pass") != "secret" {
+			t.Errorf("form values = %v, want user=admin pass=secret", r.PostForm)
+		}
+		w.WriteHeader(200)
+	}))
+	defer server.Close()
+
+	client := &Client{Target: strings.TrimPrefix(server.URL, "http://")}
+	form := url.Values{"user": {"admin"}, "pass": {"secret"}}
+	if _, err := client.PostForm("/login", form, nil); err != nil {
+		t.Fatalf("PostForm failed: %v", err)
+	}
+}
+
+func TestPostMultipart(t *testing.T) {
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if err := r.ParseMultipartForm(1 << 20); err != nil {
+			t.Errorf("ParseMultipartForm error: %v", err)
+			return
+		}
+		if r.FormValue("command") != "deploy" {
+			t.Errorf("field command = %q, want deploy", r.FormValue("command"))
+		}
+		file, _, err := r.FormFile("file")
+		if err != nil {
+			t.Errorf("FormFile error: %v", err)
+			return
+		}
+		data := make([]byte, 4)
+		if _, err := file.Read(data); err != nil {
+			t.Errorf("read file error: %v", err)
+		}
+		if string(data) != "test" {
+			t.Errorf("file content = %q, want test", string(data))
+		}
+		w.WriteHeader(200)
+	}))
+	defer server.Close()
+
+	client := &Client{Target: strings.TrimPrefix(server.URL, "http://")}
+	response, err := client.PostMultipart("/upload", map[string]string{"command": "deploy"},
+		[]FileUpload{{FieldName: "file", Filename: "x.jsp", Content: []byte("test")}}, nil)
+	if err != nil {
+		t.Fatalf("PostMultipart failed: %v", err)
+	}
+	if response.StatusCode != 200 {
+		t.Errorf("StatusCode = %d, want 200", response.StatusCode)
 	}
 }

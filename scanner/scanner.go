@@ -104,6 +104,9 @@ func (scanner *Scanner) Identify(target string, config *types.ScanConfig) (*type
 	}
 	scanner.progress(config, "\r[*] Phase 2/6: HTTP welcome page fingerprinting... %s\n", matched)
 
+	// Web application detection (CMS, frameworks, app servers).
+	probeWebApps(target, openPorts, timeout, result)
+
 	// Try POST-based firmware extraction if vendor is known
 	if result.Vendor != "" {
 		for _, port := range openPorts {
@@ -271,9 +274,13 @@ func (scanner *Scanner) Access(target string, config *types.ScanConfig) (*types.
 			fmt.Sprintf("Found %d credential(s)", len(credsResult)))
 	}
 
+	// Combine operator-supplied credentials (CLI flags) with recovered ones.
+	// Operator-supplied credentials take priority.
+	credentials := mergeCredentials(suppliedCredentials(config), credsToCredentials(credsResult))
+
 	// Step 3: Exploitation (priority-ordered)
 	scanner.logStep(result, types.StepExploit, true, "Running exploits")
-	exploitResults := scanner.runExploitChain(target, fingerprint, config)
+	exploitResults := scanner.runExploitChain(target, fingerprint, config, credentials)
 	result.Exploits = exploitResults
 
 	if len(exploitResults) > 0 {
@@ -312,10 +319,14 @@ func (scanner *Scanner) recoverCredentials(target string, fingerprint *types.Fin
 
 	// Run credentials modules
 	modules := exploit.CredentialsByVendor(fingerprint.Vendor)
+	supplied := suppliedCredentials(config)
 	for _, module := range modules {
 		opts := module.Options()
 		opts.Target = target
 		opts.Timeout = config.Timeout
+		if len(supplied) > 0 {
+			opts.Defaults = credentialsToStrings(supplied)
+		}
 
 		found, err := module.CheckDefault(target, opts)
 		if err != nil {
@@ -409,7 +420,7 @@ func (scanner *Scanner) testGeneratedCredentials(target string, services []int, 
 	}
 }
 
-func (scanner *Scanner) runExploitChain(target string, fingerprint *types.FingerprintResult, config *types.ScanConfig) []*types.ExploitResult {
+func (scanner *Scanner) runExploitChain(target string, fingerprint *types.FingerprintResult, config *types.ScanConfig, credentials []types.Credential) []*types.ExploitResult {
 	var results []*types.ExploitResult
 
 	// Priority 1: Credential disclosure exploits
@@ -417,25 +428,129 @@ func (scanner *Scanner) runExploitChain(target string, fingerprint *types.Finger
 	// Priority 3: RCE exploits
 	// Priority 4: Path traversal / info disclosure
 
-	exploits := exploit.ByVendor(fingerprint.Vendor)
+	exploits := filterExploits(fingerprint.Vendor, config)
 	for _, exploitModule := range exploits {
+		results = append(results, scanner.runExploitWithCredentials(exploitModule, target, config, credentials)...)
+	}
+
+	return results
+}
+
+// runExploitWithCredentials runs a single exploit, attempting each candidate
+// credential in turn until the exploit succeeds.
+func (scanner *Scanner) runExploitWithCredentials(exploitModule interfaces.Exploit, target string, config *types.ScanConfig, credentials []types.Credential) []*types.ExploitResult {
+	var results []*types.ExploitResult
+
+	if len(credentials) == 0 {
 		opts := exploitModule.Options()
 		opts.Target = target
 		opts.Timeout = config.Timeout
+		if result := scanner.tryExploit(exploitModule, target, opts); result != nil {
+			results = append(results, result)
+		}
+		return results
+	}
 
-		exploitResult, err := exploitModule.Run(target, opts)
-		if err != nil {
-			scanner.mutex.Lock()
-			scanner.errors = append(scanner.errors, err)
-			scanner.mutex.Unlock()
+	for _, credential := range credentials {
+		if credential.Username == "" && credential.Password == "" {
 			continue
 		}
-		if exploitResult != nil && exploitResult.Success {
-			results = append(results, exploitResult)
+		opts := exploitModule.Options()
+		opts.Target = target
+		opts.Timeout = config.Timeout
+		opts.Username = credential.Username
+		opts.Password = credential.Password
+
+		if result := scanner.tryExploit(exploitModule, target, opts); result != nil {
+			results = append(results, result)
+			break
 		}
 	}
 
 	return results
+}
+
+// tryExploit invokes the exploit's Run method and records any error.
+func (scanner *Scanner) tryExploit(exploitModule interfaces.Exploit, target string, opts *types.Options) *types.ExploitResult {
+	result, err := exploitModule.Run(target, opts)
+	if err != nil {
+		scanner.mutex.Lock()
+		scanner.errors = append(scanner.errors, err)
+		scanner.mutex.Unlock()
+		return nil
+	}
+	if result != nil && result.Success {
+		return result
+	}
+	return nil
+}
+
+// credsToCredentials converts recovered CredsResult entries into Credentials.
+func credsToCredentials(creds []*types.CredsResult) []types.Credential {
+	var out []types.Credential
+	for _, cred := range creds {
+		if cred == nil {
+			continue
+		}
+		out = append(out, types.Credential{Username: cred.Username, Password: cred.Password})
+	}
+	return out
+}
+
+// suppliedCredentials derives the credential candidate list from the operator's
+// --username / --password / --password-list configuration.
+func suppliedCredentials(config *types.ScanConfig) []types.Credential {
+	if config == nil {
+		return nil
+	}
+	username := config.Username
+	if username == "" {
+		username = "admin"
+	}
+
+	var out []types.Credential
+	if config.Password != "" {
+		out = append(out, types.Credential{Username: username, Password: config.Password})
+	}
+	for _, password := range config.Passwords {
+		if password != "" {
+			out = append(out, types.Credential{Username: username, Password: password})
+		}
+	}
+	return out
+}
+
+// credentialsToStrings converts credential pairs to "user:pass" strings for
+// use as a credential module wordlist.
+func credentialsToStrings(credentials []types.Credential) []string {
+	out := make([]string, 0, len(credentials))
+	for _, credential := range credentials {
+		if credential.Username == "" && credential.Password == "" {
+			continue
+		}
+		out = append(out, credential.Username+":"+credential.Password)
+	}
+	return out
+}
+
+// mergeCredentials combines operator-supplied and recovered credentials,
+// deduplicating and preserving order (operator-supplied first).
+func mergeCredentials(groups ...[]types.Credential) []types.Credential {
+	seen := make(map[string]bool)
+	var out []types.Credential
+	for _, group := range groups {
+		for _, credential := range group {
+			if credential.Username == "" && credential.Password == "" {
+				continue
+			}
+			key := credential.Username + "\x00" + credential.Password
+			if !seen[key] {
+				seen[key] = true
+				out = append(out, credential)
+			}
+		}
+	}
+	return out
 }
 
 func (scanner *Scanner) worker(id int) {
@@ -444,6 +559,12 @@ func (scanner *Scanner) worker(id int) {
 		opts.Target = scanner.config.Target
 		opts.Timeout = scanner.config.Timeout
 		opts.Verbose = scanner.config.Verbose
+
+		if credentials := suppliedCredentials(scanner.config); len(credentials) > 0 {
+			opts.Username = credentials[0].Username
+			opts.Password = credentials[0].Password
+			opts.Defaults = credentialsToStrings(credentials)
+		}
 
 		result := &types.ScanResult{
 			Exploit:   job.exploit.Info(),
@@ -595,6 +716,8 @@ func matchFingerprints(target string, result *types.FingerprintResult, timeout t
 	bestModel := ""
 	bestConfidence := 0.0
 
+	ports := httpFingerprintPorts(result.Services)
+
 	allExploits := exploit.All()
 	for _, exploitModule := range allExploits {
 		fingerprints := exploitModule.Fingerprints()
@@ -608,12 +731,14 @@ func matchFingerprints(target string, result *types.FingerprintResult, timeout t
 		}
 
 		for _, fingerprint := range fingerprints {
-			confidence := testFingerprint(target, fingerprint, timeout)
-			if confidence > bestConfidence {
-				bestConfidence = confidence
-				bestVendor = info.Vendor
-				if len(info.Models) > 0 {
-					bestModel = info.Models[0]
+			for _, port := range ports {
+				confidence := testFingerprint(target, fingerprint, port, timeout)
+				if confidence > bestConfidence {
+					bestConfidence = confidence
+					bestVendor = info.Vendor
+					if len(info.Models) > 0 {
+						bestModel = info.Models[0]
+					}
 				}
 			}
 		}
@@ -622,10 +747,37 @@ func matchFingerprints(target string, result *types.FingerprintResult, timeout t
 	return bestVendor, bestModel, bestConfidence
 }
 
-func testFingerprint(target string, fingerprint *types.Fingerprint, timeout time.Duration) float64 {
+// httpFingerprintPorts returns the candidate HTTP(S) ports to probe during
+// fingerprint matching. It prefers ports discovered open during the port scan
+// and always falls back to the standard HTTP/HTTPS ports.
+func httpFingerprintPorts(services []int) []int {
+	candidates := []int{80, 443, 8080}
+	seen := make(map[int]bool)
+	var ports []int
+
+	for _, port := range candidates {
+		for _, open := range services {
+			if open == port && !seen[port] {
+				seen[port] = true
+				ports = append(ports, port)
+				break
+			}
+		}
+	}
+
+	// Fall back to defaults when no HTTP ports were found open.
+	if len(ports) == 0 {
+		ports = append(ports, 80, 443)
+	}
+	return ports
+}
+
+func testFingerprint(target string, fingerprint *types.Fingerprint, port int, timeout time.Duration) float64 {
 	if fingerprint.URL != "" {
 		client := protocolhttp.NewClient()
 		client.Target = target
+		client.Port = port
+		client.SSL = fingerprint.SSL || port == 443
 		client.Timeout = timeout
 
 		method := fingerprint.Method
