@@ -29,8 +29,8 @@
 | Exploits — credentials (routers) | 27 | 0 | — |
 | Exploits — credentials (cameras) | 25 | 0 | — |
 | Exploits — credentials (generic) | 1 | 41 | ✓ 41 |
-| Exploits — servers (18 exploits + 10 creds) | 28 | ~180 | ✓ ~180 |
-| **Total** | **245** | **~1,450** | **✓ ~1,450** |
+| Exploits — servers (19 exploits + 10 creds) | 29 | ~190 | ✓ ~190 |
+| **Total** | **246** | **~1,460** | **✓ ~1,460** |
 
 ### New — HTTP Welcome Page Fingerprinting
 
@@ -75,10 +75,10 @@ Drone firmware is extracted via protocol-specific probes (non-HTTP):
 
 | Interface | Package | Implementations |
 |-----------|---------|-----------------|
-| `Exploit` | `interfaces/exploit.go` | 174 exploits |
-| `ExecuteExploit` | `interfaces/exploit.go` | ~65 RCE exploits |
+| `Exploit` | `interfaces/exploit.go` | 175 exploits |
+| `ExecuteExploit` | `interfaces/exploit.go` | ~66 RCE exploits |
 | `CredentialsModule` | `interfaces/exploit.go` | 184 credentials modules |
-| `CredentialedExploit` | `interfaces/credentialed.go` | 174 exploits (Credentials() + Login()) |
+| `CredentialedExploit` | `interfaces/credentialed.go` | 175 exploits (Credentials() + Login()) |
 | `Scanner` | `interfaces/scanner.go` | 1 (scanner.Scanner) |
 | `PasswordGenerator` | `interfaces/password.go` | 5 (dlink×2, tplink, thomson, netgear) |
 
@@ -329,7 +329,7 @@ GitHub Actions CI                 ✓ .github/workflows/build.yml (vet, test, bu
 | `docs/CONTRIBUTING.md` | Exploit writing guide, credential module guide, password generator guide, test patterns, code conventions | ✓ Complete |
 | `docs/MASTERPLAN.md` | Architecture reference, type definitions, interface specs | ✓ Complete |
 | `docs/EXPLOITS.md` | Exploit porting guide, templates, full inventory | ✓ Complete |
-| `docs/EXPLOITS_STATUS.md` | Status table for all 174 exploits | ✓ Complete |
+| `docs/EXPLOITS_STATUS.md` | Status table for all 175 exploits | ✓ Complete |
 
 ### Polish
 
@@ -366,8 +366,8 @@ GitHub Actions CI                 ✓ .github/workflows/build.yml (vet, test, bu
 ## Build Status
 
 ```
-CGO_ENABLED=0 go build ./...     ✓ All 230 packages compile
-CGO_ENABLED=0 go test ./...      ✓ 1,369 tests pass (0 failures)
+CGO_ENABLED=0 go build ./...     ✓ All 271 packages compile
+CGO_ENABLED=0 go test ./...      ✓ 1,379 tests pass (0 failures)
 go vet ./...                      ✓ No new warnings
 make payloads                     ✓ 14 static binaries built
 Docker build (multi-arch)        ✓ Dockerfile supports cross-compilation

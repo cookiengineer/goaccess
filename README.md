@@ -5,7 +5,7 @@ It provides a CLI tool with three operational modes (`identify`, `scan`, `access
 
 ## Features
 
-- **174 exploit modules** covering 55 vendors (D-Link, Cisco, Netgear, TP-Link, MikroTik, Huawei, WordPress, Tomcat, Jenkins, JBoss, SAP, and more)
+- **175 exploit modules** covering 57 vendors (D-Link, Cisco, Netgear, TP-Link, MikroTik, Huawei, WordPress, Tomcat, Jenkins, JBoss, SAP, Magento, and more)
 - **184 credential modules** with vendor-specific default wordlists and brute-force capabilities
 - **5 password generators** for MAC/serial-derived credentials (D-Link, TP-Link, Thomson, NETGEAR)
 - **Pure Go protocol clients**: HTTP/HTTPS, TCP, UDP, SSH, Telnet, FTP, SNMP
@@ -269,7 +269,7 @@ goaccess/
 ├── exploit/           # Global registry (Register, ByVendor, ByModel, Get)
 ├── scanner/           # Scan engine (Identify, Scan, Access with worker pool)
 ├── protocols/         # Pure Go clients: http, tcp, udp, ssh, telnet, ftp, snmp
-├── exploits/          # 174 exploit modules + 184 credential modules
+├── exploits/          # 175 exploit modules + 184 credential modules
 │   ├── generic/       # Heartbleed, Shellshock, RomPager, TCP-32764, GPON
 │   ├── routers/       # D-Link, Cisco, Netgear, TP-Link, MikroTik, ...
 │   ├── cameras/       # Brickcom, Grandstream, Honeywell, Siemens, ...
